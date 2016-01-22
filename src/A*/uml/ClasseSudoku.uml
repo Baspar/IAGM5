@@ -1,0 +1,23 @@
+@startuml
+class Sudoku{
+    ==<b>Attributs</b>==
+        -grid : vector<vector<Cell>>
+    ==<b>Constructeurs</b>==
+        +<color:green>Sudoku()</color>
+        +<color:green>Sudoku(const Sudoku& sudoku)</color>
+        +<color:white>Sudoku(const vector<pair<pair<int, int> , int>> )</color>
+    ==<b>Setters</b>==
+        +<color:green>setValue(int x, int y, int val) : void</color>
+    ==<b>Getters</b>==
+        +<color:green>getCell(int x, int y)const : Cell</color>
+        +<color:green>getValue(int x, int y)const : int</color>
+    ==<b>Methodes</b>==
+        +<color:green>addBlockWhereIs(int x, int y, set<Cell*> & cells) : void</color>
+        +<color:green>addColumnWhereIs(int x, int y, set<Cell*> & cells) : void</color>
+        +<color:green>addLineWhereIs(int x, int y, set<Cell*> & cells) : void</color>
+        +<color:green>computeArcConsistency() : void</color>
+        +<color:green>naiveIsCorrect() : bool</color>
+}
+@enduml
+'4b9fb1d6df31be903412adceb7f4d7d4  src/Sudoku.hpp
+'2e4a2bee27ff37aa66036ce20bfb7626  src/Sudoku.cpp

@@ -1,0 +1,25 @@
+@startuml
+class Cell{
+    ==<b>Attributs</b>==
+        -adjacentCells : set<Cell*>
+        -remainingVal : set<int>
+        -type : CellType
+        -val : int
+    ==<b>Constructeurs</b>==
+        +<color:green>Cell()</color>
+        +<color:green>Cell(const Cell& cell)</color>
+        +<color:white>Cell(int val)</color>
+    ==<b>Setters</b>==
+        +<color:green>setAdjacentCells(const set<Cell*> cells) : void</color>
+        +<color:green>setValue(int value) : void</color>
+    ==<b>Getters</b>==
+        +<color:green>getRemainingVal()const : set<int></color>
+        +<color:green>getType()const : CellType</color>
+        +<color:green>getValue()const : int</color>
+        +<color:green>set<Cell*> getAdjacentCells()const : set<Cell*></color>
+    ==<b>Methodes</b>==
+        +<color:green>removeRemainingValue(int value) : void</color>
+}
+@enduml
+'67733c0f631a503587613bb305811d8b  src/Cell.hpp
+'2904704954bd16a430b685594b2e9415  src/Cell.cpp
