@@ -1,1 +1,5 @@
-doc/doc/*.pdf
+*.pdf
+src/A\*/Classes.png
+src/A\*/uml/Classe*.uml
+src/A\*/src/*.o
+src/A\*/src/main
