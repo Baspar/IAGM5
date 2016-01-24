@@ -2,4 +2,49 @@
     \section{A*}
     \section{Algorithme génétique}
     \section{Résolution humain}
-    \section{Ecô-résolution}
+    \section{Eco-résolution}
+    \subsection{Principe de résolution}
+		L'éco-résolution est une méthode de résolution de problème qui prend le contre-pied des techniques classiques. Plutôt que de résonner que manière globale et définir des méthodes de résolution, l'éco-résolution préfère considérer le problème comme des agents en interactions devant satisfaire un but. \\ \\
+		Il faut donc pour pouvoir appliquer l'éco-résolution définir un ensemble d'agents dont le but est de tendre vers un état stable (solution du problème). Chaque agent répond à deux principes importants : autonomie et localité. C'est à dire que chaque agent agit de manière locale mais aussi en fonction des interactions qu'il a avec les différents agents avec lesquels il est en relation.  
+		Les particularités de l'éco-résolution sont les suivantes : 
+		\begin{itemize}
+		\item Pas d'exploration globale de l'ensemble des états. Seuls les états des différents agents sont pris en compte. 
+		\item Résiste très bien au bruit : une perturbation ne modifie que peu le mécanisme de résolution, en effet c'est une donnée normale dans le principe de résolution.
+		\item De ce fait permet de résoudre des problèmes de grand taille. 
+		\end{itemize}
+	\subsection{Les éco-agents}
+		Les agents dispose d'un ensemble de comportements élémentaires qui les pousse à rechercher un état de satisfaction. Quand un agent est en état de recherche de satisfaction, ils peuvent être gênés par d'autres agents. Dans ce cas, ils agressent les gêneurs, ces derniers devant fuir.  Dans leur fuite, ils peuvent être amenés à agresser d'autres agents les empêchant de fuir, cette opération se poursuivant jusqu'à ce que tous les gêneurs bougent. 
+		Chaque éco-agent est défini par les éléments suivants : 
+		\begin{itemize}
+		\item Un but, relation particulière avec d'autres agents : relation de satisfaction 
+		\item Un état interne :  Un éco agent peut-être dans un des trois états-suivants ; satisfait, recherche de satisfaction, recherche de fuite. 
+		\item Fonction de perception de gêneurs, ensemble des gêneurs qui empêche l'agent d'être satisfait ou de fuir. 
+		\item Actions élémentaires, dépendant de l'application, qui définissent la satisfaction et la fuite. 
+		\item Les dépendances sont les agents dont l'agent courant est le but. Ces dépendances ne pourront être satisfaites que si l'agent courant est satisfait. Ces dépendances dépendent donc des relations de satisfaction.
+		\end{itemize}
+		
+		Certaines fonctions font parties du comportement des éco-agents et sont donc indépendants du domaine d'application. Parmi ces fonctions on trouve : 
+		\begin{itemize}
+		\item  Volonté d'être satisfait : les états agents cherchent à se trouver dans un état de satisfaction. S'ils ne sont pas dans un état de satisfaction, ils agressent les gêneurs. \\
+		Pseudo-code : \\
+		Procédure essayerSatisfaire(x) \\
+		si le but de x nest pas satisfait alors \\
+		pour tous les agents y qui gênent x \\
+		fuir (x,y,but(x))\\
+		des qu'il n'y a plus de gêneurs alors \\
+		faire satisfaction(x)
+		La fonction faireSatisfaction dépend du domaine d'application. Execute l'opération donc le résultat aura pour conséquence que l'agent vérifie sa condition de satisfaction. 
+		\item L'obligation de fuir. Lorsqu'un eco-agent est attaqué il est obligé de fuir. Il doit choisir une satisfaction qui satisfasse la contrainte passée en argument de la fonction fuir. \\
+		Procedure fuir(x,y,c)    x fuis y avec la contrainte c \\
+		si x etait satisfait, x devient insatisfait \\
+		soit p=trouverPlacePourFuir(x,y,c) \\
+		si p = Nil alors "pas de solution" \\
+		sinon \\
+			pour tous les agents z qui gênent x dans sa fuite vers p \\
+			fuir (z,x,p) \\
+			des qu il n'y a plus de gêneurs pour fuir\\
+			alors faireFuite(x,p) \\
+		Les fonction trouverPlacePourFuir et faireFuite dépendent de l'application. La première cherche une place dans l'environnement où l'agent peut fuir et la seconde réalise effectivement l'action de fuite. 	
+		\end{itemize}
+		
+		\textbf{Il faut mettre le schéma bizarre la }
