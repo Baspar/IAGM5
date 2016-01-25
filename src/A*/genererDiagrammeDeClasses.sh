@@ -49,7 +49,7 @@ do
         getter=""
         setter=""
         attribut=""
-        cpp=$(cat "src/$name.cpp" | grep "$name::" | sed 's/ //g')
+        cpp=$(cat "src/$name.cpp" | grep "$name::" | sed 's/ //g') >> /dev/null
 
         echo "@startuml" >> uml/Classe$name.uml
 
@@ -160,19 +160,30 @@ do
                         fi
                     else
                         nbMot=$(echo "$ligne" | sed 's/[^ ]//g' | wc -c)
-                        out=$(echo "$ligne" | cut -d ' ' -f -$(($nbMot-1)))
-                        nom=$(echo "$ligne" | cut -d ' ' -f $(($nbMot))-)
-                        attribut="$attribut        $etat$nom : $out\n"
+                        if [[ $classType == "enum" ]]
+                        then
+                            attribut="$attribut        $(echo "$ligne"|sed 's/,//g')\n"
+                        else
+                            out=$(echo "$ligne" | cut -d ' ' -f -$(($nbMot-1)))
+                            nom=$(echo "$ligne" | cut -d ' ' -f $(($nbMot))-)
+                            attribut="$attribut        $etat$nom : $out\n"
+                        fi
                     fi
                 fi
             else
                 #On continue jusqu'au début de la déclaration de classe
-                echo "$line" | egrep " *class *$name" | egrep -v "^///" >/dev/null && debut=1
+                echo "$line" | egrep " *class *$name" | egrep -v "^///" >/dev/null && debut=1 && tmp=$(echo "$line" | grep "enum")
+                if [[ "$tmp" ]]
+                then
+                    classType="enum"
+                else
+                    classType="class"
+                fi
             fi
         done < $i
 
         #Affichage de ces dernier
-            echo "class $name{" >> uml/Classe$name.uml
+            echo "$classType $name{" >> uml/Classe$name.uml
 
             if [ "$attribut" != "" ]
             then
