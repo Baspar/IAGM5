@@ -22,5 +22,6 @@ class Cell{
         void setAdjacentCells(const set<Cell*> cells);
         set<Cell*> getAdjacentCells() const;
         void setValue(int val);
+        int getValue() const;
 };
 #endif

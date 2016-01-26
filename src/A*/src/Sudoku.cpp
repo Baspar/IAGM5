@@ -19,7 +19,7 @@ void Sudoku::setValue(int x, int y, int val){//DONE
     grid[x][y].setValue(val);
 }
 int Sudoku::getValue(int x, int y) const{//DONE
-    return grid[x][y].getValue();
+    return grid[x][y].getNumber().getValue();
 }
 Cell Sudoku::getCell(int x, int y) const{//DONE
     return grid[x][y];

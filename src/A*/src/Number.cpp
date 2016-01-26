@@ -2,7 +2,7 @@
 
 Number::Number(){//TODO
     value=0;
-    cellType=GUESS;
+    cellType=CellType::GUESS;
 }
 Number::Number(const Number& number){
     value=number.getValue();
