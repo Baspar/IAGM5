@@ -29,7 +29,7 @@ do
     fi
 
     md5sumHPP=$(md5sum src/$name.hpp)
-    md5sumCPP=$(md5sum src/$name.cpp)
+    md5sumCPP=$([ -e src/$name.cpp ] && md5sum src/$name.cpp)
     if [ -e uml/Classe$name.uml ]
     then
         dejaFait=$(cat uml/Classe$name.uml | tail -n 2 | tr "\n" " " | grep "'$md5sumHPP '$md5sumCPP")
@@ -49,7 +49,7 @@ do
         getter=""
         setter=""
         attribut=""
-        cpp=$(cat "src/$name.cpp" | grep "$name::" | sed 's/ //g') >> /dev/null
+        cpp=$([ -e src/$name.cpp ] && cat "src/$name.cpp" | grep "$name::" | sed 's/ //g') >> /dev/null
 
         echo "@startuml" >> uml/Classe$name.uml
 

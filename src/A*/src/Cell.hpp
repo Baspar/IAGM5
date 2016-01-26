@@ -15,7 +15,7 @@ class Cell{
         set<Cell*> adjacentCells;
     public:
         Cell();
-        Cell(int val);
+        Cell(int value);
         Cell(const Cell& cell);
         void setValue(int value);
         int getValue() const;

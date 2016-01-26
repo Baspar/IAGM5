@@ -1,9 +1,0 @@
-@startuml
-class CellType{
-    ==<b>Attributs</b>==
-        + : GIVEN,
-        +GUESS : 
-}
-@enduml
-'5be350af70907156de7e7703ba5f86a0  src/CellType.hpp
-'
