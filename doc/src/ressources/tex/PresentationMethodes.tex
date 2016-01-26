@@ -57,24 +57,27 @@
         Certaines fonctions font parties du comportement des éco-agents et sont donc indépendants du domaine d'application. Parmi ces fonctions on trouve : 
         \begin{itemize}
         \item  Volonté d'être satisfait : les états agents cherchent à se trouver dans un état de satisfaction. S'ils ne sont pas dans un état de satisfaction, ils agressent les gêneurs. \\
-        Pseudo-code : \\
-        Procédure essayerSatisfaire(x) \\
-        si le but de x nest pas satisfait alors \\
-        pour tous les agents y qui gênent x \\
-        fuir (x,y,but(x))\\
-        des qu'il n'y a plus de gêneurs alors \\
+        \begin{verbatim}
+        Procédure essayerSatisfaire(x) 
+        si le but de x nest pas satisfait alors 
+        pour tous les agents y qui gênent x 
+        fuir (x,y,but(x))
+        des qu'il n'y a plus de gêneurs alors 
         faire satisfaction(x)
+        \end{verbatim}
         La fonction faireSatisfaction dépend du domaine d'application. Execute l'opération donc le résultat aura pour conséquence que l'agent vérifie sa condition de satisfaction. 
         \item L'obligation de fuir. Lorsqu'un eco-agent est attaqué il est obligé de fuir. Il doit choisir une satisfaction qui satisfasse la contrainte passée en argument de la fonction fuir. \\
-        Procedure fuir(x,y,c)    x fuis y avec la contrainte c \\
-        si x etait satisfait, x devient insatisfait \\
-        soit p=trouverPlacePourFuir(x,y,c) \\
-        si p = Nil alors "pas de solution" \\
+        \begin{verbatim}
+        Procedure fuir(x,y,c)    x fuis y avec la contrainte c
+        si x etait satisfait, x devient insatisfait 
+        soit p=trouverPlacePourFuir(x,y,c) 
+        si p = Nil alors "pas de solution"
         sinon \\
-            pour tous les agents z qui gênent x dans sa fuite vers p \\
-            fuir (z,x,p) \\
-            des qu il n'y a plus de gêneurs pour fuir\\
-            alors faireFuite(x,p) \\
+            pour tous les agents z qui gênent x dans sa fuite vers p 
+            fuir (z,x,p) 
+            des qu il n'y a plus de gêneurs pour fuir
+            alors faireFuite(x,p) 
+        \end{verbatim}    
         Les fonction trouverPlacePourFuir et faireFuite dépendent de l'application. La première cherche une place dans l'environnement où l'agent peut fuir et la seconde réalise effectivement l'action de fuite.     
         \end{itemize}
         
