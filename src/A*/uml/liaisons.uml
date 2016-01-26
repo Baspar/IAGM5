@@ -1,1 +1,14 @@
 Sudoku o-- Cell
+
+Sudoku <|-- SudokuAStar 
+Sudoku <|-- SudokuGen 
+Sudoku <|-- SudokuEco 
+
+iAppAStar <|-- SudokuAStar 
+iAppGen <|-- SudokuGen 
+iAppEco <|-- SudokuEco 
+
+AStar o-- iAppAStar
+Gen o-- iAppGen
+Eco o-- iAppEco
+
