@@ -1,7 +1,10 @@
-all: texArtificialIntelligence mvdoc pseudoclean
+all: diags texArtificialIntelligence mvdoc pseudoclean
 
 toggle:
 	sed -i 's/Rapport/Pré-Rapport/g; s/Pré-Pré-//g' src/ressources/vocabulaire/vocabulaire.sty
+
+diags:
+	java -jar src/diagrams/plantuml.jar src/diagrams/**.uml
 
 texArtificialIntelligence:
 	cd src; pdflatex ArtificialIntelligence.tex;pdflatex ArtificialIntelligence.tex; cd ..
@@ -13,4 +16,4 @@ pseudoclean:
 	rm -rf src/*.log src/*.aux src/*.toc src/*.out
 
 clean: pseudoclean
-	rm -rf doc/*.pdf
+	rm -rf doc/*.pdf src/diagrams/*.png
