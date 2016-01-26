@@ -3,14 +3,13 @@
 
 #include <iostream>
 #include <set>
-#include "CellType.hpp"
+#include "Number.hpp"
 
 using namespace std;
 
 class Cell{
     private:
-        int val;
-        CellType type;
+        Number number;
         set<int> remainingVal;
         set<Cell*> adjacentCells;
     public:

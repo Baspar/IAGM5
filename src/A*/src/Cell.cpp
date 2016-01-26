@@ -1,8 +1,6 @@
 #include "Cell.hpp"
 
-Cell::Cell(){//DONE
-    val=0;
-    type=CellType::GUESS;
+Cell::Cell():number(){//DONE
     for(int i=1; i<10; i++)
         remainingVal.insert(i);
 }
