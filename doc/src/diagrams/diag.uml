@@ -1,0 +1,22 @@
+@startuml
+
+class AlgoGenetique{
+}
+class Genomes{
+    +getBestGenomes(): Genomes
+    +croisementGenomes(Genomes): Genomes
+}
+interface IGenome{
+    +fitnessScore(): int
+    +muter(): void
+    +croiser(Genome):Genomes
+    +estSolution():bool
+}
+
+AlgoGenetique o-- Genomes
+Genomes o-- IGenome
+IGenome <|-- SudokuGenetique
+Sudoku <|-- SudokuGenetique
+
+
+@enduml
