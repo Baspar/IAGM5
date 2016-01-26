@@ -14,14 +14,13 @@ class Cell{
         set<Cell*> adjacentCells;
     public:
         Cell();
-        Cell(int value);
+        Cell(Number number);
         Cell(const Cell& cell);
-        void setValue(int value);
-        int getValue() const;
+        void setNumber(Number num);
+        Number getNumber() const;
         CellType getType() const;
         void setAdjacentCells(const set<Cell*> cells);
         set<Cell*> getAdjacentCells() const;
-        void removeRemainingValue(int value);
-        set<int> getRemainingVal() const;
+        void setValue(int val);
 };
 #endif

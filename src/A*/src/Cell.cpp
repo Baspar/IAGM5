@@ -1,30 +1,21 @@
 #include "Cell.hpp"
 
 Cell::Cell():number(){//DONE
-    for(int i=1; i<10; i++)
-        remainingVal.insert(i);
+
 }
-Cell::Cell(int value):Cell(){//DONE
-    val=value;
-    type=CellType::GIVEN;
+Cell::Cell(Number num):number(num){//DONE
+    
 }
-Cell::Cell(const Cell& cell){//DONE
-    //We do not copy the adjacent cells, they will be recomputed
-    val=cell.getValue();
-    type=cell.getType();
-    remainingVal=cell.getRemainingVal();
+Cell::Cell(const Cell& cell):number(cell.getNumber()){//DONE
 }
-int Cell::getValue() const{//DONE
-    return val;
+Number Cell::getNumber() const{//DONE
+    return number;
 }
 CellType Cell::getType() const{//DONE
-    return type;
+    return number.getCellType();
 }
-void Cell::setValue(int value){//DONE
-    val=value;
-    remainingVal.clear();
-    for(Cell* cell:adjacentCells)
-        cell->removeRemainingValue(value);
+void Cell::setNumber(Number num){//DONE
+    number=num;
 }
 set<Cell*> Cell::getAdjacentCells() const{//DONE
     return adjacentCells;
@@ -32,9 +23,4 @@ set<Cell*> Cell::getAdjacentCells() const{//DONE
 void Cell::setAdjacentCells(const set<Cell*> cells){//DONE
     adjacentCells=cells;
 }
-void Cell::removeRemainingValue(int value){//DONE
-    remainingVal.erase(value);
-}
-set<int> Cell::getRemainingVal() const{//DONE
-    return remainingVal;
-}
+
