@@ -1,5 +1,4 @@
 *.pdf
-doc/src/diagrams/*.png
 Classes.png
 Classe*.uml
 src/A*/src/*.o
