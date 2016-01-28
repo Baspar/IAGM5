@@ -16,4 +16,4 @@ pseudoclean:
 	rm -rf src/*.log src/*.aux src/*.toc src/*.out
 
 clean: pseudoclean
-	rm -rf doc/*.pdf src/diagrams/*.png
+	rm -rf doc/*.pdf 
