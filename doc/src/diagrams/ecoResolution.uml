@@ -1,0 +1,36 @@
+@startuml
+Class EcoResolution{
++ estFini()
+}
+Class EcoAgent{
+- but : List<EcoAgent>
+- etatInterne : Etat
+- agresse : boolean
+- gene : boolean
++ essayerSatisfaire()
++ {abstract} trouverGeneur() : List<Agent>
++ {abstract} faireSatisfaction()
++ agresser(x EcoAgent)
++ {abstract} trouverPlacePourFuir() :EcoAgent
++ {abstract} faireFuite(x EcoAgent) 
+}
+Class EcoSudoku{
+}
+Class EcoLigne{
+}
+Class EcoColonne{
+}
+Class EcoCellule{
+}
+
+EcoResolution o-- EcoAgent
+EcoResolution <|-- EcoSudoku
+EcoAgent <|-- EcoLigne
+EcoAgent <|-- EcoColonne 
+EcoAgent <|-- EcoCellule
+EcoSudoku o-- EcoCellule
+EcoSudoku o-- EcoLigne
+EcoSudoku o-- EcoColonne
+EcoLigne o-- EcoCellule
+EcoColonne o-- EcoCellule
+@enduml
