@@ -40,4 +40,34 @@
         \end{itemize}
     
         \subsection{L'eco-resolution vu comme un automate}
-        \textbf{Il faut mettre le schéma bizarre la }
+        Il est possible de voir la résolution comme étant un automate à états finis comme suit : \\
+\begin{center}
+\includegraphics[scale=0.7]{diagrams/AutomateEcoResolution.png}
+\end{center}
+Les quatres états sont les suivants : satisfaction (S), fuite (F), recherche de satisfaction (RS) et recherche de fuite (RF). a et g représentent respectivement une agression et un gêne, -a représentant l'absence d'agression. Le dernier paramètre représente l'action effectuée. \\
+\\
+Si notre agent est en état de \textbf{recherche de satisfaction}, il y a trois possibilités. \\
+\begin{itemize}
+\item Il n'est pas agressé ni gêné pour atteindre son but, il effectue donc FaireSatisfaction pour se trouver en état de \textbf{Satisfaction}.
+\item Il n'est pas agressé mais il est gêné par un autre agent pour atteindre son but, il agresse donc le gêneur et reste en état de \textbf{Recherche de satisfaction}.
+\item Il est agressé par un autre gêneur, il passe donc en \textbf{Recherche de fuite}
+\end{itemize} ~\\
+~\\
+Deuxième possibilité, notre agent est en \textbf{Recherche de Fuite}, nous avons trois possibilités également. \\
+\begin{itemize}
+\item Il n'est pas gêné pour fuir, il exécute donc l'action FaireFuite et se retrouve dans l'état de \textbf{Fuite}
+\item Il est gêné pour fuir, il va donc agressé les différents eco-agents qui le gêne. Tant qu'il sera gêné et agressé il restera dans l'état de \textbf{Recherche de Fuite}
+\item Il se retrouve à ne plus être agressé mais il n'a pas fuit, il passe donc en état de \textbf{Recherche de Satisfaction} 
+\end{itemize}~\\
+~\\
+Troisième possibilité, notre agent est en état de \textbf{satisfaction}, il y a donc deux possibilités :\\
+\begin{itemize}
+\item Il n'est pas agressé il reste donc dans son état de \textbf{satisfaction} car il ne sera pas gêné.
+\item Il est agressé et passe donc en état de \textbf{Recherche de fuite}. 
+\end{itemize}~\\
+~\\
+Et enfin, il est en état de \textbf{Fuite}, on a les possibilités suivantes :\\
+\begin{itemize}
+\item Il est agressé et se retrouve donc en état de \textbf{Recherche de Fuite}
+\item Il n'est pas agressé et est donc en état de \textbf{Recherche de Satisfaction}
+\end{itemize}
