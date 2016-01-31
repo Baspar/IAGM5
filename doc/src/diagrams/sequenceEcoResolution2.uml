@@ -1,0 +1,21 @@
+@startuml
+title diagramme séquence Fuir 
+activate ecoAgent1
+alt estSatisfait
+ecoAgent1 --> ecoAgent1 : NonSatisfait
+activate ecoAgent1
+deactivate ecoAgent1
+end
+ecoAgent1 --> ecoAgent1 : trouverPlacePourFuir()
+activate ecoAgent1
+deactivate ecoAgent1
+loop tant qu'il y a un geneur
+ecoAgent1 --> ecoAgent2 : agresser()
+activate ecoAgent2
+deactivate ecoAgent2
+end
+ecoAgent1 --> ecoAgent1 : faireFuite()
+activate ecoAgent1
+deactivate ecoAgent1
+deactivate ecoAgent1
+@enduml
