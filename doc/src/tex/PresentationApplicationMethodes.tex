@@ -11,9 +11,9 @@
             \item La mutation d'un génome
         \end{itemize}
         Pour certains de ces éléments, il peut exister différentes manières de procéder, nous allons donc en détailler plusieurs.
-        \section{Génomes}
+        \subsection{Génomes}
             Dans un premier temps, il nous faut nous poser la question de comment représenter notre grille de sudoku sous un format propice à un algorithme génétique.\\
-            \subsection{Méthode 1D}
+            \subsubsection{Méthode 1D}
                 Dans beaucoup de cas, travailler sur un tableau à une dimension simplifie énormément le travail. Nous allons donc procéder comme suit:
                 \begin{description}
                     \item[Grille sudoku vide]:\\
@@ -44,33 +44,242 @@
                         \end{center}
                     \item[G\'enome]: Un tableau d'une dimension contenant uniquement le contenu des cases \textbf{non données} dans l'énonce.
                 \end{description}
-            \subsection{Méthode 2D}
+            \subsubsection{Méthode 2D}
                 Cependant il subsiste des cas où il est important de garder l'aspect 2D pour faciliter les traitements qui seront fait dessus par la suite.\\
                 Dans ces cas ci, on garde un tableau 2D de ``cases'', qui seront une pair contenant une valeur, et si cette case est donnée dans l'énoncé
-        \section{Sélection}
-        \section{Croisement}
+        \subsection{Sélection}
+        \subsection{Croisement}
             Le croisement des génomes sélectionnés est la méthode la plus importante de tout l'algorithme, car c'est la méthodes qui sera en charge de ``passer'' les gains d'information précédents aux nouveaux génomes.\\
             Deux méthodes peuvent être employées:
             \begin{itemize}
                 \item Croisement naïf
                 \item Croisement optimisé
             \end{itemize}
-            \subsection{Croisement naïf}
+            \subsubsection{Croisement naïf}
                 Ce croisement utilise un génome basé sur le modèle 1D.\\
                 Le but de ce dernier est de fonctionner rapidement, et à défaut d'être efficace rapidement, il utilise l'aléatoire pour favoriser un mélange hétéroclite sur plusieurs générations.\\
-                \subsubsection{Fonctionnement}
+                \subsubsubsection{Fonctionnement}
                     Donnons nous 2 génomes tirés aléatoirement parmi ceux sélectionnés lors de la phase précédente.\\
                     \begin{description}
                         \item[Genome 1]:\\
-                            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-                                \hline
-                                g_1&g_1&g_1&g_1&g_1&g_1&g_1&g_1&g_1&g_1
-                                \hline
-                            \end{tabular}
+                            \[
+                                \begin{array}{|c|c|c|c|c|c|c|c|c|c|}
+                                    \hline
+                                    g_1&g_2&g_3&g_4&g_5&g_5&g_6&\cdots&g_{n-1}&g_{n}\\
+                                    \hline
+                                \end{array}
+                            \]
                         \item[Genome 2]:\\
+                            \[
+                                \begin{array}{|c|c|c|c|c|c|c|c|c|c|}
+                                    \hline
+                                    h_1&h_2&h_3&h_4&h_5&h_5&h_6&\cdots&h_{n-1}&h_{n}\\
+                                    \hline
+                                \end{array}
+                            \]
                     \end{description}
-                \subsection{Croisement optimisé}
-        \section{Mutation}
+
+                    L'algorithme sélectionne alors un nombre k tel que: $1\leq k\leq n$.\\
+                    Ce nombre servira de point de séparation pour les deux génomes.
+                    \begin{description}
+                        \item[Genome 1]:\\
+                            \[
+                                \begin{array}{|c|c|c|c|c|c|c|c|c|c|}
+                                    \hline
+                                    g_1&g_2&g_3&\cdots&g_{k-1}&g_k&g_{k+1}&\cdots&g_{n-1}&g_{n}\\
+                                    \hline
+                                \end{array}
+                            \]
+                        \item[Genome 2]:\\
+                            \[
+                                \begin{array}{|c|c|c|c|c|c|c|c|c|c|}
+                                    \hline
+                                    h_1&h_2&h_3&\cdots&h_{k-1}&h_k&h_{k+1}&\cdots&h_{n-1}&h_{n}\\
+                                    \hline
+                                \end{array}
+                            \]
+                    \end{description}
+
+                    En croisant les deux moitiés, nous pouvons donc créer deux nouveau génomes reprenant les gènes des parents.
+                    \begin{description}
+                        \item[Nouveau genome 1]:\\
+                            \[
+                                \begin{array}{|c|c|c|c|c|c|c|c|c|c|}
+                                    \hline
+                                    g_1&g_2&g_3&\cdots&g_{k-1}&g_k&h_{k+1}&\cdots&h_{n-1}&h_{n}\\
+                                    \hline
+                                \end{array}
+                            \]
+                        \item[Nouveau genome 2]:\\
+                            \[
+                                \begin{array}{|c|c|c|c|c|c|c|c|c|c|}
+                                    \hline
+                                    h_1&h_2&h_3&\cdots&h_{k-1}&h_k&g_{k+1}&\cdots&g_{n-1}&g_{n}\\
+                                    \hline
+                                \end{array}
+                            \]
+                    \end{description}
+                \subsubsubsection{Inconvénients}
+                    Malheureusement, aussi simple soit elle, elle est loin d'être la meilleure.\\
+                    En effet, elle prend de manière anarchique et aléatoire les gènes des parents. Comment être sûr de ce que nous avons pris?\\
+                    Ce qui faisait le ``haut score'' des parents se retrouvera peut être détruit par ce croisement (Modification d'une ligne, colonne ou bloc qui était résolu)
+            \subsubsection{Croisement optimisé}
+                \subsubsubsection{Pré-requis}
+                    Pour palier à cette perte d'information, nous allons mettre en place une autre méthodologie.\\
+                    Et si au lieu de croiser naïvement, nous faisions attention à préserver des parties intéressantes?
+
+                    Nous allons donc faire un croisement qui part d'une supposition simple:\\
+                    \begin{center}
+                        Tous les génomes sont valides pour les blocs
+                    \end{center}
+                    Générer une première génération respectant cette condition est relativement facile (Pour chaque bloc, regarder les nombres pas encore placés, et les mettre 1 par case vide).\\
+                    Il faudra juste faire attention à préserver cette propriété lors du croisement.
+                    Le croisement se fera sur un modèle 2D, pour garder cette idée de correct du point de vue des blocs.\\
+                \subsubsubsection{Mise en place}
+                    Le croisement sélectionnera au hasard 2 génomes parmi les parents, et en calculera un ``score'' de ligne et colonne:\\
+                    \begin{description}
+                        \item[Parent 1]:\\
+                            \begin{center}
+                                \begin{tabular}{|c|c|c| |c|c|c| |c|c|c| |l}
+                                    \hline
+                                    X&\textbf{G}&X&X&X&\textbf{G}&X&X&X&$\rightarrow l_1$\\
+                                    \hline
+                                    X&X&X&\textbf{G}&X&X&X&X&X&$\rightarrow l_2$\\
+                                    \hline
+                                    X&X&X&X&\textbf{G}&X&X&X&X&$\rightarrow l_3$\\
+                                    \hline
+                                    \hline
+                                    X&X&X&\textbf{G}&X&X&X&X&X&$\rightarrow l_4$\\
+                                    \hline
+                                    \textbf{G}&X&X&X&X&X&X&\textbf{G}&X&$\rightarrow l_5$\\
+                                    \hline
+                                    X&X&\textbf{G}&X&X&X&X&X&X&$\rightarrow l_6$\\
+                                    \hline
+                                    \hline
+                                    X&X&X&X&\textbf{G}&X&X&X&\textbf{G}&$\rightarrow l_7$\\
+                                    \hline
+                                    X&\textbf{G}&X&X&X&X&\textbf{G}&X&X&$\rightarrow l_8$\\
+                                    \hline
+                                    X&X&X&X&\textbf{G}&X&X&X&X&$\rightarrow l_9$\\
+                                    \hline
+                                    \hline
+                                    $\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&\\
+                                    $c_1$&$c_2$&$c_3$&$c_4$&$c_5$&$c_6$&$c_7$&$c_8$&$c_9$&\\
+                                \end{tabular}
+                            \end{center}
+                        \item[Parent 2]:\\
+                            \begin{center}
+                                \begin{tabular}{|c|c|c| |c|c|c| |c|c|c| |l}
+                                    \hline
+                                    Y&\textbf{G}&Y&Y&Y&\textbf{G}&Y&Y&Y&$\rightarrow l_1$\\
+                                    \hline
+                                    Y&Y&Y&\textbf{G}&Y&Y&Y&Y&Y&$\rightarrow l_2$\\
+                                    \hline
+                                    Y&Y&Y&Y&\textbf{G}&Y&Y&Y&Y&$\rightarrow l_3$\\
+                                    \hline
+                                    \hline
+                                    Y&Y&Y&\textbf{G}&Y&Y&Y&Y&Y&$\rightarrow l_4$\\
+                                    \hline
+                                    \textbf{G}&Y&Y&Y&Y&Y&Y&\textbf{G}&Y&$\rightarrow l_5$\\
+                                    \hline
+                                    Y&Y&\textbf{G}&Y&Y&Y&Y&Y&Y&$\rightarrow l_6$\\
+                                    \hline
+                                    \hline
+                                    Y&Y&Y&Y&\textbf{G}&Y&Y&Y&\textbf{G}&$\rightarrow l_7$\\
+                                    \hline
+                                    Y&\textbf{G}&Y&Y&Y&Y&\textbf{G}&Y&Y&$\rightarrow l_8$\\
+                                    \hline
+                                    Y&Y&Y&Y&\textbf{G}&Y&Y&Y&Y&$\rightarrow l_9$\\
+                                    \hline
+                                    \hline
+                                    $\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&$\downarrow$&\\
+                                    $c_1$&$c_2$&$c_3$&$c_4$&$c_5$&$c_6$&$c_7$&$c_8$&$c_9$&\\
+                                \end{tabular}
+                            \end{center}
+                    \end{description}
+                    Où ``\textbf{G}'' représente un chiffre donné dans l'énoncé, et ou $l_x$ et $c_x$ représentent les scores de la ligne/colonne $x$.\\
+                    $l_x$ et $c_x$ seront calculés comme le nombre d'éléments différents par ligne et colonne. Cela signifie donc que $1\leq l_x, c_x\leq 9$\\
+
+                    Nous allons alors réunir les lignes et colonnes en lignes et colonnes de blocs.
+                    \begin{description}
+                        \item[Parent 1]:\\
+                            \begin{center}
+                                \begin{tabular}{|c|c|c| |l}
+                                    \hline
+                                    X&X&X&$\rightarrow L_1$\\
+                                    \hline
+                                    X&X&X&$\rightarrow L_2$\\
+                                    \hline
+                                    X&X&X&$\rightarrow L_3$\\
+                                    \hline
+                                    \hline
+                                    $\downarrow$&$\downarrow$&$\downarrow$&\\
+                                    $C_1$&$C_2$&$C_3$&\\
+                                \end{tabular}
+                            \end{center}
+                        \item[Parent 2]:\\
+                            \begin{center}
+                                \begin{tabular}{|c|c|c| |l}
+                                    \hline
+                                    Y&Y&Y&$\rightarrow L_1$\\
+                                    \hline
+                                    Y&Y&Y&$\rightarrow L_2$\\
+                                    \hline
+                                    Y&Y&Y&$\rightarrow L_3$\\
+                                    \hline
+                                    \hline
+                                    $\downarrow$&$\downarrow$&$\downarrow$&\\
+                                    $C_1$&$C_2$&$C_3$&\\
+                                \end{tabular}
+                            \end{center}
+                    \end{description}
+                    Où $L_x=\sum_{i=x}^{i=x+2}l_i$ et $C_x=\sum_{i=x}^{i=x+2}c_i$.
+                \subsubsubsection{Génération des fils}
+                    En prenant nos 2 parents sous forme de ``grille de bloc'', nous allons générer deux fils:
+                    \begin{itemize}
+                        \item Le premier qui maximisera le score en ligne
+                        \item Le second qui maximisera le score en colonne
+                    \end{itemize}
+
+                    Pour chaque ligne/colonne, l'algorithme regardera lequel des deux parents maximise le score de la ligne/colonne de bloc, et réutilisera cette ligne/colonne dans le fils.\\
+                    Cela peut donc donner lieu à des fils comme suit.
+                    \begin{description}
+                        \item[Fils 1]:\\
+                            \begin{center}
+                                \begin{tabular}{|c|c|c| |l}
+                                    \hline
+                                    X&X&X&$\rightarrow L_{X,1}$\\
+                                    \hline
+                                    Y&Y&Y&$\rightarrow L_{Y,2}$\\
+                                    \hline
+                                    X&X&X&$\rightarrow L_{X,3}$\\
+                                    \hline
+                                    \hline
+                                    $\downarrow$&$\downarrow$&$\downarrow$&\\
+                                    $C_1$&$C_2$&$C_3$&\\
+                                \end{tabular}
+                            \end{center}
+                        \item[Fils 2]:\\
+                            \begin{center}
+                                \begin{tabular}{|c|c|c| |l}
+                                    \hline
+                                    X&X&Y&$\rightarrow L_1$\\
+                                    \hline
+                                    X&X&Y&$\rightarrow L_2$\\
+                                    \hline
+                                    X&X&Y&$\rightarrow L_3$\\
+                                    \hline
+                                    \hline
+                                    $\downarrow$&$\downarrow$&$\downarrow$&\\
+                                    $C_{X,1}$&$C_{X,2}$&$C_{Y,3}$&\\
+                                \end{tabular}
+                            \end{center}
+                    \end{description}
+
+                    Ici, Fils 1 maximise en ligne (Et recalcule tous les $C_i$) alors que Fils 2 maximise en colonne (Et recalcule tous les $L_i$).\\
+
+                    Pour refaire le parallèle avec les pré-requis, nos deux fils respectent la validité des blocs.
+        \subsection{Mutation}
 
 
     \section{Eco-résolution}
