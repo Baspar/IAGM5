@@ -1,5 +1,4 @@
 \chapter{Application des méthodes au problème}
-
     Dans cette partie, nous allons présenter comment les diverses techniques que nous souhaitons appliquer sont compatibles avec notre cas spécifique du sudoku.
     \section{A*}
     \section{Algorithme génétique}
@@ -48,9 +47,30 @@
                 Cependant il subsiste des cas où il est important de garder l'aspect 2D pour faciliter les traitements qui seront fait dessus par la suite.\\
                 Dans ces cas ci, on garde un tableau 2D de ``cases'', qui seront une pair contenant une valeur, et si cette case est donnée dans l'énoncé
         \subsection{Sélection}
+            La sélection est une étape qui ne devrait pas être trop complexe.\\
+            Le but serait d'affecter à chaque grille un \textbf{score}, tel que le score ``parfait'' corresponde à la une grille complétée, et plus la grille serait ``résolue'', plus le score serait élevé, plus la grille serait proche de la résolution.\\
+
+            Une fois ce score obtenu, il nous suffira de prendre la \textbf{meilleure moitié} de la génération actuelle (Ceux dont le score est le plus élevé).\\
+
+            Sachant que une grille résolue est une grille ``Avec 9 chiffres différents par ligne, colonne, et bloc''.\\
+            Nous allons donc définir le score comme étant la somme du nombre de chiffres différents par lignes, colonnes, et blocs.
+
+            \begin{center}
+                \begin{tabular}{rcl}
+                    \textbf{Score}&=&$\sum_{i=1}^9$\textbf{nombre numéros différents dans ligne i}\\
+                        &+&$\sum_{i=1}^9$\textbf{nombre numéros différents dans colonne i}\\
+                        &+&$\sum_{i=1}^9$\textbf{nombre numéros différents dans bloc i}
+                \end{tabular}
+            \end{center}
         \subsection{Croisement}
             Le croisement des génomes sélectionnés est la méthode la plus importante de tout l'algorithme, car c'est la méthodes qui sera en charge de ``passer'' les gains d'information précédents aux nouveaux génomes.\\
-            Deux méthodes peuvent être employées:
+            Il parait normal que le croisement ne soit pas réalisé tout le temps, c'est la raison pour laquelle nous allons imposer un \textbf{taux de croisement}.\\
+            Ce taux ($0\leq taux\leq 1$) est défini par l'utilisateur, et représente le pourcentage de chance qu'une paire de génomes se croise.\\
+
+            Nous commençons par diviser d'intégralité des génomes sélectionnés en \textbf{paires distinctes de génomes}.\\
+            Cela nous évitera que le même génome se retrouve plusieurs fois au sein de croisement.\\
+
+            Deux méthodes peuvent être employées pour le croisement:
             \begin{itemize}
                 \item Croisement naïf
                 \item Croisement optimisé
@@ -124,10 +144,9 @@
                     En effet, elle prend de manière anarchique et aléatoire les gènes des parents. Comment être sûr de ce que nous avons pris?\\
                     Ce qui faisait le ``haut score'' des parents se retrouvera peut être détruit par ce croisement (Modification d'une ligne, colonne ou bloc qui était résolu)
             \subsubsection{Croisement optimisé}
+                Pour palier à cette perte d'information, nous allons mettre en place une autre méthodologie.\\
+                Et si au lieu de croiser naïvement, nous faisions attention à préserver des parties intéressantes?
                 \subsubsubsection{Pré-requis}
-                    Pour palier à cette perte d'information, nous allons mettre en place une autre méthodologie.\\
-                    Et si au lieu de croiser naïvement, nous faisions attention à préserver des parties intéressantes?
-
                     Nous allons donc faire un croisement qui part d'une supposition simple:\\
                     \begin{center}
                         Tous les génomes sont valides pour les blocs
@@ -280,8 +299,29 @@
 
                     Pour refaire le parallèle avec les pré-requis, nos deux fils respectent la validité des blocs.
         \subsection{Mutation}
+            Le but d'une mutation est de faire intervertir de ``nouvelles idées'' au sein des nouveaux génomes crées.\\
+            Sans cette étape, il serait très fort probable que seul les mêmes ``gènes'' persistent au sein des générations, et ne permettent pas la résolution du problème.\\
 
+            Si on prend l'exemple de notre cas du croisement optimisé, les blocs choisis ne changeraient pas au fil des générations, il est donc impossible de terminer le Sudoku si les 9 bonnes combinaisons de bloc n'existent pas dès le début.\\
 
+            Comme pour les croisements, la mutation n'est pas forcée. Nous appliquons donc un \textbf{taux de mutation} qui correspond au pourcentage de chance que un de nos gènes mute.\\
+
+            Comme précédemment, deux méthodes sont envisageables, applicables aux deux croisements précédents:
+            \begin{itemize}
+                \item Une mutation naïve
+                \item Une mutation optimisée
+            \end{itemize}
+            \subsection{Mutation naïve}
+                Une mutation simple consiste à prendre au hasard une case dans le Sudoku (Case qui ne serai pas donnée en énonce), et de lui affecter une valeur différente.\\
+                Cette mutation est applicable uniquement au premier cas de croisement, sinon nous ne serions pas sûr de garder la validité de chacun des blocs.
+            \subsection{Mutation optimisée}
+                Une mutation plus adaptée au croisement optimisé est d'échanger deux chiffres au sein d'un bloc, qui sera choisi au hasard parmi les 9 blocs.\\
+                Cette technique garde bien la validité des blocs, et permet de créer de nouveaux ``gènes''.\\
+
+                Cependant, vaut-il mieux faire cette mutation dans tous les blocs? Ou bien seulement un bloc au hasard?\\
+                Une autre solution serait d'utiliser le taux de mutation pour chacun des blocs.\\
+
+                Une telle question tenant plus de l'expérimentation que de l'étude, nous affinerons les méthodes au cours de l'implémentation de l'algorithme.
     \section{Eco-résolution}
     \subsection{Modélisation}
     Dans le chapitre, présentation des différents modèles nous avons présentés les divers attributs des eco-agents ainsi que leurs principales fonctions. \\
