@@ -1,8 +1,78 @@
 \chapter{Application des méthodes au problème}
 
-	Dans cette partie, nous allons présenter comment les diverses techniques que nous souhaitons appliquer sont compatibles avec notre cas spécifique du sudoku.
+    Dans cette partie, nous allons présenter comment les diverses techniques que nous souhaitons appliquer sont compatibles avec notre cas spécifique du sudoku.
     \section{A*}
     \section{Algorithme génétique}
+        Pour spécifier notre instance générale d'algorithme génétique, nous avons 4 éléments à définir
+        \begin{itemize}
+            \item Les génomes
+            \item La sélection des meilleurs génomes
+            \item Le croisement de différents génomes
+            \item La mutation d'un génome
+        \end{itemize}
+        Pour certains de ces éléments, il peut exister différentes manières de procéder, nous allons donc en détailler plusieurs.
+        \section{Génomes}
+            Dans un premier temps, il nous faut nous poser la question de comment représenter notre grille de sudoku sous un format propice à un algorithme génétique.\\
+            \subsection{Méthode 1D}
+                Dans beaucoup de cas, travailler sur un tableau à une dimension simplifie énormément le travail. Nous allons donc procéder comme suit:
+                \begin{description}
+                    \item[Grille sudoku vide]:\\
+                        \begin{center}
+                            \begin{tabular}{|c|c|c| |c|c|c| |c|c|c|}
+                                \hline
+                                &\textbf{1}&&&&\textbf{3}&&&\\
+                                \hline
+                                &&&\textbf{4}&&&&&\\
+                                \hline
+                                &&&&\textbf{2}&&&&\\
+                                \hline
+                                \hline
+                                &&&\textbf{7}&&&&&\\
+                                \hline
+                                \textbf{8}&&&&&&&\textbf{6}&\\
+                                \hline
+                                &&\textbf{5}&&&&&&\\
+                                \hline
+                                \hline
+                                &&&&\textbf{3}&&&&\textbf{9}\\
+                                \hline
+                                &\textbf{3}&&&&&\textbf{1}&&\\
+                                \hline
+                                &&&&\textbf{6}&&&&\\
+                                \hline
+                            \end{tabular}
+                        \end{center}
+                    \item[G\'enome]: Un tableau d'une dimension contenant uniquement le contenu des cases \textbf{non données} dans l'énonce.
+                \end{description}
+            \subsection{Méthode 2D}
+                Cependant il subsiste des cas où il est important de garder l'aspect 2D pour faciliter les traitements qui seront fait dessus par la suite.\\
+                Dans ces cas ci, on garde un tableau 2D de ``cases'', qui seront une pair contenant une valeur, et si cette case est donnée dans l'énoncé
+        \section{Sélection}
+        \section{Croisement}
+            Le croisement des génomes sélectionnés est la méthode la plus importante de tout l'algorithme, car c'est la méthodes qui sera en charge de ``passer'' les gains d'information précédents aux nouveaux génomes.\\
+            Deux méthodes peuvent être employées:
+            \begin{itemize}
+                \item Croisement naïf
+                \item Croisement optimisé
+            \end{itemize}
+            \subsection{Croisement naïf}
+                Ce croisement utilise un génome basé sur le modèle 1D.\\
+                Le but de ce dernier est de fonctionner rapidement, et à défaut d'être efficace rapidement, il utilise l'aléatoire pour favoriser un mélange hétéroclite sur plusieurs générations.\\
+                \subsubsection{Fonctionnement}
+                    Donnons nous 2 génomes tirés aléatoirement parmi ceux sélectionnés lors de la phase précédente.\\
+                    \begin{description}
+                        \item[Genome 1]:\\
+                            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+                                \hline
+                                g_1&g_1&g_1&g_1&g_1&g_1&g_1&g_1&g_1&g_1
+                                \hline
+                            \end{tabular}
+                        \item[Genome 2]:\\
+                    \end{description}
+                \subsection{Croisement optimisé}
+        \section{Mutation}
+
+
     \section{Eco-résolution}
     Dans le chapitre, présentation des différents modèles nous avons présentés les divers attributs des eco-agents ainsi que leurs principales fonctions. \\
     L'éco-résolution est un mode de résolution utilisant plusieurs agents, la partie la plus complexe étant de définir quels sont nos agents et comment ils agissent entre eux. \\
