@@ -1,0 +1,34 @@
+@startuml
+AlgoGenetique -> AlgoGenetique : genererGenerationInitiale()
+activate AlgoGenetique
+    loop Sudoku non resolu
+        AlgoGenetique -> Genomes : genererNouvelleGeneration()
+        activate Genomes
+            Genomes -> SudokuGenetique : getBestGenomes()
+            activate SudokuGenetique
+                SudokuGenetique -> SudokuGenetique :fitnessScore()
+            activate Genomes
+            Genomes <-- SudokuGenetique : bestGenomes
+                deactivate SudokuGenetique
+                loop Pour tout couple de genomes
+                    Genomes -> Genomes : croisementBestGenomes()
+                    activate Genomes
+                    Genomes -> SudokuGenetique: nouveauGenome1
+                    activate SudokuGenetique
+                        SudokuGenetique -> SudokuGenetique:muter()
+                    Genomes <-- SudokuGenetique
+                    deactivate SudokuGenetique
+                    Genomes -> SudokuGenetique: nouveauGenome2
+                    activate SudokuGenetique
+                        SudokuGenetique -> SudokuGenetique:muter()
+                    Genomes <-- SudokuGenetique
+                    deactivate SudokuGenetique
+                end
+            AlgoGenetique <-- Genomes : nouvelleGeneration
+        deactivate Genomes
+        deactivate Genomes
+        deactivate Genomes
+    end
+deactivate AlgoGenetique
+
+@enduml

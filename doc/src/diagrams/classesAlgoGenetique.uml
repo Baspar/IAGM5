@@ -1,0 +1,28 @@
+@startuml
+class AlgoGenetique{
+    -float tauxMutation
+    -float tauxCroisement
+    -Genomes generationActuelle
+    +Genomes genererNouvelleGeneration(Genomes)
+    +Genomes genererGenerationInitiale()
+}
+class Genomes{
+    -vector<Genome> genomes
+    +Genomes getBestGenomes()
+    +Genomes croisementBestGenomes(Genome, Genome)
+}
+interface IGenome{
+    +int fitnessScore()
+    +void muter()
+    +bool estSolution()
+}
+class SudokuGenetique{
+}
+class Sudoku{
+}
+
+AlgoGenetique o-- Genomes
+Genomes o-- IGenome
+IGenome <|-- SudokuGenetique
+Sudoku <|-- SudokuGenetique
+@enduml

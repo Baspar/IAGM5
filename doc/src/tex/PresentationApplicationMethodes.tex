@@ -2,7 +2,7 @@
     Dans cette partie, nous allons présenter comment les diverses techniques que nous souhaitons appliquer sont compatibles avec notre cas spécifique du sudoku.
     \section{A*}
     \section{Algorithme génétique}
-        Pour spécifier notre instance générale d'algorithme génétique, nous avons 4 éléments à définir
+        Pour spécifier notre instance générale d'algorithme génétique, nous avons 4 éléments à définir:
         \begin{itemize}
             \item Les génomes
             \item La sélection des meilleurs génomes
@@ -39,7 +39,7 @@
                                 \hline
                                 &&&&\textbf{6}&&&&\\
                                 \hline
-                            \end{tabular}
+                            \end    {tabular}
                         \end{center}
                     \item[G\'enome]: Un tableau d'une dimension contenant uniquement le contenu des cases \textbf{non données} dans l'énonce.
                 \end{description}
@@ -311,10 +311,10 @@
                 \item Une mutation naïve
                 \item Une mutation optimisée
             \end{itemize}
-            \subsection{Mutation naïve}
+            \subsubsection{Mutation naïve}
                 Une mutation simple consiste à prendre au hasard une case dans le Sudoku (Case qui ne serai pas donnée en énonce), et de lui affecter une valeur différente.\\
                 Cette mutation est applicable uniquement au premier cas de croisement, sinon nous ne serions pas sûr de garder la validité de chacun des blocs.
-            \subsection{Mutation optimisée}
+            \subsubsection{Mutation optimisée}
                 Une mutation plus adaptée au croisement optimisé est d'échanger deux chiffres au sein d'un bloc, qui sera choisi au hasard parmi les 9 blocs.\\
                 Cette technique garde bien la validité des blocs, et permet de créer de nouveaux ``gènes''.\\
 
@@ -322,55 +322,81 @@
                 Une autre solution serait d'utiliser le taux de mutation pour chacun des blocs.\\
 
                 Une telle question tenant plus de l'expérimentation que de l'étude, nous affinerons les méthodes au cours de l'implémentation de l'algorithme.
-    \section{Eco-résolution}
-    \subsection{Modélisation}
-    Dans le chapitre, présentation des différents modèles nous avons présentés les divers attributs des eco-agents ainsi que leurs principales fonctions. \\
-    L'éco-résolution est un mode de résolution utilisant plusieurs agents, la partie la plus complexe étant de définir quels sont nos agents et comment ils agissent entre eux. \\
-    Nous avons ainsi défini le diagramme de classe suivant : \\
-    \begin{center}
-    \includegraphics[scale=0.7]{diagrams/ecoResolution.png}
-    \end{center} 
+        \subsection{Modélisation}
+            \subsubsection{Diagramme de classes}
+                Pour la modélisation, nous avons travaillé à partir du diagramme de classe suivant:
+                \begin{center}
+                    \includegraphics[scale=0.7]{diagrams/classesAlgoGenetique.png}
+                \end{center}
 
-	Pour l'éco-résolution, nous retrouvons une seule méthode estFini(), qui vérifie lorsque tous les éco-agents de notre système sont satisfaits. \\
-	Avant de démarrer l'éco-résolution, nous allons compléter les cases vides de notre sudoku. Les cases étant déjà dans l'énoncé comporteront un attribut cellType valant "GIVEN". Pour remplir notre sudoku, nous allons effectué un remplissage "intelligent", c'est-à-dire que dans chaque bloc nous allons placer une et une seule fois chaque numéro de 1 à 9.\\
-	Nous avons choisi que nos cellules, nos lignes et nos colonnes seraient considérés comme éco-agent. \\
-	
-	\subsubsection{Les lignes}
-	Nous allons voir les lignes comme éco-agent de la manière suivante : \\
-	\begin{itemize}
-	\item Le but d'une ligne est que tous les éco-agents qui la compose (cellule) aient des numéros différents.
-	\item Pour trouver les gêneurs, cela correspondra à toutes les cellules qui ont un numéro qui intervient plus d'une fois. 
-	\item FaireSatisfaction : Passer l'état comme étant satisfait
-	\item une ligne ne pourra ni fuir, ni être en recherche de fuite.   
-	\end{itemize}
-	
-	\subsubsection{Les colonnes}
-	Nous allons voir les colonnes comme éco-agent de la manière suivante, analogue à la façon dont nous voyons les lignes : \\
-	\begin{itemize}
-	\item Le but d'une colonne est que tous les éco-agents qui la compose (cellule) aient des numéros différents.
-	\item Pour trouver les gêneurs, cela correspondra à toutes les cellules qui ont un numéro qui intervient plus d'une fois. 
-	\item FaireSatisfaction : Passer l'état comme étant satisfait
-	\item une colonne ne pourra ni fuir, ni être en recherche de fuite.   
-	\end{itemize}
-	
-	\subsubsection{Les cellules}
-	Nous allons voir les cellules comme des agents de la manière suivante : 
-	\begin{itemize}
-	\item Une cellule est satisfaite si sa ligne et sa colonne sont satisfaites
-	\item Les gêneurs d'une cellule sont les numéros ayant la même valeur sur la colonne et la ligne
-	\item Pour FaireSatisfaction d'une cellule, il faut qu'il n'y ai plus de gêneur
-	\item Pour trouverPlacePourFuir d'une cellule nous avons plusieurs idées : choisir une cellule aléatoirement dans le même bloc, choisir une cellule aléatoirement dans le bloc mais qui ne soit pas sur la ligne ou colonne de notre agent qui lance l'agression et enfin choisir la cellule qui a le plus de gêne.
-	\item Pour faireFuite, nous allons échanger les numéros de nos deux cellules.
-	\end{itemize}
-	
-	\subsection{Diagramme de séquence}
-		\subsubsection{SeSatisfaire}
-		\begin{center}
-    \includegraphics[scale=0.7]{diagrams/sequenceEcoResolution1.png}
-    \end{center} 
-    Pour se satisfaire un éco-agent agresse tous les autres agents qui le gênent. Une fois qu'il n'est plus gêné il est satisfait. 
-		\subsubsection{Fuir}
-\begin{center}
-    \includegraphics[scale=0.7]{diagrams/sequenceEcoResolution2.png}
-    \end{center} 
-    Si un agent doit fuir et qu'il est satisfait il devient non satisfait. Ensuite il recherche une place pour fuir, agresse tous les gêneurs qui l'empêche de fuir puis fait fuite. 
+                Il est important de noter que nous avons choisi de garder la généricité de l'algorithme en optant pour une interface IGenome.\\
+                Cette interface sera implémentée par notre classe SudokuGenetique, mais dans le cadre d'un autre projet, il nous suffirait de reimplementer une autre classe.\\
+
+                Si on étudie le diagramme de classes, on reconnait les 3 méthodes principale de sélection, croisement et mutation.\\
+                On voit aussi la fonction fitnessScore() qui implémentera cette fonction score, et estSolution() qui sera la uniquement pour vérifier simplement si notre génome recoud le Sudoku.\\
+
+                La boucle principale se fera sur l'objet ``AlgoGenetique'', qui bouclera sur ``genererNouvelleGeneration()'' tant qu'il n'existera pas de génome vérifiant le Sudoku.
+            \subsubsection{Diagramme de séquences}
+                Après s'être penchés sur l'algorithme, nous sommes parvenus à la réalisation de ce diagramme de séquences:
+                \begin{center}
+                    \includegraphics[scale=0.7]{diagrams/sequencesAlgoGenetique.png}
+                \end{center}
+
+                Si nous analysons le diagramme de séquences, nous pouvons lire les grandes lignes de l'algorithme:
+                \begin{enumerate}
+                    \item AlgoGenetique génère une population initiale, qui sera la génération 1.
+                    \item Tant que le Sudoku n'est pas résolu (i.e. il existe un génome de score maximum), on génère une nouvelle population comme suit:
+                        \begin{enumerate}
+                            \item On récupère les meilleurs génomes selon leur fitnessScore
+                            \item Pour tout couple de génomes parmi les meilleurs, on les croise.
+                            \item Pour chacun des deux nouveaux génomes crées par le croisement, on les mute
+                        \end{enumerate}
+                \end{enumerate}
+    \section{Eco-résolution}
+        \subsection{Modélisation}
+            Dans le chapitre, présentation des différents modèles nous avons présentés les divers attributs des eco-agents ainsi que leurs principales fonctions. \\
+            L'éco-résolution est un mode de résolution utilisant plusieurs agents, la partie la plus complexe étant de définir quels sont nos agents et comment ils agissent entre eux. \\
+            Nous avons ainsi défini le diagramme de classe suivant : \\
+            \begin{center}
+                \includegraphics[scale=0.7]{diagrams/ecoResolution.png}
+            \end{center} 
+
+            Pour l'éco-résolution, nous retrouvons une seule méthode estFini(), qui vérifie lorsque tous les éco-agents de notre système sont satisfaits. \\
+            Avant de démarrer l'éco-résolution, nous allons compléter les cases vides de notre sudoku. Les cases étant déjà dans l'énoncé comporteront un attribut cellType valant "GIVEN". Pour remplir notre sudoku, nous allons effectué un remplissage "intelligent", c'est-à-dire que dans chaque bloc nous allons placer une et une seule fois chaque numéro de 1 à 9.\\
+            Nous avons choisi que nos cellules, nos lignes et nos colonnes seraient considérés comme éco-agent. \\
+            \subsubsection{Les lignes}
+                Nous allons voir les lignes comme éco-agent de la manière suivante : \\
+                \begin{itemize}
+                    \item Le but d'une ligne est que tous les éco-agents qui la compose (cellule) aient des numéros différents.
+                    \item Pour trouver les gêneurs, cela correspondra à toutes les cellules qui ont un numéro qui intervient plus d'une fois. 
+                    \item FaireSatisfaction : Passer l'état comme étant satisfait
+                    \item une ligne ne pourra ni fuir, ni être en recherche de fuite.   
+                \end{itemize}
+            \subsubsection{Les colonnes}
+                Nous allons voir les colonnes comme éco-agent de la manière suivante, analogue à la façon dont nous voyons les lignes : \\
+                \begin{itemize}
+                    \item Le but d'une colonne est que tous les éco-agents qui la compose (cellule) aient des numéros différents.
+                    \item Pour trouver les gêneurs, cela correspondra à toutes les cellules qui ont un numéro qui intervient plus d'une fois. 
+                    \item FaireSatisfaction : Passer l'état comme étant satisfait
+                    \item une colonne ne pourra ni fuir, ni être en recherche de fuite.   
+                \end{itemize}
+            \subsubsection{Les cellules}
+                Nous allons voir les cellules comme des agents de la manière suivante : 
+                \begin{itemize}
+                    \item Une cellule est satisfaite si sa ligne et sa colonne sont satisfaites
+                    \item Les gêneurs d'une cellule sont les numéros ayant la même valeur sur la colonne et la ligne
+                    \item Pour FaireSatisfaction d'une cellule, il faut qu'il n'y ai plus de gêneur
+                    \item Pour trouverPlacePourFuir d'une cellule nous avons plusieurs idées : choisir une cellule aléatoirement dans le même bloc, choisir une cellule aléatoirement dans le bloc mais qui ne soit pas sur la ligne ou colonne de notre agent qui lance l'agression et enfin choisir la cellule qui a le plus de gêne.
+                    \item Pour faireFuite, nous allons échanger les numéros de nos deux cellules.
+                \end{itemize}
+        \subsection{Diagramme de séquence}
+            \subsubsection{SeSatisfaire}
+                \begin{center}
+                    \includegraphics[scale=0.7]{diagrams/sequenceEcoResolution1.png}
+                \end{center} 
+                Pour se satisfaire un éco-agent agresse tous les autres agents qui le gênent. Une fois qu'il n'est plus gêné il est satisfait. 
+            \subsubsection{Fuir}
+                \begin{center}
+                    \includegraphics[scale=0.7]{diagrams/sequenceEcoResolution2.png}
+                \end{center} 
+                Si un agent doit fuir et qu'il est satisfait il devient non satisfait. Ensuite il recherche une place pour fuir, agresse tous les gêneurs qui l'empêche de fuir puis fait fuite. 
