@@ -1,52 +1,8 @@
 \chapter{Méthodes}
     \section{A*}
         \subsection{Présentation rapide}
-            L'algorithme $A^*$ est un outil de recherche de plus court chemin dans un graphe. On peut l'utiliser pour résoudre des problèmes de type puzzle, en les ramenant à des problèmes de plus court chemin. Plus précisément dans le cas du Sudoku, on construit un graphe ayant pour racine la \textbf{grille initiale}, avec seulement les indications de départ.\\
-            Chaque sommet correspond ensuite à un état de la grille, parmi lesquels on avance en ajoutant un chiffre dans une case vide. On va donc de case en case jusqu'à ce que la grille soit complète ou que l'on ai trouvé une erreur, au quel cas on retourne en arrière et on retente une autre possibilité.
-            \bigskip
-            Sans revenir sur l'algorithme lui même, il est tout de même nécessaire de préciser certains points : $A^*$ utilise \textbf{deux listes}, une dites \textit{fermée} et l'autre \textit{ouverte}. \textit{La liste ouverte contient toute les cases vides et la liste fermée les cases contenant un chiffre.}\\
-            Pour déterminer quel chemin emprunter l'algorithme calcul un \textbf{coût} $F$ pour chaque sommet et cherche en cherche le minimum à chaque étape. \textit{Remarque : on calcule le coût de chaque case vide afin de déterminer laquelle est ``optimale'' pour continuer la recherche.} Le coût $F$ est déterminé comme la somme d'une fonction coût $G$ et d'une heuristique $H$.
-            \bigskip
-            La seule particularité de cette application de $A^*$ est que l'on doit, pour chaque case optimale choisie, tester toutes les possibilités de valeurs de possibles. Tant que l'on a pas trouvé de solution ou que l'on ai testé toute les grilles possibles, l'algorithme va :
-            \begin{itemize}
-                \item actualiser les listes ouverte et fermée ainsi que les valeurs possibles des cases vides,
-                \item trouver la case ayant la plus petite valeur pour $F$,
-                \item créer des grilles à partir de la grille précédente \textit{(on assigne aussi celle-ci comme parent de la nouvelle grille)} et d'une des valeurs possibles pour la case ``optimale'',
-                \item vérifier la présence de doublon, si c'est le cas, il faut renvoyer une erreur, tester les autres possibilités et éventuellement remonter au niveau du parent pour essayer ses autres possibilités.
-                \item s'il n'y a pas de doublon, on recommence la recherche de case ``optimale'' dans la nouvelle grille \textit{(via récursivité)}
-            \end{itemize}
-        \subsection{Choix des fonctions coût}
-            On peut choisir différentes fonction coût pour le problème du Sudoku, ce choix va bien sur affecté le temps de calcul de l'algorithme.
-            \subsubsection*{La fonction G}
-                L'une des façons la plus simple de l'estimer est de prendre le nombre de cases vides dans la ligne, la colonne et le bloc contenant la case observée. En effet, moins il y a de case vide dans cette zone, plus il sera simple de déterminer une valeur.
-            \subsubsection*{L'heuristique H}
-                C'est principalement le choix de l'heuristique qui influe sur l'efficacité de l'algorithme, notre premier choix est une fonction qui renvoie le nombre de valeurs possibles pour la case testée \textit{(valeurs comprises entre $1$ et $9$)}.\\
-                Cette valeur est déterminée selon les règles du Sudoku \textit{(une seule apparition par ligne, colonne ou bloc)} et les cases contenues dans la liste fermée \textit{(les cases remplies de la grille)}.\\
-                \textit{Remarque : dans le cas où il n'y a aucune possibilité, c'est que l'on a trouvé une erreur, on renverra alors la valeur $9$ ainsi qu'un message d'erreur.}
-        \subsection{Implémentation}
-            \subsubsection{Diagramme de classe}
-                \begin{center}
-                    \includegraphics[scale = 0.5]{images/AstarDiagrammeClasse.png}
-                \end{center}
-                \bigskip
-                \begin{description}
-                    \item[Case]: C'est un emplacement pouvant recevoir une \textit{valeur} comprise entre $1$ et $9$. Chaque Case possède un tableau de $9$ entiers \textit{possibilités[]}, initialisé à $\{1,2,3,4,5,6,7,8,9\}$.\\
-                        La fonction \textit{updatePossibilités()} met à jour les valeurs possibles de la Case, en fonction des Cases contenues dans la liste fermée. Si une valeur est impossible, on la remplace par $0$ dans \textit{possibilités[]}.
-                    \item[Sudoku]: Il s'agit tout d'abord d'une \textit{grille}, une liste de 81 Cases, ainsi qu'un booléen \textit{doublon}. On utilise aussi une référence au Sudoku \textit{parent}, celui qui à permit d'obtenir ce Sudoku.\\
-                        La fonction \textit{getRégrion(Case c)} renvoie la liste des autres Cases contenues dans la même région que la Case c \textit{(dans la ligne, la colonne et le bloc)}.\\
-                        Comme son nom l'indique, \textit{VérifierDoublon()} va tester la présence de doublon dans une ligne, une colonne ou un bloc de la grille.\\
-                        \textit{CréerSudoku(Sudoku parent, Case choix, Entier valeur)} construit un nouveau Sudoku à partir du Sudoku \textit{parent}, en lui ajoutant le chiffre \textit{valeur} dans la Case vide \textit{choix}.\\
-                        Enfin, \textit{ChoisirCase(Sudoku parent, Liste de Case listeO)} détermine quelle Case de \textit{listeO} est ``optimale'' pour le prochain déplacement depuis \textit{parent}, c'est ici que l'on va chercher le minimum de $F=G+H$.\\
-                    \textit{La classe Sudoku hérite de la classe NoeudGraphe, contenant un fonction qui renvoie les NoeudGraphes voisins d'un NoeudGraphe.}
-                        \item[ListeSudokus]: On maintient simplement une liste de tout les Sudokus construis.\\
-                    \textit{ListeSudokus hérite de la classe Graphe, qui contient les méthodes permettant de calculer $G$ et $H$}
-                    \item[AEtoile]: Possède un \textit{etatInitial}, le NoeudGraphe qui correspond à la grille de départ, un Graphe et un NoeudGraphe \textit{noeudCourant}. C'est dans cette classe que sont définit les listes de Cases \textit{listeFermée} et \textit{listeeOuverte}, ainsi que les méthodes pour les mettre à jour.\\
-                        La fonction \textit{VérifierGrille(Sudoku parent)} est la fonction récursive principale de l'algorithme, celle qui va appeler \textit{ChoisirCase()}, \textit{CréerSudoku()} et \textit{VérifierDoublon()}.
-                \end{description}
-            \subsubsection{Diagramme de séquences}
-                \begin{center}
-                    \includegraphics[scale=0.5]{images/AstarDiagrammeSequences.png}
-                \end{center}
+            L'algorithme $A^*$ est un outil de recherche de plus court chemin dans un graphe. On peut l'utiliser pour résoudre des problèmes de type puzzle, en les ramenant à des problèmes de plus court chemin.
+            Du fait que nous l'avons déjà étudier en cours nous n'allons pas développer le fonctionnement de cet algorithme. Cependant nous allons présenter certaines techniques de résolution humaine de sudoku qui nous permettront d'optimiser notre algorithme $A^*$.\\ 
     \section{Algorithme génétique}
         \subsection{Généralité}
             Les algorithmes génétiques sont des algorithme basés sur là représentation de l'évolution dans la génétique.\\
@@ -159,7 +115,7 @@
                 \item Il est agressé et passe donc en état de \textbf{Recherche de fuite}. 
             \end{itemize}~\\
 
-            Et enfin, il est en état de \textbf{Fuite}, on a les possibilités suivantes :\\
+            Et enfin, il est en état de \textbf{Fuite}, on a les possibilités suivantes :
             \begin{itemize}
                 \item Il est agressé et se retrouve donc en état de \textbf{Recherche de Fuite}
                 \item Il n'est pas agressé et est donc en état de \textbf{Recherche de Satisfaction}
