@@ -1,8 +1,17 @@
 \chapter{Conclusion}
-   
-Nous avons pu voir que l'algorithme $A^{*}$, la programmation génétique et l'éco-résolution s'appliquait à notre problème de résolution du sudoku. \\
-Mais il n'y a bien évidemment pas que ces trois méthodes qui auraient pu nous permettre de résoudre le sudoku. \\
-En effet, nous aurions pu voir ce problème comme étant un problème de coloration de graphe. Chaque case étant un nœud du graphe et étant reliée à toutes les cases de sa ligne, de sa colonne et son bloc. Chaque couleur aurait représenté un numéro. \\
-Nous aurions également pu voir la résolution de sudoku comme étant un problème de planification 
+    Nous avons pu voir que l'algorithme $A^{*}$, la programmation génétique et l'éco-résolution s'appliquait à notre problème de résolution du Sudoku. \\
 
-Enfin, il est évident que la résolution du sudoku par la programmation par contrainte est la résolution la plus facile à coder et la plus efficace.
+    Mais il n'y a bien évidemment pas que ces trois méthodes qui auraient pu nous permettre de résoudre le Sudoku. \\
+
+    Au cours de nos recherches, nous avons pu apercevoir d'autres méthodes, tantôt bien plus efficaces que celle présentées, tantôt simplement exotiques, comme:
+    \begin{itemize}
+        \item \textbf{Une coloration de graphe}, car en effet si on considère chaque case comme un sommet, chaque numéro comme une couleur, et chaque arc comme le fait que deux cases soient dans la même ligne/colonne/bloc, on voit clairement que ces deux problèmes sont similaires.
+        \item \textbf{Le système de résolution par contraintes} permet de résoudre très simplement ce problème (En 27 contraintes, précisément). Il revient au final à la coloration de graphe.
+        \item Une manière plus ludique, comme \textbf{un monde des cubes} ùu chaque numéro représente un cube essayant de se placer sur une case.
+        \item \textbf{Une méthode résolution humaine pure} aurait pu être aussi intéressante à implémenter, mais n'aurait sûrement pas abouti à la résolution de la grille dans la majorité des cas. Cependant, une telle approche permettrait de savoir si cette grille est réellement résolvable, ou si elle n'est faisable qu'à condition d'effectuer des centaines de suppositions.
+    \end{itemize}~\\
+
+    Il est clair que les méthodes les plus efficaces pour la résolution du Sudoku ne sont plus à refaire, et que faire tourner un programme de résolution par contraintes est bien plus rapide sous tous les points (En exécution, ou même en développement).\\
+
+    Cependant, il est toujours amusant de voir des algorithmes plus "vivants" comme les algorithmes génétiques ou l'éco-résolution résoudre notre grille, non sans mal, mais sûrement de manière plus assidue que si nous étions tous trois devant une grille sur le papier.
+
