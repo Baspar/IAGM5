@@ -2,6 +2,8 @@
 
 Cell::Cell():number(){//DONE
 
+
+
 }
 Cell::Cell(Number num):number(num){//DONE
 }
