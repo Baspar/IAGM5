@@ -23,5 +23,8 @@ class Cell{
         set<Cell*> getAdjacentCells() const;
         void setValue(int val);
         int getValue() const;
+	set<Cell*> getRemaining();
+	void setRemaining(set<Cell*> poss);
+	void updateRemaining();
 };
 #endif

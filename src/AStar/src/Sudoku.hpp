@@ -9,8 +9,11 @@ using namespace std;
 
 class Sudoku{
     private:
-        vector<vector<Cell>> grid;
-
+	vector<vector<Cell>> grid;
+	int G;
+	int H;
+	Sudoku parent;
+	set<Sudoku> enfants;
     public:
         Sudoku();
         Sudoku(const Sudoku& sudoku);
@@ -22,5 +25,19 @@ class Sudoku{
         void addLineWhereIs(int x, int y, set<Cell*>& cells);
         void addColumnWhereIs(int x, int y, set<Cell*>& cells);
         void addBlockWhereIs(int x, int y, set<Cell*>& cells);
+	
+	int getG();
+	void setG(int value);
+	int getH();
+	void setH(int value);
+	void updateGH();
+
+	Sudoku getParent();
+	void setParent(Sudoku par);
+	set<Sudoku> getNeighboor();
+	void setNeighboor(set<Sudoku> list);
+
+	bool checkDouble();
+	bool checkComplete();
 };
 #endif

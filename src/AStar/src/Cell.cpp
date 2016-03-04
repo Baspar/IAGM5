@@ -30,4 +30,16 @@ void Cell::setValue(int val){
 int Cell::getValue() const{
     return number.getValue();
 }
-
+set<Cell*> Cell::getRemaining(){
+	return remainingVal;
+}
+void Cell::setRemaining(set<Cell*> poss){
+	remainingVal=poss;
+}
+void Cell::updateRemaining(){//TODO
+	for(int i=0; i<getAdjacentCells().size(); i++){
+		if(remainingVal.find(getAdjacentCells()[i].getValue())!=remainingVal::end){
+			remainingVal.erase(remainingVal.find(getAdjacentCelss()[i].getValue()));
+		}
+	}
+}

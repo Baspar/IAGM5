@@ -55,3 +55,67 @@ void Sudoku::addBlockWhereIs(int x, int y, set<Cell*>& cells){//DONE
             if(xCell!=x && yCell!=y)
                 cells.insert(&(grid[xCell][yCell]));
 }
+int Sudoku::getG(){//DONE
+	return G;
+}
+void Sudoku::setG(int value){//DONE
+	G = value;
+}
+int Sudoku::getH(){//DONE
+	return H;
+}
+void Sudoku::setH(int value){//DONE
+	H = value;
+}
+void Sudoku::updateGH(){ //TODO
+	setG(0);
+	setH(0);
+	for(int i=0; i<9; i++){
+		for(int j=0; j<9; j++){
+			if(grid[i][j].getNumber().getValue()!=0){
+				setG(getG()+1);
+			} else {
+				setH(getH()+grid[i][j].remainingVal.size());
+			}
+		}
+	}
+}
+Sudoku Sudoku::getParent(){//DONE
+	return parent;
+}
+void Sudoku::setParent(Sudoku par){//DONE
+	parent=par;
+}
+set<Sudoku> Sudoku::getNeighboor(){//DONE
+	return enfants;
+}
+void Sudoku::setNeighboor(set<Sudoku> list){//DONE
+	enfants=list;
+}
+
+bool Sudoku::checkDouble(){//TODO
+	for(int i=0; i<9; i++){
+		for(int j=0; j<9; j++){
+			if(grid[i][j].getValue()!=0){
+				for(int k=0; k<grid[i][j].getAdjacentCells().size(); k++) {
+					if(grig[i,j].getValue()==grid[i][j].adjacentCells[k].getValue()){
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false;
+}
+bool Sudoku::checkComplete(){//TODO
+	bool tmp = true;
+	for(int i=0; i <9; i++){
+		for(int j=0; j<9; j++){
+			if(grid[i][j].getValue()==0) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+};
