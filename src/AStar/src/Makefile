@@ -1,4 +1,4 @@
-GPP=g++ --std=c++11
+GPP=g++ --std=c++11 -fpermissive
 all: Cell.o Sudoku.o Number.o
 	$(GPP) main.cpp $^ -o main
 
