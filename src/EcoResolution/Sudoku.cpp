@@ -1,4 +1,5 @@
 #include "Sudoku.hpp"
+#include <time.h>
 
 Sudoku::Sudoku(){//DONE
     grid.resize(9);
@@ -40,6 +41,31 @@ int Sudoku::getValue(int x, int y) const{//DONE
 Cell Sudoku::getCell(int x, int y) const{//DONE
     return grid[x][y];
 }
-
+void Sudoku::remplir(){
+    srand (time(NULL));
+    for(int i=0; i<9;i++){
+        set<int> valeurs;
+        for(int j=1; j<10; j++)
+            valeurs.insert(j);
+        for(int j=0; j<9; j++){
+            if(grid[i][j].getNumber().getValue() != 0){
+                int nb= grid[i][j].getNumber().getValue();
+                valeurs.erase(nb);
+            }
+        }
+        for(int j=0; j<9; j++){
+            if(grid[i][j].getNumber().getValue() == 0){
+                int alea=rand() %(valeurs.size());
+                set<int>::const_iterator it=valeurs.begin();
+                for(int k=0; k<alea; k++)
+                    it++;
+                int nb=*it;
+                valeurs.erase(nb);
+                Number n=Number(nb, CellType::GUESS);
+                grid[i][j].setNumber(n);
+            }
+        }
+    }
+}
 
 
