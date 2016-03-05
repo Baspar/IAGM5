@@ -43,7 +43,7 @@ Cell Sudoku::getCell(int x, int y) const{//DONE
 }
 void Sudoku::remplir(){
     srand (time(NULL));
-    for(int i=0; i<9;i++){
+ /*   for(int i=0; i<9;i++){
         set<int> valeurs;
         for(int j=1; j<10; j++)
             valeurs.insert(j);
@@ -63,6 +63,35 @@ void Sudoku::remplir(){
                 valeurs.erase(nb);
                 Number n=Number(nb, CellType::GUESS);
                 grid[i][j].setNumber(n);
+            }
+        }
+    }*/
+    for(int i=0; i<3;i++){
+        for(int j=0;j<3;j++){
+            set<int> valeurs;
+            for(int l=1; l<10; l++)
+                valeurs.insert(l);
+            for(int k=0;k<3;k++){    
+                for(int m=0; m<3;m++){
+                    if(grid[i*3+k][j*3+m].getValue() != 0){
+                        int nb=grid[i*3+k][j*3+m].getValue();
+                        valeurs.erase(nb);
+                    }
+                }
+            }
+            for(int k=0;k<3;k++){    
+                for(int m=0; m<3;m++){
+                    if(grid[i*3+k][j*3+m].getValue() == 0){
+                        int alea=rand() %(valeurs.size());
+                        set<int>::const_iterator it=valeurs.begin();
+                        for(int l=0; l<alea; l++)
+                            it++;
+                        int nb=*it;
+                        valeurs.erase(nb);
+                        Number n=Number(nb, CellType::GUESS);
+                        grid[i*3+k][j*3+m].setNumber(n);
+                    }
+                }
             }
         }
     }
