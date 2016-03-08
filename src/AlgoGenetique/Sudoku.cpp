@@ -129,7 +129,7 @@ void Sudoku::remplir(){//DONE
     int Sudoku::scoreLigne(int i){//DONE
         set<int> chiffreMis;
         for(int j=0; j<9; j++)
-            chiffreMis.insert(grid[i][j].getValue());
+            chiffreMis.insert(grid[j][i].getValue());
         return chiffreMis.size();
     }
     int Sudoku::scoreCols(int i){//DONE
@@ -141,15 +141,45 @@ void Sudoku::remplir(){//DONE
     int Sudoku::scoreCol(int i){//DONE
         set<int> chiffreMis;
         for(int j=0; j<9; j++)
-            chiffreMis.insert(grid[j][i].getValue());
+            chiffreMis.insert(grid[i][j].getValue());
         return chiffreMis.size();
     }
-    pair<Sudoku,Sudoku> Sudoku::operator*(const Sudoku& sudo) const{//DONE
+    pair<Sudoku,Sudoku> Sudoku::operator*(const Sudoku& sudo) const{//WIP
         Sudoku maxLine(sudo);
         Sudoku maxCol(sudo);
 
         //Creation maxLine
+        for(int j=0; j<3; j++){
+            int score1 = sudo.scoreLignes(j);
+            int score2 = scoreLignes(j);
+            Sudoku* goodSud=nullptr;
+            if(score1>score2){
+                goodSud=&sudo;
+            } else {
+                goodSud=this;
+            }
+            
+            for(int dj=0; dj<3; dj++)
+                for(int i=0; i<9; i++)
+                    if(maxLine[i][j+dj].getType()==CellType::GUESS)
+                        maxLine[i][j+dj].setValue(goodSud->getCel(i, j+dj).getValue());
+        }
+        
+        //Creation maxCol
         for(int i=0; i<3; i++){
+            int score1 = sudo.scoreCols(i);
+            int score2 = scoreCols(i);
+            Sudoku* goodSud=nullptr;
+            if(score1>score2){
+                goodSud=&sudo;
+            } else {
+                goodSud=this;
+            }
+            
+            for(int di=0; di<3; di++)
+                for(int j=0; j<9; j++)
+                    if(maxCol[i+di][j].getType()==CellType::GUESS)
+                        maxCol[i+di][j].setValue(goodSud->getCel(i+di, j).getValue());
         }
 
         return make_pair(maxLine, maxCol);
