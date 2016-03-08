@@ -9,8 +9,8 @@ Sudoku::Sudoku(){//DONE
     if(fichier) // si l'ouverture a fonctionné
     {
         for(int i=0; i<9; i++){
-            string contenu; 
-            getline(fichier, contenu); 
+            string contenu;
+            getline(fichier, contenu);
             for(int j=0; j<9;j++){
                 int test=(int) (contenu[j]-48);
                 Number n;
@@ -22,7 +22,7 @@ Sudoku::Sudoku(){//DONE
             }
         }
         fichier.close();
-    } 
+    }
 }
 Sudoku::Sudoku(const Sudoku& sudoku){//DONE
     grid.resize(9);
@@ -43,35 +43,12 @@ Cell Sudoku::getCell(int x, int y) const{//DONE
 }
 void Sudoku::remplir(){
     srand (time(NULL));
- /*   for(int i=0; i<9;i++){
-        set<int> valeurs;
-        for(int j=1; j<10; j++)
-            valeurs.insert(j);
-        for(int j=0; j<9; j++){
-            if(grid[i][j].getNumber().getValue() != 0){
-                int nb= grid[i][j].getNumber().getValue();
-                valeurs.erase(nb);
-            }
-        }
-        for(int j=0; j<9; j++){
-            if(grid[i][j].getNumber().getValue() == 0){
-                int alea=rand() %(valeurs.size());
-                set<int>::const_iterator it=valeurs.begin();
-                for(int k=0; k<alea; k++)
-                    it++;
-                int nb=*it;
-                valeurs.erase(nb);
-                Number n=Number(nb, CellType::GUESS);
-                grid[i][j].setNumber(n);
-            }
-        }
-    }*/
     for(int i=0; i<3;i++){
         for(int j=0;j<3;j++){
             set<int> valeurs;
             for(int l=1; l<10; l++)
                 valeurs.insert(l);
-            for(int k=0;k<3;k++){    
+            for(int k=0;k<3;k++){
                 for(int m=0; m<3;m++){
                     if(grid[i*3+k][j*3+m].getValue() != 0){
                         int nb=grid[i*3+k][j*3+m].getValue();
@@ -79,7 +56,7 @@ void Sudoku::remplir(){
                     }
                 }
             }
-            for(int k=0;k<3;k++){    
+            for(int k=0;k<3;k++){
                 for(int m=0; m<3;m++){
                     if(grid[i*3+k][j*3+m].getValue() == 0){
                         int alea=rand() %(valeurs.size());
@@ -88,8 +65,7 @@ void Sudoku::remplir(){
                             it++;
                         int nb=*it;
                         valeurs.erase(nb);
-                        Number n=Number(nb, CellType::GUESS);
-                        grid[i*3+k][j*3+m].setNumber(n);
+                        grid[i*3+k][j*3+m].setValue(nb);
                     }
                 }
             }
