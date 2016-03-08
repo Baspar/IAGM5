@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Cell{
+class Cell: public EcoAgent{
     private:
         Number number;
     public:
