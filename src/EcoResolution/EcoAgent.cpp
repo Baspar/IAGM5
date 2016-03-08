@@ -1,4 +1,5 @@
 #include "EcoAgent.hpp"
+#include <iostream> 
 
 bool EcoAgent::getAgresse(){//DONE
     return agresse;
@@ -46,7 +47,16 @@ bool EcoAgent::getGene(){//DONE
  
  
  void EcoAgent::faireFuite(EcoAgent* e){//WIP
- 
- 
+    if(etat==Etat::SATISFACTION)
+        etat=Etat::RECHERCHE_FUITE;
+    EcoAgent* f=trouverPlacePourFuir(e);  
+    if(f==NULL)
+        cout << "pas de place pour fuire" << endl;
+    else {
+        //MANQUE PEUT ETRE UNE BOUCLE
+        faireFuite(f);
+    }      
  }
+ 
+ 
  

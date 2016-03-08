@@ -26,7 +26,7 @@ class EcoAgent{
         virtual void faireSatisfaction()=0;   //////////REDEFINIE cellule
         virtual void agresser(EcoAgent* e)=0;    /////REDEFINIE ????????????
         void fuir(EcoAgent* e);      
-        virtual EcoAgent* trouverPlacePourFuir()=0;         ////////////REDEFINIE cellule
+        virtual EcoAgent* trouverPlacePourFuir(EcoAgent* e)=0;         ////////////REDEFINIE cellule
         virtual void faireFuite(EcoAgent* e)=0;             ////////REFEINIE cellule
 };
 #endif
