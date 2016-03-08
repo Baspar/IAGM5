@@ -18,5 +18,6 @@ class Sudoku{
         int getValue(int x, int y) const;
         Cell getCell(int x, int y) const;
         void remplir();
+        void afficher() const;
 };
 #endif
