@@ -11,8 +11,8 @@ using namespace std;
 class Sudoku{
     private:
         vector<vector<Cell>> grid;
-        int scoreLigne(int i);
-        int scoreCol(int i);
+        int scoreLigne(int i) const;
+        int scoreCol(int i) const;
     public:
         Sudoku();
         Sudoku(const Sudoku& sudoku);
@@ -24,7 +24,7 @@ class Sudoku{
         int fitness();
         pair<Sudoku, Sudoku> operator*(const Sudoku& sudo) const;
         void afficher() const;
-        int scoreLignes(int i);
-        int scoreCols(int i);
+        int scoreLignes(int i) const;
+        int scoreCols(int i) const;
 };
 #endif

@@ -3,6 +3,7 @@
 #include "Sudoku.hpp"
 #include "Cell.hpp"
 
+
 using namespace std;
 
 int main(){
@@ -17,4 +18,8 @@ int main(){
     cout << endl << sud.fitness() <<endl;
     sudd.afficher();
     cout << endl << sudd.fitness() <<endl;
+    
+    pair<Sudoku, Sudoku> sudddd = sud*sudd;
+    sudddd.first.afficher();
+    sudddd.second.afficher();
 }

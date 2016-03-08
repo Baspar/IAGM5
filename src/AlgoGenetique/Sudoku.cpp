@@ -120,39 +120,39 @@ void Sudoku::remplir(){//DONE
 
         return fitness;
     }
-    int Sudoku::scoreLignes(int i){//DONE
+    int Sudoku::scoreLignes(int i) const{//DONE
         int out=0;
         for(int di=0; di<3; di++)
             out+=scoreLigne(i*3+di);
         return out;
     }
-    int Sudoku::scoreLigne(int i){//DONE
+    int Sudoku::scoreLigne(int i)const{//DONE
         set<int> chiffreMis;
         for(int j=0; j<9; j++)
             chiffreMis.insert(grid[j][i].getValue());
         return chiffreMis.size();
     }
-    int Sudoku::scoreCols(int i){//DONE
+    int Sudoku::scoreCols(int i)const{//DONE
         int out=0;
         for(int di=0; di<3; di++)
             out+=scoreCol(i*3+di);
         return out;
     }
-    int Sudoku::scoreCol(int i){//DONE
+    int Sudoku::scoreCol(int i)const{//DONE
         set<int> chiffreMis;
         for(int j=0; j<9; j++)
             chiffreMis.insert(grid[i][j].getValue());
         return chiffreMis.size();
     }
     pair<Sudoku,Sudoku> Sudoku::operator*(const Sudoku& sudo) const{//WIP
-        Sudoku maxLine(sudo);
-        Sudoku maxCol(sudo);
+        Sudoku maxLine(sudo, false);
+        Sudoku maxCol(sudo, false);
 
         //Creation maxLine
         for(int j=0; j<3; j++){
             int score1 = sudo.scoreLignes(j);
             int score2 = scoreLignes(j);
-            Sudoku* goodSud=nullptr;
+            const Sudoku* goodSud=nullptr;
             if(score1>score2){
                 goodSud=&sudo;
             } else {
@@ -161,15 +161,16 @@ void Sudoku::remplir(){//DONE
             
             for(int dj=0; dj<3; dj++)
                 for(int i=0; i<9; i++)
-                    if(maxLine[i][j+dj].getType()==CellType::GUESS)
-                        maxLine[i][j+dj].setValue(goodSud->getCel(i, j+dj).getValue());
+                    if(maxLine.getCell(i,j*3+dj).getType()==CellType::GUESS){
+                        maxLine.setValue(i, j*3+dj, goodSud->getCell(i, j*3+dj).getValue());
+                    }    
         }
         
         //Creation maxCol
         for(int i=0; i<3; i++){
             int score1 = sudo.scoreCols(i);
             int score2 = scoreCols(i);
-            Sudoku* goodSud=nullptr;
+            const Sudoku* goodSud=nullptr;
             if(score1>score2){
                 goodSud=&sudo;
             } else {
@@ -178,8 +179,8 @@ void Sudoku::remplir(){//DONE
             
             for(int di=0; di<3; di++)
                 for(int j=0; j<9; j++)
-                    if(maxCol[i+di][j].getType()==CellType::GUESS)
-                        maxCol[i+di][j].setValue(goodSud->getCel(i+di, j).getValue());
+                    if(maxCol.getCell(i*3+di, j).getType()==CellType::GUESS)
+                        maxCol.setValue(i*3+di, j,goodSud->getCell(i*3+di, j).getValue());
         }
 
         return make_pair(maxLine, maxCol);
