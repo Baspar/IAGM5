@@ -10,7 +10,18 @@ using namespace std;
 int main(){
     srand(time(nullptr));
 
-    Sudokus gen(10);
-    for(int i=0; i<gen.getTailleGen(); i++)
-        gen.getIndividu(i).afficher();
+    Sudokus oldGen(100, 100, 100);
+
+    //while(true){
+    for(int i=0; i<50; i++){
+        cout << "["<< oldGen.getTrueTailleGen() << "]" << oldGen.worstFitness() << " < " << oldGen.avgFitness() << " < " << oldGen.bestFitness() << endl;
+        oldGen.selection();
+        oldGen.mutate();
+        oldGen.shuffle();
+
+        Sudokus newGen(oldGen);
+        oldGen=newGen;
+    }
+
+    oldGen.getIndividu(oldGen.getTailleGen()-1).afficher();
 }

@@ -1,12 +1,15 @@
 #include "Sudoku.hpp"
 
+#include <algorithm>
 #include <iostream>
+#include <vector>
 #include <set>
 #include <time.h>
 
 using namespace std;
 
-Sudoku::Sudoku(){//DONE
+Sudoku::Sudoku(int tm){//DONE
+    tauxMutation=tm;
     grid.resize(9);
     for(int i=0; i<9; i++)
         grid[i].resize(9, Cell());
@@ -30,12 +33,16 @@ Sudoku::Sudoku(){//DONE
     }
 }
 Sudoku::Sudoku(const Sudoku& sudoku){//DONE
+    tauxMutation=sudoku.getTauxMutation();
     grid.resize(9);
     for(int i=0; i<9; i++)
         for(int j=0; j<9; j++){
             const Cell cellTmp=sudoku.getCell(i, j);
             grid[i].push_back(Cell(cellTmp));
         }
+}
+int Sudoku::getTauxMutation()const{//DONE
+    return tauxMutation;
 }
 Sudoku::Sudoku(const Sudoku& sudoku, const bool& copyGuess){//DONE
     grid.resize(9);
@@ -91,7 +98,7 @@ void Sudoku::remplir(){//DONE
         }
     }
 }
-    int Sudoku::fitness(){//DONE
+    int Sudoku::fitness()const{//DONE
         int fitness=0;
         //fitness Lignes
         for(int i=0; i<9; i++){
@@ -233,5 +240,28 @@ void Sudoku::remplir(){//DONE
             else
                 cout << " ";
         }
-        cout << endl<< endl;
+        cout << " " << fitness() << endl<< endl;
     }
+void Sudoku::mutate(){//DONE
+    for(int i=0; i<3; i++)
+        for(int j=0; j<3; j++){
+            if(rand()%100 < tauxMutation){
+                //List every guess cell
+                vector<pair<int, int>> guesses;
+                for(int di=0; di<3; di++)
+                    for(int dj=0; dj<3; dj++)
+                        if(grid[i*3+di][j*3+dj].getType() == CellType::GUESS)
+                            guesses.push_back(make_pair(i*3+di, j*3+dj));
+
+                //If we can swap at least 2 guesses
+                if(guesses.size()>2){
+                    random_shuffle(guesses.begin(), guesses.end());
+                    int val0 = getValue(guesses[0].first, guesses[0].second);
+                    int val1 = getValue(guesses[1].first, guesses[1].second);
+
+                    setValue(guesses[0].first, guesses[0].second, val1);
+                    setValue(guesses[1].first, guesses[1].second, val0);
+                }
+            }
+        }
+}
