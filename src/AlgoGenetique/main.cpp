@@ -23,5 +23,6 @@ int main(){
         oldGen=newGen;
     }
 
-    oldGen.getIndividu(oldGen.getTailleGen()-1).afficher();
+    for(int i=0; i<oldGen.getTailleGen(); i++)
+        oldGen.getIndividu(i).afficher();
 }

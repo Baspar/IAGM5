@@ -101,29 +101,12 @@ void Sudoku::remplir(){//DONE
     int Sudoku::fitness()const{//DONE
         int fitness=0;
         //fitness Lignes
-        for(int i=0; i<9; i++){
-            set<int> chiffreMis;
-            for(int j=0; j<9; j++)
-                chiffreMis.insert(grid[i][j].getValue());
-            fitness += chiffreMis.size();
-        }
+        for(int i=0; i<3; i++)
+            fitness+=scoreLignes(i);
+
         //fitness Colonne
-        for(int i=0; i<9; i++){
-            set<int> chiffreMis;
-            for(int j=0; j<9; j++)
-                chiffreMis.insert(grid[j][i].getValue());
-            fitness += chiffreMis.size();
-        }
-        //fitness Bloc
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                set<int> chiffreMis;
-                for(int di=0; di<3; di++)
-                    for(int dj=0; dj<3; dj++)
-                        chiffreMis.insert(grid[i*3+di][j*3+dj].getValue());
-                fitness += chiffreMis.size();
-            }
-        }
+        for(int i=0; i<3; i++)
+            fitness+=scoreCols(i);
 
         return fitness;
     }
@@ -138,6 +121,14 @@ void Sudoku::remplir(){//DONE
         for(int j=0; j<9; j++)
             if(grid[i][j].getValue()!=0)
                 chiffreMis.insert(grid[i][j].getValue());
+        //if(chiffreMis.size() < 5)
+            //return chiffreMis.size();
+        //else if (chiffreMis.size() < 7)
+            //return 2*chiffreMis.size();
+        //else if (chiffreMis.size() < 9)
+            //return 3*chiffreMis.size();
+        //else
+            //return 4*chiffreMis.size();
         return chiffreMis.size();
     }
     int Sudoku::scoreCols(int i)const{//DONE
@@ -162,7 +153,7 @@ void Sudoku::remplir(){//DONE
             int score1 = sudo.scoreLignes(j);
             int score2 = scoreLignes(j);
             const Sudoku* goodSud=nullptr;
-            if(score1>score2){
+            if(score1 >= score2){
                 goodSud=&sudo;
             } else {
                 goodSud=this;
@@ -180,7 +171,7 @@ void Sudoku::remplir(){//DONE
             int score1 = sudo.scoreLignes(i);
             int score2 = scoreLignes(i);
             const Sudoku* goodSud=nullptr;
-            if(score1>score2){
+            if(score1 >= score2){
                 goodSud=&sudo;
             } else {
                 goodSud=this;
