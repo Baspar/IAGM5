@@ -158,14 +158,14 @@ void Sudoku::remplir(){//DONE
             } else {
                 goodSud=this;
             }
-            
+
             for(int dj=0; dj<3; dj++)
                 for(int i=0; i<9; i++)
                     if(maxLine.getCell(i,j*3+dj).getType()==CellType::GUESS){
                         maxLine.setValue(i, j*3+dj, goodSud->getCell(i, j*3+dj).getValue());
-                    }    
+                    }
         }
-        
+
         //Creation maxCol
         for(int i=0; i<3; i++){
             int score1 = sudo.scoreCols(i);
@@ -176,7 +176,7 @@ void Sudoku::remplir(){//DONE
             } else {
                 goodSud=this;
             }
-            
+
             for(int di=0; di<3; di++)
                 for(int j=0; j<9; j++)
                     if(maxCol.getCell(i*3+di, j).getType()==CellType::GUESS)
@@ -211,6 +211,7 @@ void Sudoku::remplir(){//DONE
                 else
                     cout << " ";
             }
+            cout << " " << scoreLigne(i);
             cout << endl;
         }
         cout << "+";
@@ -222,4 +223,13 @@ void Sudoku::remplir(){//DONE
                 cout << "-";
         }
         cout << endl;
+        cout << "|";
+        for(int j=0; j<9; j++){
+            cout << " " << scoreCol(j) << " ";
+            if(j%3==2)
+                cout << "|";
+            else
+                cout << " ";
+        }
+        cout << endl<< endl;
     }
