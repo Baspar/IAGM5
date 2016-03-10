@@ -234,25 +234,24 @@ void Sudoku::remplir(){//DONE
         cout << " " << fitness() << endl<< endl;
     }
 void Sudoku::mutate(){//DONE
-    for(int i=0; i<3; i++)
-        for(int j=0; j<3; j++){
-            if(rand()%100 < tauxMutation){
-                //List every guess cell
-                vector<pair<int, int>> guesses;
-                for(int di=0; di<3; di++)
-                    for(int dj=0; dj<3; dj++)
-                        if(grid[i*3+di][j*3+dj].getType() == CellType::GUESS)
-                            guesses.push_back(make_pair(i*3+di, j*3+dj));
+    int i = rand()%3;
+    int j = rand()%3;
+    if(rand()%100 < tauxMutation){
+        //List every guess cell
+        vector<pair<int, int>> guesses;
+        for(int di=0; di<3; di++)
+            for(int dj=0; dj<3; dj++)
+                if(grid[i*3+di][j*3+dj].getType() == CellType::GUESS)
+                    guesses.push_back(make_pair(i*3+di, j*3+dj));
 
-                //If we can swap at least 2 guesses
-                if(guesses.size()>2){
-                    random_shuffle(guesses.begin(), guesses.end());
-                    int val0 = getValue(guesses[0].first, guesses[0].second);
-                    int val1 = getValue(guesses[1].first, guesses[1].second);
+        //If we can swap at least 2 guesses
+        if(guesses.size()>2){
+            random_shuffle(guesses.begin(), guesses.end());
+            int val0 = getValue(guesses[0].first, guesses[0].second);
+            int val1 = getValue(guesses[1].first, guesses[1].second);
 
-                    setValue(guesses[0].first, guesses[0].second, val1);
-                    setValue(guesses[1].first, guesses[1].second, val0);
-                }
-            }
+            setValue(guesses[0].first, guesses[0].second, val1);
+            setValue(guesses[1].first, guesses[1].second, val0);
         }
+    }
 }
