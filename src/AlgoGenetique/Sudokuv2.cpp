@@ -121,15 +121,15 @@ void Sudoku::remplir(){//DONE
         for(int j=0; j<9; j++)
             if(grid[i][j].getValue()!=0)
                 chiffreMis.insert(grid[i][j].getValue());
-        //if(chiffreMis.size() < 5)
-            //return chiffreMis.size();
-        //else if (chiffreMis.size() < 7)
-            //return 2*chiffreMis.size();
-        //else if (chiffreMis.size() < 9)
-            //return 3*chiffreMis.size();
-        //else
-            //return 4*chiffreMis.size();
-        return chiffreMis.size();
+        if(chiffreMis.size() < 5)
+            return chiffreMis.size();
+        else if (chiffreMis.size() < 7)
+            return 2*chiffreMis.size();
+        else if (chiffreMis.size() < 9)
+            return 3*chiffreMis.size();
+        else
+            return 4*chiffreMis.size();
+        //return chiffreMis.size();
     }
     int Sudoku::scoreCols(int i)const{//DONE
         int out=0;
@@ -142,7 +142,15 @@ void Sudoku::remplir(){//DONE
         for(int j=0; j<9; j++)
             if(grid[j][i].getValue()!=0)
                 chiffreMis.insert(grid[j][i].getValue());
-        return chiffreMis.size();
+        if(chiffreMis.size() < 5)
+            return chiffreMis.size();
+        else if (chiffreMis.size() < 7)
+            return 2*chiffreMis.size();
+        else if (chiffreMis.size() < 9)
+            return 3*chiffreMis.size();
+        else
+            return 4*chiffreMis.size();
+        //return chiffreMis.size();
     }
     pair<Sudoku,Sudoku> Sudoku::operator*(const Sudoku& sudo) const{//DONE
         Sudoku maxLine(sudo, false);

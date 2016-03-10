@@ -51,8 +51,28 @@ int Sudokus::getTailleGen()const{//DONE
     return tailleGen;
 }
 void Sudokus::selection(){//DONE
-    for(int i=0; i<tailleGen/2; i++)
-        generation.erase(generation.begin());
+    vector<Sudoku> tmp;
+    while(tmp.size() != tailleGen/2){
+        int sum = 0;
+        for(Sudoku sud : generation)
+            sum += sud.fitness();
+
+        shuffle();
+        int random = rand()%sum;
+
+        int i=0;
+        while(random-generation[i].fitness() > 0){
+            random-=generation[i].fitness();
+            i++;
+        }
+
+        tmp.push_back(generation[i]);
+        generation.erase(generation.begin()+i);
+    }
+
+    generation.clear();
+    for(Sudoku sud : tmp)
+        insert(sud);
 }
 void Sudokus::shuffle(){//DONE
     random_shuffle(generation.begin(), generation.end());
