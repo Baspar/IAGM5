@@ -1,9 +1,9 @@
-#ifndef ASTAR_HPP
-#define ASTAR_HPP
+//#ifndef ASTAR_HPP
+//#define ASTAR_HPP
 
 #include <iostream>
-#include <queue>
 #include <vector>
+#include <queue>
 #include "Sudoku.hpp"
 
 using namespace std;
@@ -12,12 +12,11 @@ class AStar{
 	private:
 	       	Sudoku current;
 		set<Sudoku> closeList;
-		
-		std::priority_queue<Sudoku,std::vector<int>, compare> openList;
+	//	set<Sudoku> openList;
+
 	public:
-		Sudoku compare(Suoku a, Sudoku b);
 		bool developSudoku();
-		//Sudoku FindLowestScore();
+	//	Sudoku FindLowestScore();
 		void CreateNeighboor(Sudoku parent);
-}
+};
 

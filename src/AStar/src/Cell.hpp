@@ -16,15 +16,15 @@ class Cell{
         Cell();
         Cell(Number number);
         Cell(const Cell& cell);
-        void setNumber(Number num);
+        void setNumber(const Number& num);
         Number getNumber() const;
         CellType getType() const;
         void setAdjacentCells(const set<Cell*> cells);
         set<Cell*> getAdjacentCells() const;
         void setValue(int val);
         int getValue() const;
-	set<Cell*> getRemaining();
-	void setRemaining(set<Cell*> poss);
-	void updateRemaining();
+        set<int> getRemaining();
+        void setRemaining(set<int> poss);
+        void updateRemaining();
 };
 #endif

@@ -1,5 +1,7 @@
 #include "Sudoku.hpp"
-
+bool comp(Sudoku* a, Sudoku* b){
+      return (a->getG()+a->getH()<= b->getG() + b->getH());
+}
 Sudoku::Sudoku(){//DONE
     grid.resize(9);
     for(int i=0; i<9; i++)
@@ -75,15 +77,15 @@ void Sudoku::updateGH(){ //TODO
 			if(grid[i][j].getNumber().getValue()!=0){
 				setG(getG()+1);
 			} else {
-				setH(getH()+grid[i][j].remainingVal.size());
+				setH(getH()+grid[i][j].getRemaining().size());
 			}
 		}
 	}
 }
-Sudoku Sudoku::getParent(){//DONE
+Sudoku* Sudoku::getParent(){//DONE
 	return parent;
 }
-void Sudoku::setParent(Sudoku par){//DONE
+void Sudoku::setParent(Sudoku* par){//DONE
 	parent=par;
 }
 set<Sudoku> Sudoku::getNeighboor(){//DONE
@@ -97,11 +99,9 @@ bool Sudoku::checkDouble(){//TODO
 	for(int i=0; i<9; i++){
 		for(int j=0; j<9; j++){
 			if(grid[i][j].getValue()!=0){
-				for(int k=0; k<grid[i][j].getAdjacentCells().size(); k++) {
-					if(grig[i,j].getValue()==grid[i][j].adjacentCells[k].getValue()){
+                for(Cell* cell : grid[i][j].getAdjacentCells())
+                    if(grid[i][j].getValue()==cell->getValue())
 						return true;
-					}
-				}
 			}
 		}
 	}
@@ -118,4 +118,3 @@ bool Sudoku::checkComplete(){//TODO
 	}
 	return true;
 }
-};
