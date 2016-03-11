@@ -1,10 +1,10 @@
 GPP=g++ --std=c++11 -fpermissive
 
 v2: Cell.o Sudokuv2.o Number.o Sudokusv2.o
-	$(GPP) main.cpp $^ -o main
+	$(GPP) mainv2.cpp $^ -o main
 
 v1: Cell.o Sudokuv1.o Number.o Sudokusv1.o
-	$(GPP) main.cpp $^ -o main
+	$(GPP) mainv1.cpp $^ -o main
 
 %.o: %.cpp
 	$(GPP) -c $<

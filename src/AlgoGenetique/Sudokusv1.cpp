@@ -17,7 +17,7 @@ Sudokus::Sudokus(const Sudokus& oldGen){//DONE
     tauxCroisement=oldGen.getTauxCroisement();
     tailleGen = oldGen.getTailleGen();
 
-    for(int i=0; i<tailleGen/2-1; i+=2){
+    for(int i=0; i<tailleGen/2-1; i++){
         Sudoku indiv1 = oldGen.getIndividu(i);
         Sudoku indiv2 = oldGen.getIndividu(i+1);
         if(rand()%100<tauxCroisement){
@@ -29,14 +29,12 @@ Sudokus::Sudokus(const Sudokus& oldGen){//DONE
             insert(indiv2);
         }
     }
-    for(int i=0; i<tailleGen/2; i++)
-        insert(oldGen.getIndividu(i));
 
-    //Sudoku indiv1 = oldGen.getIndividu(0);
-    //Sudoku indiv2 = oldGen.getIndividu(tailleGen/2-1);
-    //pair<Sudoku, Sudoku> children = indiv1*indiv2;
-    //insert(children.first);
-    //insert(children.second);
+    Sudoku indiv1 = oldGen.getIndividu(0);
+    Sudoku indiv2 = oldGen.getIndividu(tailleGen/2-1);
+    pair<Sudoku, Sudoku> children = indiv1*indiv2;
+    insert(children.first);
+    insert(children.second);
 }
 int Sudokus::getTauxMutation()const{//DONE
     return tauxMutation;
