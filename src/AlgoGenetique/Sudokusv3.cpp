@@ -49,8 +49,74 @@ int Sudokus::getTailleGen()const{//DONE
     return tailleGen;
 }
 void Sudokus::selection(){//DONE
-    for(int i=0; i<tailleGen/2; i++)
-        generation.erase(generation.begin());
+    vector<Sudoku> newGen;
+
+    int sizeTournament=3;
+
+    while(newGen.size() != generation.size()){
+        shuffle();
+        vector<Sudoku> tournament;
+
+        for(int i=0; i<sizeTournament; i++){
+            int fitness = generation[i].fitness();
+            vector<Sudoku>::iterator it = tournament.begin();
+            while(it < tournament.end()){
+                if(it->fitness() >= fitness){
+                    tournament.insert(it, generation[i]);
+                    break;
+                }
+                it++;
+            }
+            if(it==tournament.end())
+                tournament.insert(it, generation[i]);
+        }
+
+        if(rand()%100 < tauxCroisement){
+            pair<Sudoku, Sudoku> children = tournament[sizeTournament-1]*tournament[sizeTournament-2];
+            int fitness = children.first.fitness();
+            vector<Sudoku>::iterator it = newGen.begin();
+            while(it < newGen.end()){
+                if(it->fitness() >= fitness){
+                    newGen.insert(it, children.first);
+                    break;
+                }
+                it++;
+            }
+            if(it==newGen.end())
+                newGen.insert(it, children.first);
+
+            fitness = children.second.fitness();
+            it = newGen.begin();
+            while(it < newGen.end()){
+                if(it->fitness() >= fitness){
+                    newGen.insert(it, children.second);
+                    break;
+                }
+                it++;
+            }
+            if(it==newGen.end())
+                newGen.insert(it, children.second);
+        }else{
+            if(rand()%100 < tauxMutation)
+                tournament[sizeTournament-1].mutate();
+
+            int fitness = tournament[sizeTournament-1].fitness();
+            vector<Sudoku>::iterator it = newGen.begin();
+            while(it < newGen.end()){
+                if(it->fitness() >= fitness){
+                    newGen.insert(it, tournament[sizeTournament-1]);
+                    break;
+                }
+                it++;
+            }
+            if(it==newGen.end())
+                newGen.insert(it, tournament[sizeTournament-1]);
+        }
+    }
+
+    generation.clear();
+    for(Sudoku sud : newGen)
+        insert(sud);
 }
 void Sudokus::shuffle(){//DONE
     random_shuffle(generation.begin(), generation.end());

@@ -15,18 +15,6 @@ int main(){
     int mem = oldGen.bestFitness();
 
     while(oldGen.bestFitness() < 648){
-        /*if(bestFit == mem){
-            cpt++;
-            if(cpt>1500){
-                cpt=0;
-                oldGen.getIndividu(99).afficher();
-                oldGen=Sudokus(100, 100, 10);
-                cout << endl << "RESET" << endl << endl;
-            }
-        } else {
-            cpt=0;
-            mem=bestFit;
-        }*/
         int bestFit = oldGen.bestFitness();
         oldGen.selection();
         oldGen.shuffle();
@@ -35,7 +23,7 @@ int main(){
         newGen.mutate();
         if(newGen.bestFitness() > bestFit){
             oldGen=newGen;
-            //oldGen.getIndividu(99).afficher();
+            oldGen.getIndividu(99).afficher();
         }
         cout << cpt << "> ["<< oldGen.getTrueTailleGen() << "]" << oldGen.worstFitness() << " < " << oldGen.avgFitness() << " < " << oldGen.bestFitness() << endl;
     }
