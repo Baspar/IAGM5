@@ -1,7 +1,9 @@
 #include "Sudoku.hpp"
-bool comp(Sudoku* a, Sudoku* b){
-      return (a->getG()+a->getH()<= b->getG() + b->getH());
+
+bool operator< (const Sudoku b) {
+	return(this.getG()+this.getH() <= g.getG()+ b.getH());
 }
+
 Sudoku::Sudoku(){//DONE
     grid.resize(9);
     for(int i=0; i<9; i++)

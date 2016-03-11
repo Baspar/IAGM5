@@ -9,10 +9,6 @@ using namespace std;
 
 class Sudoku{
     private:
-<<<<<<< HEAD
-=======
-        vector<vector<Cell>> grid;
->>>>>>> 18d90f0ff97db2e63e0044b7290b915da53af5be
         int G;
         int H;
         Sudoku* parent;
@@ -35,21 +31,13 @@ class Sudoku{
         int getH();
         void setH(int value);
         void updateGH();
-<<<<<<< HEAD
-	bool comp(Sudoku* a, Sudoku* b);
         Sudoku* getParent();
         void setParent(Sudoku* par);
         set<Sudoku> getNeighboor();
         void setNeighboor(set<Sudoku> list);
 
-=======
+	bool operator<(const Sudoku b);
 
-        Sudoku* getParent();
-        void setParent(Sudoku* par);
-        set<Sudoku> getNeighboor();
-        void setNeighboor(set<Sudoku> list);
-
->>>>>>> 18d90f0ff97db2e63e0044b7290b915da53af5be
         bool checkDouble();
         bool checkComplete();
 };

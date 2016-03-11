@@ -11,13 +11,12 @@ using namespace std;
 class AStar{
 	private:
 	       	Sudoku current;
-		set<Sudoku> closeList;
-		
-		std::priority_queue<Sudoku,std::vector<int>, compare> openList;
+		set<Sudoku> closeList;	
 	public:
-		Sudoku compare(Suoku a, Sudoku b);
 		bool developSudoku();
 		//Sudoku FindLowestScore();
 		void CreateNeighboor(Sudoku parent);
-}
+};
+
+#endif
 
