@@ -10,7 +10,7 @@ using namespace std;
 int main(){
     srand(time(nullptr));
 
-    Sudokus oldGen(100, 100, 70);
+    Sudokus oldGen(100, 50, 70);
     int cpt = 0;
     int mem = oldGen.bestFitness();
     Sudoku bestSud = oldGen.getIndividu(99);
@@ -22,7 +22,7 @@ int main(){
             if(cpt>200){
                 cpt=0;
                 bestSud.afficher();
-                oldGen=Sudokus(100, 100, 70);
+                oldGen=Sudokus(100, 50, 70);
                 bestSud = oldGen.getIndividu(99);
                 mem = oldGen.bestFitness();
                 cout << endl << "RESET" << endl << endl;
