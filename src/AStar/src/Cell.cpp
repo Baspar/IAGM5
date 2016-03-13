@@ -1,6 +1,7 @@
 #include "Cell.hpp"
 
 Cell::Cell(){//DONE
+    // On remplit le vecteur de possiblités
     for(int i=1; i<10; i++)
         remainingVal.insert(i);
 }
