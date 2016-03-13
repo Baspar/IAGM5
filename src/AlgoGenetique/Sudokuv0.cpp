@@ -122,14 +122,25 @@ void Sudoku::remplir(){//DONE
         return chiffreMis.size();
     }
     pair<Sudoku,Sudoku> Sudoku::operator*(const Sudoku& sudo) const{//DONE
-        Sudoku child1(sudo, false);
-        Sudoku child2(sudo, false);
+        Sudoku child1(sudo);
+        Sudoku child2(sudo);
 
         int nbSep=2;
         set<int> sep;
+        sep.insert(0);
+        sep.insert(81);
         while(sep.size() != nbSep-1)
             sep.insert(rand()%81);
 
+        bool mode=true;
+        for(int i=0; i<sep.size()-1; i++){
+            mode=!mode;
+            for(int j=*(sep.begin()+i); j<*(sep.begin()+i+1); j++){
+                if(mode){
+                } else {
+                }
+            }
+        }
         return make_pair(maxLine, maxCol);
     }
     void Sudoku::afficher() const{//DONE
