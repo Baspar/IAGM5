@@ -36,7 +36,7 @@ class Sudoku{
         set<Sudoku> getNeighboor();
         void setNeighboor(set<Sudoku> list);
 
-	bool operator<(const Sudoku b);
+	bool operator<=( Sudoku b);
 
         bool checkDouble();
         bool checkComplete();

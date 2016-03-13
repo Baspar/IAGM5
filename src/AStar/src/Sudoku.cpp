@@ -1,7 +1,7 @@
 #include "Sudoku.hpp"
 
-bool operator< (const Sudoku b) {
-	return(this.getG()+this.getH() <= g.getG()+ b.getH());
+bool Sudoku::operator<= ( Sudoku b) {
+	return(this->getG()+this->getH() <= b.getG()+ b.getH());
 }
 
 Sudoku::Sudoku(){//DONE

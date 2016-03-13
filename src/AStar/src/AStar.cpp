@@ -1,9 +1,13 @@
 #include "AStar.hpp"
+class Compare {
+public :
+ 	bool operator()(Sudoku a, Sudoku b) {
+		return(a.getG()+a.getH()<=b.getG()+b.getH());
+	}
+};
 
-
-
-bool AStar::developSudoku(){//TODO
-	std::priority_queue<Sudoku,std::vector<Sudoku>, less<Sudoku>> openList;
+bool AStar::developSudoku(){//WIK
+	std::priority_queue < Sudoku, std::vector<Sudoku>,Compare> openList;
 	while(openList.empty()!=true){
 	//	current = FindLowestScore();
 		current = openList.top();
@@ -43,10 +47,11 @@ void AStar::CreateNeighboor(Sudoku parent){//TODO
 		for(int j=0; j<9; j++){
 			if(parent.grid[i][j].getValue()==0){
 				// pour toutes les valeurs encore disponibles
-				for(int k = 0; k<parent.grid[i][j].getRemaining().size(); k++){
+				for(int k : parent.grid[i][j].getRemaining()) {
+//				for(int k = 0; k<parent.grid[i][j].getRemaining().size(); k++){
 					//Créer nouveau sudoku
 					tmp = Sudoku(parent);
-					tmp.setValue(i,j,parent.grid[i][j].getRemaining()[k]);
+					tmp.setValue(i,j,k);
 					if(!tmp.checkDouble()){
 						list.insert(tmp);
 					}
