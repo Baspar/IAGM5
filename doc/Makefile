@@ -1,10 +1,13 @@
-all: diags texArtificialIntelligence mvdoc pseudoclean
+UML=$(wildcard src/diagrams/*.uml)
+PNG=$(UML:.uml=.png)
+
+all: $(PNG) texArtificialIntelligence mvdoc pseudoclean
 
 toggle:
 	sed -i 's/Rapport/Pré-Rapport/g; s/Pré-Pré-//g' src/ressources/vocabulaire/vocabulaire.sty
 
-diags:
-	java -jar src/diagrams/plantuml.jar src/diagrams/**.uml
+%.png: %.uml
+	java -jar src/diagrams/plantuml.jar $<
 
 texArtificialIntelligence:
 	cd src; pdflatex ArtificialIntelligence.tex;pdflatex ArtificialIntelligence.tex; cd ..
