@@ -7,7 +7,7 @@
 using namespace std;
 
 class EcoAgent{
-    private:
+    protected:
         vector<EcoAgent*> but;
         Etat etat;
         bool agresse;
@@ -17,6 +17,7 @@ class EcoAgent{
         bool getGene();
         Etat getEtat();
         vector<EcoAgent*> getBut();
+        void ajouterBut(EcoAgent* e);
         void setAgresse(bool b);
         void setGene(bool b);
         void setEtat(Etat e);
