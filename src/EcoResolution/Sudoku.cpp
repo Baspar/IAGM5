@@ -41,6 +41,9 @@ int Sudoku::getValue(int x, int y) const{//DONE
 Cell Sudoku::getCell(int x, int y) const{//DONE
     return grid[x][y];
 }
+Cell* Sudoku::getpCell(int x, int y) const{//DONE
+    return &(grid[x][y]);
+}
 void Sudoku::remplir(){
     srand (time(NULL));
     for(int i=0; i<3;i++){

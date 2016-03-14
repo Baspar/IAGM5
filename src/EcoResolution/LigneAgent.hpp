@@ -4,6 +4,7 @@
 #include <vector>
 #include "EcoAgent.hpp"
 #include "Sudoku.hpp"
+#include "Cell.hpp"
 
 using namespace std;
 

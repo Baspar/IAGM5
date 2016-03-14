@@ -21,3 +21,29 @@ void Cell::setValue(int val){
 int Cell::getValue() const{
     return number.getValue();
 }
+
+vector<EcoAgent*> Cell::trouverGeneur(){
+    vector<EcoAgent*> v;
+    return v;
+}
+
+void Cell::faireSatisfaction(){
+
+}
+        
+void agresser(EcoAgent* e){
+
+
+}
+
+
+EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){
+    return e;
+
+}
+
+
+void Cell::faireFuite(EcoAgent* e){
+    
+
+}

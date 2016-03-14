@@ -1,4 +1,5 @@
 #include "LigneAgent.hpp"
+#include <set>
 
 int LigneAgent::getNumero(){
     return numero;
@@ -28,5 +29,37 @@ LigneAgent::LigneAgent(){
 
 vector<EcoAgent*> LigneAgent::trouverGeneur(){
     vector<EcoAgent*> v;
+    set<EcoAgent*> cellules;
+    for(int i=0; i<9;i++){
+        for(int j=i+1; j<9;j++){
+            if (sudoku->getValue(numero,i)==sudoku->getValue(numero,j)){
+                cellules.insert(sudoku->getpCell(numero,i));
+                cellules.insert(sudoku->getpCell(numero,j));
+            }
+        }
+    }
+    set<EcoAgent*>::const_iterator it=cellules.begin();
+    for(int l=0; l<cellules.size(); l++){
+        v.push_back(*it);
+        it++;
+    }
     return v;
+}
+
+
+void LigneAgent::faireSatisfaction(){
+    setEtat(Etat::SATISFACTION);
+}
+
+
+void LigneAgent::agresser(EcoAgent* e){
+    e->fuir(this);
+}
+
+EcoAgent* LigneAgent::trouverPlacePourFuir(EcoAgent* e){
+    return this;
+}
+
+void LigneAgent::faireFuite(EcoAgent* e){
+
 }
