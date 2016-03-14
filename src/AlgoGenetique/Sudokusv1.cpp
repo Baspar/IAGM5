@@ -1,5 +1,7 @@
 #include "Sudokus.hpp"
 
+#include <math.h>
+
 #include "CellType.hpp"
 
 Sudokus::Sudokus(int k, int tc, int tm){//DONE
@@ -49,8 +51,13 @@ int Sudokus::getTailleGen()const{//DONE
     return tailleGen;
 }
 void Sudokus::selection(){//DONE
-    for(int i=0; i<tailleGen/2; i++)
-        generation.erase(generation.begin());
+    while(generation.size() > tailleGen/2){
+        int myRand = rand()%(generation.size()*(1+generation.size())/2);
+        int indice = generation.size() - floor( (-1+sqrt(1+8*myRand))/2 ) - 1;
+        generation.erase(generation.begin()+indice);
+    }
+    //for(int i=0; i<tailleGen/2; i++)
+        //generation.erase(generation.begin());
 }
 void Sudokus::shuffle(){//DONE
     random_shuffle(generation.begin(), generation.end());
