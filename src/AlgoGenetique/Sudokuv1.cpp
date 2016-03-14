@@ -1,5 +1,7 @@
 #include "Sudoku.hpp"
 
+#include "CellType.hpp"
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -145,46 +147,81 @@ void Sudoku::remplir(){//DONE
         return chiffreMis.size();
     }
     pair<Sudoku,Sudoku> Sudoku::operator*(const Sudoku& sudo) const{//DONE
-        Sudoku maxLine(sudo, false);
-        Sudoku maxCol(sudo, false);
+        Sudoku child1(sudo, false);
+        Sudoku child2(sudo, false);
 
-        //Creation maxCol
-        for(int j=0; j<3; j++){
-            int score1 = sudo.scoreLignes(j);
-            int score2 = scoreLignes(j);
-            const Sudoku* goodSud=nullptr;
-            if(score1 >= score2){
-                goodSud=&sudo;
-            } else {
-                goodSud=this;
-            }
+        int nbSep=3;
+        set<int> sep;
+        sep.insert(9);
+        while(sep.size() != nbSep)
+            sep.insert(1+rand()%8);
 
-            for(int dj=0; dj<3; dj++)
-                for(int i=0; i<9; i++)
-                    if(maxCol.getCell(i,j*3+dj).getType()==CellType::GUESS){
-                        maxCol.setValue(i, j*3+dj, goodSud->getCell(i, j*3+dj).getValue());
+        bool mode=rand()%2==1;
+        int old=0;
+        for(int s : sep){
+            mode = !mode;
+            for(int i=old; i<s; i++){
+                int x=(i/3);
+                int y=(i%3);
+                for(int dx=0; dx!=3; dx++)
+                    for(int dy=0; dy!=3; dy++){
+                        if(grid[x*3+dx][y*3+dy].getType() == CellType::GUESS){
+                            if(mode){
+                                child1.setValue(x*3+dx, y*3+dy, grid[x*3+dx][y*3+dy].getValue());
+                                child2.setValue(x*3+dx, y*3+dy, sudo.getValue(x*3+dx, y*3+dy));
+                            } else {
+                                child1.setValue(x*3+dx, y*3+dy, sudo.getValue(x*3+dx, y*3+dy));
+                                child2.setValue(x*3+dx, y*3+dy, grid[x*3+dx][y*3+dy].getValue());
+                            }
+                        }
                     }
-        }
-
-        //Creation maxLigne
-        for(int i=0; i<3; i++){
-            int score1 = sudo.scoreLignes(i);
-            int score2 = scoreLignes(i);
-            const Sudoku* goodSud=nullptr;
-            if(score1 >= score2){
-                goodSud=&sudo;
-            } else {
-                goodSud=this;
             }
-
-            for(int di=0; di<3; di++)
-                for(int j=0; j<9; j++)
-                    if(maxLine.getCell(i*3+di, j).getType()==CellType::GUESS)
-                        maxLine.setValue(i*3+di, j,goodSud->getCell(i*3+di, j).getValue());
+            old=s;
         }
+        return make_pair(child1, child2);
 
-        return make_pair(maxLine, maxCol);
     }
+    //pair<Sudoku,Sudoku> operator*(const Sudoku& sudo) const{//DONE
+        //Sudoku maxLine(sudo, false);
+        //Sudoku maxCol(sudo, false);
+
+        ////Creation maxCol
+        //for(int j=0; j<3; j++){
+            //int score1 = sudo.scoreLignes(j);
+            //int score2 = scoreLignes(j);
+            //const Sudoku* goodSud=nullptr;
+            //if(score1 >= score2){
+                //goodSud=&sudo;
+            //} else {
+                //goodSud=this;
+            //}
+
+            //for(int dj=0; dj<3; dj++)
+                //for(int i=0; i<9; i++)
+                    //if(maxCol.getCell(i,j*3+dj).getType()==CellType::GUESS){
+                        //maxCol.setValue(i, j*3+dj, goodSud->getCell(i, j*3+dj).getValue());
+                    //}
+        //}
+
+        ////Creation maxLigne
+        //for(int i=0; i<3; i++){
+            //int score1 = sudo.scoreLignes(i);
+            //int score2 = scoreLignes(i);
+            //const Sudoku* goodSud=nullptr;
+            //if(score1 >= score2){
+                //goodSud=&sudo;
+            //} else {
+                //goodSud=this;
+            //}
+
+            //for(int di=0; di<3; di++)
+                //for(int j=0; j<9; j++)
+                    //if(maxLine.getCell(i*3+di, j).getType()==CellType::GUESS)
+                        //maxLine.setValue(i*3+di, j,goodSud->getCell(i*3+di, j).getValue());
+        //}
+
+        //return make_pair(maxLine, maxCol);
+    //}
     void Sudoku::afficher() const{//DONE
         for(int i=0; i<9; i++){
             if(i%3==0){
