@@ -15,7 +15,7 @@ class Sudoku{
         set<Sudoku> enfants;
     public:
         vector<vector<Cell>> grid;
-	Sudoku();
+        Sudoku();
         Sudoku(const Sudoku& sudoku);
         void setValue(int x, int y, int val);
         int getValue(int x, int y) const;
@@ -26,9 +26,9 @@ class Sudoku{
         void addColumnWhereIs(int x, int y, set<Cell*>& cells);
         void addBlockWhereIs(int x, int y, set<Cell*>& cells);
 
-        int getG();
+        int getG()const;
         void setG(int value);
-        int getH();
+        int getH()const;
         void setH(int value);
         void updateGH();
         Sudoku* getParent();
@@ -36,7 +36,7 @@ class Sudoku{
         set<Sudoku> getNeighboor();
         void setNeighboor(set<Sudoku> list);
 
-	bool operator<=( Sudoku b);
+        bool operator<(const Sudoku b);
 
         bool checkDouble();
         bool checkComplete();

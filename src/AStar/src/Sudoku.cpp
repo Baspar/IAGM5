@@ -1,9 +1,8 @@
 #include "Sudoku.hpp"
 
-bool Sudoku::operator<= ( Sudoku b) {
-	return(this->getG()+this->getH() <= b.getG()+ b.getH());
+bool Sudoku::operator<(const Sudoku b) {
+    return(this->getG()+this->getH() <= b.getG()+ b.getH());
 }
-
 Sudoku::Sudoku(){//DONE
     grid.resize(9);
     for(int i=0; i<9; i++)
@@ -59,13 +58,13 @@ void Sudoku::addBlockWhereIs(int x, int y, set<Cell*>& cells){//DONE
             if(xCell!=x && yCell!=y)
                 cells.insert(&(grid[xCell][yCell]));
 }
-int Sudoku::getG(){//DONE
+int Sudoku::getG()const{//DONE
 	return G;
 }
 void Sudoku::setG(int value){//DONE
 	G = value;
 }
-int Sudoku::getH(){//DONE
+int Sudoku::getH()const{//DONE
 	return H;
 }
 void Sudoku::setH(int value){//DONE

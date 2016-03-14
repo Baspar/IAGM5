@@ -1,24 +1,17 @@
 #include "AStar.hpp"
-class Compare {
-public :
- 	bool operator()(Sudoku a, Sudoku b) {
-		return(a.getG()+a.getH()<=b.getG()+b.getH());
-	}
-};
-
 bool AStar::developSudoku(){//WIK
-	std::priority_queue < Sudoku, std::vector<Sudoku>,Compare> openList;
+        std::priority_queue <Sudoku> openList;
 	while(openList.empty()!=true){
 	//	current = FindLowestScore();
 		current = openList.top();
 		openList.pop();
-		if(current.checkComplete()){	
+		if(current.checkComplete()){
 			return true;
 		} else {
 			CreateNeighboor(current);
 			for(Sudoku n : current.getNeighboor()){
 			//	if(openList.Find(current.getNeighboor()[k])!=current.getNeightboor()::end){
-					
+
 // faire une méthode dans Sudoku pour la comparaison
 
 					for(int i=0; i<9; i++){
@@ -29,7 +22,7 @@ bool AStar::developSudoku(){//WIK
 						}
 					}
 					n.updateGH();
-					openList.push(n);	
+					openList.push(n);
 			//	}
 			}
 			closeList.insert(current);
