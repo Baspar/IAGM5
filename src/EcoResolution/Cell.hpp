@@ -1,10 +1,14 @@
 #ifndef CELL_HPP
 #define CELL_HPP
 
-#include <iostream>
-#include <set>
+class Cell;
+
+#include "LigneAgent.hpp"
+#include "ColonneAgent.hpp"
 #include "Number.hpp"
 #include "EcoAgent.hpp"
+#include <iostream>
+#include <set>
 #include <vector>
 
 using namespace std;
@@ -12,9 +16,12 @@ using namespace std;
 class Cell: public EcoAgent{
     private:
         Number number;
+        int x,y;
+        Sudoku* sudoku;
     public:
         Cell();
         Cell(Number number);
+        Cell(int x, int y, Sudoku* sud);
         Cell(const Cell& cell);
         void setNumber(const Number& num);
         Number getNumber() const;

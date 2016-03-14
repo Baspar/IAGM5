@@ -1,7 +1,7 @@
-#ifndef LIGNEAGENT_HPP
-#define LIGNEAGENT_HPP
+#ifndef COLONNEAGENT_HPP
+#define COLONNEAGENT_HPP
 
-class LigneAgent;
+class ColonneAgent;
 
 #include "EcoAgent.hpp"
 #include "Sudoku.hpp"
@@ -10,7 +10,7 @@ class LigneAgent;
 
 using namespace std;
 
-class LigneAgent : public EcoAgent{
+class ColonneAgent : public EcoAgent{
     private:
         int numero;
         Sudoku* sudoku;
@@ -19,8 +19,8 @@ class LigneAgent : public EcoAgent{
         Sudoku* getSudoku();
         void setNumero(int n);
         void setSudoku(Sudoku* s);
-        LigneAgent(Sudoku* s, int n);
-        LigneAgent();
+        ColonneAgent(Sudoku* s, int n);
+        ColonneAgent();
         vector<EcoAgent*> trouverGeneur();
         void faireSatisfaction();
         void agresser(EcoAgent* e);

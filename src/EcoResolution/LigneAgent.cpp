@@ -20,6 +20,13 @@ void LigneAgent::setSudoku(Sudoku* s){
 LigneAgent::LigneAgent(Sudoku* s, int n){
     sudoku=s;
     numero=n;
+    agresse=false;
+    gene=false;
+    etat=Etat::RECHERCHE_SATISFACTION;
+    for(int i=0; i<9;i++){
+        ajouterBut(sudoku->getpCell(numero,i));
+        sudoku->getpCell(numero,i)->ajouterBut(this);
+    }    
 }
 
 LigneAgent::LigneAgent(){
@@ -48,7 +55,7 @@ vector<EcoAgent*> LigneAgent::trouverGeneur(){
 
 
 void LigneAgent::faireSatisfaction(){
-    setEtat(Etat::SATISFACTION);
+    etat=Etat::SATISFACTION;
 }
 
 

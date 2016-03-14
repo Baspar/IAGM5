@@ -12,7 +12,11 @@ bool EcoAgent::getGene(){//DONE
  Etat EcoAgent::getEtat(){//DONE
     return etat;
  } 
-   
+ 
+ void EcoAgent::ajouterBut(EcoAgent* e){
+    but.push_back(e);
+ }
+ 
  vector<EcoAgent*> EcoAgent::getBut(){//DONE
     return but;
  }
@@ -46,7 +50,7 @@ bool EcoAgent::getGene(){//DONE
  }
  
  
- void EcoAgent::faireFuite(EcoAgent* e){//WIP
+ void EcoAgent::fuir(EcoAgent* e){//WIP
     if(etat==Etat::SATISFACTION)
         etat=Etat::RECHERCHE_FUITE;
     EcoAgent* f=trouverPlacePourFuir(e);  

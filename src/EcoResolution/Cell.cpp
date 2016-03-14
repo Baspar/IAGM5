@@ -1,6 +1,10 @@
 #include "Cell.hpp"
-
 Cell::Cell(){//DONE
+}
+Cell::Cell( int x, int y, Sudoku* sud){//DONE
+sudoku=sud;
+    this->x=x;
+    this->y=y;
 }
 Cell::Cell(Number num):number(num){//DONE
 }
@@ -31,8 +35,8 @@ void Cell::faireSatisfaction(){
 
 }
         
-void agresser(EcoAgent* e){
-
+void Cell::agresser(EcoAgent* e){
+    e->fuir(this);
 
 }
 
