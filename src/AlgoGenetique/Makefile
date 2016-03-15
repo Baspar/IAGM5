@@ -1,6 +1,6 @@
 GPP=g++ --std=c++11 -fpermissive
 
-all:v3
+all:v0
 
 v%: Cell.o Sudokuv%.o Number.o Sudokusv%.o
 	$(GPP) main$@.cpp $^ -o main

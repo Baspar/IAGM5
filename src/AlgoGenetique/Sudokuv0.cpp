@@ -122,26 +122,36 @@ void Sudoku::remplir(){//DONE
         return chiffreMis.size();
     }
     pair<Sudoku,Sudoku> Sudoku::operator*(const Sudoku& sudo) const{//DONE
-        Sudoku child1(sudo);
-        Sudoku child2(sudo);
+        Sudoku child1(sudo, false);
+        Sudoku child2(sudo, false);
 
-        int nbSep=2;
+        int nbSep=3;
         set<int> sep;
-        sep.insert(0);
         sep.insert(81);
-        while(sep.size() != nbSep-1)
-            sep.insert(rand()%81);
+        while(sep.size() != nbSep)
+            sep.insert(1+rand()%80);
 
-        bool mode=true;
-        for(int i=0; i<sep.size()-1; i++){
-            mode=!mode;
-            for(int j=*(sep.begin()+i); j<*(sep.begin()+i+1); j++){
-                if(mode){
-                } else {
+
+        bool mode=rand()%2==1;
+        int old=0;
+        for(int s : sep){
+            mode = !mode;
+            for(int i=old; i<s; i++){
+                int x=i/9;
+                int y=i%9;
+                if(grid[x][y].getType() == CellType::GUESS){
+                    if(mode){
+                        child1.setValue(x, y, grid[x][y].getValue());
+                        child2.setValue(x, y, sudo.getValue(x, y));
+                    } else {
+                        child1.setValue(x, y, sudo.getValue(x, y));
+                        child2.setValue(x, y, grid[x][y].getValue());
+                    }
                 }
             }
+            old=s;
         }
-        return make_pair(maxLine, maxCol);
+        return make_pair(child1, child2);
     }
     void Sudoku::afficher() const{//DONE
         for(int i=0; i<9; i++){

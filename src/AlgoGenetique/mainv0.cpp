@@ -10,9 +10,7 @@ using namespace std;
 int main(){
     srand(time(nullptr));
 
-    Sudokus oldGen(100, 50, 70);
-    oldGen.getIndividu(0).afficher();
-    return 0;
+    Sudokus oldGen(100, 50, 10);
 
     int cpt = 0;
     int mem = oldGen.bestFitness();
@@ -25,7 +23,7 @@ int main(){
             if(cpt>200){
                 cpt=0;
                 bestSud.afficher();
-                oldGen=Sudokus(100, 50, 70);
+                oldGen=Sudokus(100, 50, 10);
                 bestSud = oldGen.getIndividu(99);
                 mem = oldGen.bestFitness();
                 cout << endl << "RESET" << endl << endl;
@@ -36,6 +34,10 @@ int main(){
             bestSud = oldGen.getIndividu(99);
         }
         oldGen.selection();
+        oldGen.shuffle();
+        oldGen = Sudokus(oldGen);
+        oldGen.mutate();
+
         cout << cpt << "> " << oldGen.worstFitness() << " < " << oldGen.avgFitness() << " < " << oldGen.bestFitness() << "[" << bestSud.fitness() << "]"<< endl;
     }
 

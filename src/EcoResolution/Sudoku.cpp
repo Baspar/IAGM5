@@ -4,7 +4,8 @@
 Sudoku::Sudoku(){//DONE
     grid.resize(9);
     for(int i=0; i<9; i++)
-        grid[i].resize(9, Cell());
+        for(int j=0;j<9;j++)
+            grid[i].push_back(Cell(i,j,this));
     ifstream fichier("test.txt", ios::in); // on ouvre en lecture
     if(fichier) // si l'ouverture a fonctionné
     {
@@ -23,6 +24,10 @@ Sudoku::Sudoku(){//DONE
         }
         fichier.close();
     }
+    for(int i=0; i<9;i++)
+        ecoAgents.push_back(new LigneAgent(this,i));
+    for(int j=0; j<9; j++)
+        ecoAgents.push_back(new ColonneAgent(this,j));    
 }
 Sudoku::Sudoku(const Sudoku& sudoku){//DONE
     grid.resize(9);
@@ -41,8 +46,8 @@ int Sudoku::getValue(int x, int y) const{//DONE
 Cell Sudoku::getCell(int x, int y) const{//DONE
     return grid[x][y];
 }
-Cell* Sudoku::getpCell(int x, int y) const{//DONE
-    return &(grid[x][y]);
+Cell* Sudoku::getpCell(int x, int y){//DONE
+    return grid[x].data()+y;
 }
 void Sudoku::remplir(){
     srand (time(NULL));
