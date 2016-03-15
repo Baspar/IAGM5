@@ -13,6 +13,7 @@ class Number{
         Number();
         Number(const Number& number);
         Number(int val);
+	Number(int val, CellType c);
         int getValue() const;
         void setValue(int val);
         CellType getCellType() const;

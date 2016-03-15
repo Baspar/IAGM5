@@ -11,6 +11,10 @@ Number::Number(const Number& number){
 Number::Number(int val){//TODO
     value=val;
 }
+Number::Number(int val, CellType c){
+	value=val;
+	cellType = c;
+}
 int Number::getValue() const{//TODO
     return value;
 }

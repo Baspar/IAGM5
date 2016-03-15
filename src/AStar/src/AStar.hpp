@@ -11,11 +11,11 @@ using namespace std;
 class AStar{
 	private:
 	       	Sudoku current;
-		set<Sudoku> closeList;
 	public:
-		bool developSudoku();
+		set<Sudoku> closeList;
+		Sudoku developSudoku(Sudoku gridIni);
         //Sudoku FindLowestScore();
-		void CreateNeighboor(Sudoku parent);
+		set<Sudoku> CreateNeighboor(Sudoku parent);
 };
 
 
