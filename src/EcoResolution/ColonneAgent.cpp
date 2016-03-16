@@ -40,10 +40,10 @@ vector<EcoAgent*> ColonneAgent::trouverGeneur(){
     for(int i=0; i<9;i++){
         for(int j=i+1; j<9;j++){
             if (sudoku->getValue(i, numero)==sudoku->getValue(j,numero)){
-               if(sudoku->getCell(i, numero)->getType()==CellType::GUESS)
+                if(sudoku->getCell(i, numero)->getType()==CellType::GUESS)
                     cellules.insert(sudoku->getCell(i,numero));
-                if(sudoku->getCell(j, numero)->getType()==CellType::GUESS)     
-                cellules.insert(sudoku->getCell(j,numero));
+                if(sudoku->getCell(j, numero)->getType()==CellType::GUESS)
+                    cellules.insert(sudoku->getCell(j,numero));
             }
         }
     }

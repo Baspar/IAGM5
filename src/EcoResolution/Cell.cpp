@@ -6,14 +6,14 @@ Cell::Cell( int xc, int yc){//DONE
     sudoku=nullptr;
     x=xc;
     y=yc;
-   /* if(trouverGeneur().size()==0){
-        gene=false;
-        etat=Etat::SATISFACTION;
-    }
-    else {
-        gene=true;
-        etat=Etat::RECHERCHE_SATISFACTION;
-    }*/
+    /* if(trouverGeneur().size()==0){
+       gene=false;
+       etat=Etat::SATISFACTION;
+       }
+       else {
+       gene=true;
+       etat=Etat::RECHERCHE_SATISFACTION;
+       }*/
 }
 Sudoku* Cell::getSudoku(){
     return sudoku;
@@ -68,7 +68,7 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
         for(int j=0; j<3;j++){
             nvx=3*blocLigne+i;
             nvy=3*blocColonne+j;
-             if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION)
+            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION)
                 casePossible.insert(make_pair(nvx,nvy));
         }
     }
@@ -106,5 +106,5 @@ void Cell::faireFuite(EcoAgent* e){//WIP
     int n2 = this->getValue();
     ((Cell*)e)->setValue(n2);
     this->setValue(n);
-     
+
 }

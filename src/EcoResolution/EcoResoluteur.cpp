@@ -16,7 +16,7 @@ void EcoResoluteur::ajouterEcoAgent(EcoAgent* eco){//DONE
 }
 
 void EcoResoluteur::resolution(){
-   // cout << "test"<< endl;
+    // cout << "test"<< endl;
     while (!estFini()) {
         cout << "Choix" << endl;
         for(int i=0; i<9; i++)

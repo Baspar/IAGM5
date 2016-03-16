@@ -79,107 +79,107 @@ void Sudoku::remplir(){
         }
     }
 }
-    void Sudoku::afficher(){//DONE
-        for(int i=0; i<9; i++){
-            if(i%3==0){
-                cout << "+";
-                for(int j=0; j<9; j++){
-                    cout << "---";
-                    if(j%3==2)
-                        cout << "+";
-                    else
-                        cout << "-";
-                }
-                cout << "--" << endl;
-            }
-            cout << "|";
+void Sudoku::afficher(){//DONE
+    for(int i=0; i<9; i++){
+        if(i%3==0){
+            cout << "+";
             for(int j=0; j<9; j++){
-                int val=getCell(i, j)->getNumber().getValue();
-                char type=(getCell(i, j)->getType()==CellType::GIVEN?'-':' ');
-                if(val!=0)
-                    cout << type << val << type;
-                else
-                    cout <<"   ";
+                cout << "---";
                 if(j%3==2)
-                    cout << "|";
+                    cout << "+";
                 else
-                    cout << " ";
+                    cout << "-";
             }
-            cout << " " << scoreLigne(i);
-            cout << endl;
+            cout << "--" << endl;
         }
-        cout << "+";
-        for(int j=0; j<9; j++){
-            cout << "---";
-            if(j%3==2)
-                cout << "+";
-            else
-                cout << "-";
-        }
-        cout << "--" << endl;
         cout << "|";
         for(int j=0; j<9; j++){
-            cout << " " << scoreCol(j) << " ";
+            int val=getCell(i, j)->getNumber().getValue();
+            char type=(getCell(i, j)->getType()==CellType::GIVEN?'-':' ');
+            if(val!=0)
+                cout << type << val << type;
+            else
+                cout <<"   ";
             if(j%3==2)
                 cout << "|";
             else
                 cout << " ";
         }
-        cout << " " << fitness() << endl<< endl;
+        cout << " " << scoreLigne(i);
+        cout << endl;
     }
-    void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
-        for(int i=0; i<9; i++){
-            if(i%3==0){
-                cout << "+";
-                for(int j=0; j<9; j++){
-                    cout << "---";
-                    if(j%3==2)
-                        cout << "+";
-                    else
-                        cout << "-";
-                }
-                cout << "--" << endl;
-            }
+    cout << "+";
+    for(int j=0; j<9; j++){
+        cout << "---";
+        if(j%3==2)
+            cout << "+";
+        else
+            cout << "-";
+    }
+    cout << "--" << endl;
+    cout << "|";
+    for(int j=0; j<9; j++){
+        cout << " " << scoreCol(j) << " ";
+        if(j%3==2)
             cout << "|";
+        else
+            cout << " ";
+    }
+    cout << " " << fitness() << endl<< endl;
+}
+void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
+    for(int i=0; i<9; i++){
+        if(i%3==0){
+            cout << "+";
             for(int j=0; j<9; j++){
-                int val=getCell(i, j)->getNumber().getValue();
-                char type=(getCell(i, j)->getType()==CellType::GIVEN?'|':(i==xAtt && j==yAtt)?'+':(i==xAgr && j==yAgr)?'-':' ');
-                if(val!=0)
-                    cout << type << val << type;
-                else
-                    cout <<"   ";
+                cout << "---";
                 if(j%3==2)
-                    cout << "|";
+                    cout << "+";
                 else
-                    cout << " ";
+                    cout << "-";
             }
-            cout << " " << scoreLigne(i);
-            cout << endl;
+            cout << "--" << endl;
         }
-        cout << "+";
-        for(int j=0; j<9; j++){
-            cout << "---";
-            if(j%3==2)
-                cout << "+";
-            else
-                cout << "-";
-        }
-        cout << "--" << endl;
         cout << "|";
         for(int j=0; j<9; j++){
-            cout << " " << scoreCol(j) << " ";
+            int val=getCell(i, j)->getNumber().getValue();
+            char type=(getCell(i, j)->getType()==CellType::GIVEN?'|':(i==xAtt && j==yAtt)?'+':(i==xAgr && j==yAgr)?'-':' ');
+            if(val!=0)
+                cout << type << val << type;
+            else
+                cout <<"   ";
             if(j%3==2)
                 cout << "|";
             else
                 cout << " ";
         }
-        cout << " " << fitness() << endl<< endl;
+        cout << " " << scoreLigne(i);
+        cout << endl;
     }
+    cout << "+";
+    for(int j=0; j<9; j++){
+        cout << "---";
+        if(j%3==2)
+            cout << "+";
+        else
+            cout << "-";
+    }
+    cout << "--" << endl;
+    cout << "|";
+    for(int j=0; j<9; j++){
+        cout << " " << scoreCol(j) << " ";
+        if(j%3==2)
+            cout << "|";
+        else
+            cout << " ";
+    }
+    cout << " " << fitness() << endl<< endl;
+}
 
 bool Sudoku::estFini(){
     //for(int i=0; i<ecoAgents.size();i++)
-        //if(ecoAgents.at(i)->getEtat()!=Etat::SATISFACTION)
-            //return false;
+    //if(ecoAgents.at(i)->getEtat()!=Etat::SATISFACTION)
+    //return false;
     //return true;
     return (fitness()==162);
 }
@@ -207,49 +207,49 @@ EcoAgent* Sudoku::choixEcoAgent(){
     cout << e << endl;
     return e;
 }
- int Sudoku::fitness(){//DONE
-        int fitness=0;
-        //fitness Lignes
-        for(int i=0; i<3; i++)
-            fitness+=scoreLignes(i);
+int Sudoku::fitness(){//DONE
+    int fitness=0;
+    //fitness Lignes
+    for(int i=0; i<3; i++)
+        fitness+=scoreLignes(i);
 
-        //fitness Colonne
-        for(int i=0; i<3; i++)
-            fitness+=scoreCols(i);
+    //fitness Colonne
+    for(int i=0; i<3; i++)
+        fitness+=scoreCols(i);
 
-        return fitness;
-    }
-    int Sudoku::scoreLignes(int i){//DONE
-        int out=0;
-        for(int di=0; di<3; di++)
-            out+=scoreLigne(i*3+di);
-        return out;
-    }
-    int Sudoku::scoreLigne(int i){//DONE
-        set<int> chiffreMis;
-        for(int j=0; j<9; j++)
-            if(grid[i][j]->getValue()!=0)
-                chiffreMis.insert(grid[i][j]->getValue());
-        //if(chiffreMis.size() < 5)
-            //return chiffreMis.size();
-        //else if (chiffreMis.size() < 7)
-            //return 2*chiffreMis.size();
-        //else if (chiffreMis.size() < 9)
-            //return 3*chiffreMis.size();
-        //else
-            //return 4*chiffreMis.size();
-        return chiffreMis.size();
-    }
-    int Sudoku::scoreCols(int i){//DONE
-        int out=0;
-        for(int di=0; di<3; di++)
-            out+=scoreCol(i*3+di);
-        return out;
-    }
-    int Sudoku::scoreCol(int i){//DONE
-        set<int> chiffreMis;
-        for(int j=0; j<9; j++)
-            if(grid[j][i]->getValue()!=0)
-                chiffreMis.insert(grid[j][i]->getValue());
-        return chiffreMis.size();
-    }
+    return fitness;
+}
+int Sudoku::scoreLignes(int i){//DONE
+    int out=0;
+    for(int di=0; di<3; di++)
+        out+=scoreLigne(i*3+di);
+    return out;
+}
+int Sudoku::scoreLigne(int i){//DONE
+    set<int> chiffreMis;
+    for(int j=0; j<9; j++)
+        if(grid[i][j]->getValue()!=0)
+            chiffreMis.insert(grid[i][j]->getValue());
+    //if(chiffreMis.size() < 5)
+    //return chiffreMis.size();
+    //else if (chiffreMis.size() < 7)
+    //return 2*chiffreMis.size();
+    //else if (chiffreMis.size() < 9)
+    //return 3*chiffreMis.size();
+    //else
+    //return 4*chiffreMis.size();
+    return chiffreMis.size();
+}
+int Sudoku::scoreCols(int i){//DONE
+    int out=0;
+    for(int di=0; di<3; di++)
+        out+=scoreCol(i*3+di);
+    return out;
+}
+int Sudoku::scoreCol(int i){//DONE
+    set<int> chiffreMis;
+    for(int j=0; j<9; j++)
+        if(grid[j][i]->getValue()!=0)
+            chiffreMis.insert(grid[j][i]->getValue());
+    return chiffreMis.size();
+}

@@ -43,7 +43,7 @@ vector<EcoAgent*> LigneAgent::trouverGeneur(){
             if (sudoku->getValue(numero,i)==sudoku->getValue(numero,j)){
                 if(sudoku->getCell(numero,i)->getType()==CellType::GUESS)
                     cellules.insert(sudoku->getCell(numero,i));
-                if(sudoku->getCell(numero,j)->getType()==CellType::GUESS)    
+                if(sudoku->getCell(numero,j)->getType()==CellType::GUESS)
                     cellules.insert(sudoku->getCell(numero,j));
             }
         }
