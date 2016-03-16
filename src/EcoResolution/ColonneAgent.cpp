@@ -24,8 +24,8 @@ ColonneAgent::ColonneAgent(Sudoku* s, int n){
     gene=false;
     etat=Etat::RECHERCHE_SATISFACTION;
     for(int i=0; i<9;i++){
-        ajouterBut(sudoku->getpCell(i,numero));
-        sudoku->getpCell(i,numero)->ajouterBut(this);
+        ajouterBut(sudoku->getCell(i,numero));
+        sudoku->getCell(i,numero)->ajouterBut(this);
     }    
 }
 
@@ -40,8 +40,8 @@ vector<EcoAgent*> ColonneAgent::trouverGeneur(){
     for(int i=0; i<9;i++){
         for(int j=i+1; j<9;j++){
             if (sudoku->getValue(i, numero)==sudoku->getValue(j,numero)){
-                cellules.insert(sudoku->getpCell(i,numero));
-                cellules.insert(sudoku->getpCell(j,numero));
+                cellules.insert(sudoku->getCell(i,numero));
+                cellules.insert(sudoku->getCell(j,numero));
             }
         }
     }

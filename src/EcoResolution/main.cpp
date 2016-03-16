@@ -23,7 +23,7 @@ int main(){
         }
         cout << "|";
         for(int j=0; j<9; j++){
-            val=sud.getCell(i, j).getNumber().getValue();
+            val=sud.getCell(i, j)->getNumber().getValue();
             if(val!=0)
             cout << val;
             else
@@ -61,7 +61,7 @@ int main(){
         }
         cout << "|";
         for(int j=0; j<9; j++){
-            cel=sud.getCell(i, j).getNumber().getCellType();
+            cel=sud.getCell(i, j)->getNumber().getCellType();
             if(cel!=CellType::GUESS)
             cout << "0";
             else
@@ -102,7 +102,7 @@ int main(){
         }
         cout << "|";
         for(int j=0; j<9; j++){
-            val=sud.getCell(i, j).getNumber().getValue();
+            val=sud.getCell(i, j)->getNumber().getValue();
             if(val!=0)
             cout << val;
             else
@@ -139,7 +139,7 @@ int main(){
         }
         cout << "|";
         for(int j=0; j<9; j++){
-            cel=sud.getCell(i, j).getNumber().getCellType();
+            cel=sud.getCell(i, j)->getNumber().getCellType();
             if(cel!=CellType::GUESS)
             cout << "0";
             else
