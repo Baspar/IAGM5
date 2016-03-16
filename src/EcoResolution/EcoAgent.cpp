@@ -42,6 +42,7 @@ bool EcoAgent::getGene(){//DONE
     if(etat!=Etat::SATISFACTION){
         //cout << "test2" << endl;
         vector<EcoAgent*> geneur=trouverGeneur();
+       // cout << "geneur +" << geneur.size() << endl;
             //cout << "test3" << endl;
         while(geneur.size()!=0){
             //cout << "test4" << endl;
@@ -50,6 +51,7 @@ bool EcoAgent::getGene(){//DONE
                 agresser(geneur[i]);
                 //cout << "test6" << endl;
             }
+            geneur=trouverGeneur();
         }
         faireSatisfaction();
     }
