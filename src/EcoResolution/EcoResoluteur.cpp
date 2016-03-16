@@ -24,12 +24,13 @@ void EcoResoluteur::resolution(){
 
         for(int i=9; i<18; i++)
             cout << "  Colon #" << (i-9) << ": " << (ecoAgents[i]->getEtat()==Etat::SATISFACTION?"OK":"NOK") << endl;
-string c;
-cin >> c; 
+
         EcoAgent* e=choixEcoAgent();
         cout << "Satisfaire" << endl;
         e->essayerSatisfaire();
         cout << endl<< "=============================================" << endl << endl;
+        string c;
+        cin >> c;
     }
     cout << "FINIIIIIIII" << endl;
 }

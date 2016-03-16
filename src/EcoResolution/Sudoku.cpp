@@ -193,6 +193,7 @@ EcoAgent* Sudoku::choixEcoAgent(){
         if(score < scoreMin){
             scoreMin = score;
             e = ecoAgents[i];
+            cout << "  Ligne #" << i << ": " << score << endl;
         }
     }
     for(int i=9; i<18; i++){
@@ -200,6 +201,7 @@ EcoAgent* Sudoku::choixEcoAgent(){
         if(score < scoreMin){
             scoreMin = score;
             e = ecoAgents[i];
+            cout << "  Colonne #" << (i-9) << ": " << score << endl;
         }
     }
     cout << e << endl;

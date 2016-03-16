@@ -54,6 +54,7 @@ bool EcoAgent::getGene(){//DONE
         while(geneur.size()!=0){
             //cout << "test4" << endl;
             int alea=rand() %(geneur.size());
+            cout << "    " << alea << endl;
             //for(int i=0; i<geneur.size(); i++){
                 //cout << "test5" << endl;
                 agresser(geneur[alea]);
