@@ -24,6 +24,7 @@ class Sudoku: public EcoResoluteur{
         Cell* getCell(int x, int y);
         void remplir();
         void afficher();
+        void afficher(int xAtt, int yAtt, int xAgr, int yAgr);
         bool estFini();
         EcoAgent* choixEcoAgent();
 };

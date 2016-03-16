@@ -115,6 +115,44 @@ void Sudoku::remplir(){
         }
         cout << endl;
     }
+    void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
+        for(int i=0; i<9; i++){
+            if(i%3==0){
+                cout << "+";
+                for(int j=0; j<9; j++){
+                    cout << "---";
+                    if(j%3==2)
+                        cout << "+";
+                    else
+                        cout << "-";
+                }
+                cout << endl;
+            }
+            cout << "|";
+            for(int j=0; j<9; j++){
+                int val=getCell(i, j)->getNumber().getValue();
+                char type=(getCell(i, j)->getType()==CellType::GIVEN?'|':(i==xAtt && j==yAtt)?'+':(i==xAgr && j==yAgr)?'-':' ');
+                if(val!=0)
+                    cout << type << val << type;
+                else
+                    cout <<"   ";
+                if(j%3==2)
+                    cout << "|";
+                else
+                    cout << " ";
+            }
+            cout << endl;
+        }
+        cout << "+";
+        for(int j=0; j<9; j++){
+            cout << "---";
+            if(j%3==2)
+                cout << "+";
+            else
+                cout << "-";
+        }
+        cout << endl;
+    }
 
 bool Sudoku::estFini(){
     for(int i=0; i<ecoAgents.size();i++){
