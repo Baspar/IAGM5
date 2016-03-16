@@ -5,6 +5,7 @@ class Sudoku;
 
 #include "Cell.hpp"
 #include "EcoAgent.hpp"
+#include "EcoResoluteur.hpp"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -12,10 +13,9 @@ class Sudoku;
 
 using namespace std;
 
-class Sudoku{
+class Sudoku: public EcoResoluteur{
     private:
         vector<vector<Cell>> grid;
-        vector<EcoAgent*> ecoAgents;
     public:
         Sudoku();
         Sudoku(const Sudoku& sudoku);
@@ -25,5 +25,7 @@ class Sudoku{
         Cell* getpCell(int x, int y);
         void remplir();
         void afficher() const;
+        bool estFini();
+        EcoAgent* choixEcoAgent();
 };
 #endif

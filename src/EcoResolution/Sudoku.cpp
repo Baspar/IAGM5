@@ -119,4 +119,23 @@ void Sudoku::remplir(){
         cout << endl;
     }
 
+bool Sudoku::estFini(){
+    for(int i=0; i<ecoAgents.size();i++){
+        if(ecoAgents.at(i)->getEtat()!=Etat::SATISFACTION)
+            return false;
+    }
+    return true;
+}
+
+
+EcoAgent* Sudoku::choixEcoAgent(){
+    bool b=false;
+    EcoAgent* e=NULL;
+    while(!b){
+        int alea=rand() %(ecoAgents.size());
+        if(ecoAgents.at(alea)->getEtat()!=Etat::SATISFACTION)
+            return ecoAgents.at(alea);
+    }
+    return e;
+}
 
