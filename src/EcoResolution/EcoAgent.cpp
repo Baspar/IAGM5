@@ -70,9 +70,12 @@ bool EcoAgent::getGene(){//DONE
     else {
         faireFuite(f);
         for(int i=0;i<f->getBut().size();i++)
-            f->getBut().at(i)->setEtat(Etat::RECHERCHE_SATISFACTION);
+            f->getBut()[i]->checkSatisfaction();
+        f->checkSatisfaction();
         for(int i=0;i<e->getBut().size();i++)
-            e->getBut().at(i)->setEtat(Etat::RECHERCHE_SATISFACTION);    
+            e->getBut()[i]->checkSatisfaction();
+        e->checkSatisfaction();
+
     }
     //cout << "testFuir5"<< endl;
  }
