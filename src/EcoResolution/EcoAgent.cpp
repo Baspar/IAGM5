@@ -69,7 +69,10 @@ bool EcoAgent::getGene(){//DONE
         cout << "pas de place pour fuire" << endl;
     else {
         faireFuite(f);
-        
+        for(int i=0;i<f->getBut().size();i++)
+            f->getBut().at(i)->setEtat(Etat::RECHERCHE_SATISFACTION);
+        for(int i=0;i<e->getBut().size();i++)
+            e->getBut().at(i)->setEtat(Etat::RECHERCHE_SATISFACTION);    
     }
     //cout << "testFuir5"<< endl;
  }
