@@ -72,11 +72,11 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
         cout << "nvx " << nvx << endl;
         nvy=3*blocColonne+alea2;
         cout << "nvy " << nvy << endl;
-        if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy).getType()!=CellType::GIVEN )
+        if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN )
             b=true;
         cout << "test" << endl;
     }
-    return sudoku->getpCell(nvx,nvy);
+    return sudoku->getCell(nvx,nvy);
 }
 
 

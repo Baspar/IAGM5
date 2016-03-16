@@ -4,11 +4,10 @@
 Sudoku::Sudoku(){//DONE
     cout << this << endl;
     grid.resize(9);
-    grid2.resize(9);
     for(int i=0; i<9; i++)
         for(int j=0;j<9;j++){
-            grid[i].push_back(Cell(i,j));
-            grid[i][j].setSudoku(this);
+            grid[i].push_back(new Cell(i,j));
+            grid[i][j]->setSudoku(this);
             cout << getCell(i, j)->getSudoku() << endl;
         }
     ifstream fichier("test.txt", ios::in); // on ouvre en lecture
@@ -24,7 +23,7 @@ Sudoku::Sudoku(){//DONE
                     n=Number(test, CellType::GUESS);
                 else
                     n=Number(test, CellType::GIVEN);
-                grid[i][j].setNumber(n);
+                grid[i][j]->setNumber(n);
             }
         }
         fichier.close();
@@ -39,10 +38,10 @@ Sudoku::Sudoku(){//DONE
         ecoAgents.push_back(new ColonneAgent(this,j));   */
 }
 void Sudoku::setValue(int x, int y, int val){//DONE
-    grid[x][y].setValue(val);
+    grid[x][y]->setValue(val);
 }
 int Sudoku::getValue(int x, int y) const{//DONE
-    return grid[x][y].getNumber().getValue();
+    return grid[x][y]->getNumber().getValue();
 }
 Cell* Sudoku::getCell(int x, int y){//DONE
     return grid[x][y];
@@ -56,22 +55,22 @@ void Sudoku::remplir(){
                 valeurs.insert(l);
             for(int k=0;k<3;k++){
                 for(int m=0; m<3;m++){
-                    if(grid[i*3+k][j*3+m].getValue() != 0){
-                        int nb=grid[i*3+k][j*3+m].getValue();
+                    if(grid[i*3+k][j*3+m]->getValue() != 0){
+                        int nb=grid[i*3+k][j*3+m]->getValue();
                         valeurs.erase(nb);
                     }
                 }
             }
             for(int k=0;k<3;k++){
                 for(int m=0; m<3;m++){
-                    if(grid[i*3+k][j*3+m].getValue() == 0){
+                    if(grid[i*3+k][j*3+m]->getValue() == 0){
                         int alea=rand() %(valeurs.size());
                         set<int>::const_iterator it=valeurs.begin();
                         for(int l=0; l<alea; l++)
                             it++;
                         int nb=*it;
                         valeurs.erase(nb);
-                        grid[i*3+k][j*3+m].setValue(nb);
+                        grid[i*3+k][j*3+m]->setValue(nb);
                     }
                 }
             }
@@ -93,8 +92,8 @@ void Sudoku::remplir(){
             }
             cout << "|";
             for(int j=0; j<9; j++){
-                int val=getCell(i, j).getNumber().getValue();
-                char type=(getCell(i, j).getType()==CellType::GIVEN?'-':' ');
+                int val=getCell(i, j)->getNumber().getValue();
+                char type=(getCell(i, j)->getType()==CellType::GIVEN?'-':' ');
                 if(val!=0)
                     cout << type << val << type;
                 else
