@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Cell.hpp"
+#include <fstream>
 
 using namespace std;
 
@@ -12,10 +13,11 @@ class Sudoku{
         int G;
         int H;
         Sudoku* parent;
-        set<Sudoku> enfants;
     public:
+        set<Sudoku> enfants;
         vector<vector<Cell>> grid;
         Sudoku();
+	Sudoku(string filename);
         Sudoku(const Sudoku& sudoku);
         void setValue(int x, int y, int val);
         int getValue(int x, int y) const;
@@ -33,10 +35,11 @@ class Sudoku{
         void updateGH();
         Sudoku* getParent();
         void setParent(Sudoku* par);
-        set<Sudoku> getNeighboor();
+        set<Sudoku> getNeighboor() const;
         void setNeighboor(set<Sudoku> list);
 
         bool operator<(const Sudoku b);
+	bool egal(const Sudoku b);
 
         bool checkDouble();
         bool checkComplete();

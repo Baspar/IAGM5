@@ -3,6 +3,41 @@
 bool Sudoku::operator<(const Sudoku b) {
     return(this->getG()+this->getH() <= b.getG()+ b.getH());
 }
+bool Sudoku::egal(const Sudoku b) {
+    for(int i=0; i<9; i++) {	
+	for(int j=0; j<9; j++) {
+		if(grid[i][j].getValue() != b.grid[i][j].getValue()) { return false; }
+	}
+    }
+    return true;
+}
+Sudoku::Sudoku(string filename){//DONE
+    grid.resize(9);
+    for(int i=0; i<9; i++)
+        grid[i].resize(9, Cell());
+    ifstream fichier(filename, ios::in); // on ouvre en lecture
+    if(fichier) // si l'ouverture a fonctionné
+    {
+        for(int i=0; i<9; i++){
+            string contenu;
+            getline(fichier, contenu);
+            for(int j=0; j<9;j++){
+                int test=(int) (contenu[j]-48);
+                Number n;
+                if(test==0)
+                    n=Number(test, CellType::GUESS);
+                else
+                    n=Number(test, CellType::GIVEN);
+                grid[i][j].setNumber(n);
+            }
+        }
+        fichier.close();
+    }
+    computeArcConsistency();
+
+}
+
+
 Sudoku::Sudoku(){//DONE
     grid.resize(9);
     for(int i=0; i<9; i++)
@@ -47,7 +82,7 @@ void Sudoku::addLineWhereIs(int x, int y, set<Cell*>& cells){//DONE
 }
 void Sudoku::addColumnWhereIs(int x, int y, set<Cell*>& cells){//DONE
     for(int i=0; i<9;i++)
-        if(i!=x)
+        if(i!=y)
             cells.insert(&(grid[x][i]));
 }
 void Sudoku::addBlockWhereIs(int x, int y, set<Cell*>& cells){//DONE
@@ -89,31 +124,34 @@ Sudoku* Sudoku::getParent(){//DONE
 void Sudoku::setParent(Sudoku* par){//DONE
 	parent=par;
 }
-set<Sudoku> Sudoku::getNeighboor(){//DONE
+set<Sudoku> Sudoku::getNeighboor() const {//DONE
 	return enfants;
 }
 void Sudoku::setNeighboor(set<Sudoku> list){//DONE
-	enfants=list;
+	enfants=set<Sudoku>(list);
 }
 
 bool Sudoku::checkDouble(){//TODO
 	for(int i=0; i<9; i++){
 		for(int j=0; j<9; j++){
-			if(grid[i][j].getValue()!=0){
-                for(Cell* cell : grid[i][j].getAdjacentCells())
-                    if(grid[i][j].getValue()==cell->getValue())
+		    if(grid[i][j].getValue()!=0){
+	                for(Cell* cell : grid[i][j].getAdjacentCells()){
+			    if(cell->getValue()!=0){
+        	            if(grid[i][j].getValue()==cell->getValue()){
 						return true;
+			    }
+			    }
 			}
+		    }
 		}
 	}
 	return false;
 }
 bool Sudoku::checkComplete(){//TODO
-	bool tmp = true;
 	for(int i=0; i <9; i++){
 		for(int j=0; j<9; j++){
 			if(grid[i][j].getValue()==0) {
-				return false;
+				 return false;
 			}
 		}
 	}

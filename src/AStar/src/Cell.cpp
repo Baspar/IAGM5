@@ -41,9 +41,23 @@ void Cell::setRemaining(set<int> poss){
 	remainingVal=poss;
 }
 void Cell::updateRemaining(){//TODO
-	//for(int i=0; i<getAdjacentCells().size(); i++){
-		//if(remainingVal.find(getAdjacentCells()[i].getValue())!=remainingVal::end){
-			//remainingVal.erase(remainingVal.find(getAdjacentCelss()[i].getValue()));
-		//}
-	//}
+//	for(int i=0; i<getAdjacentCells().size(); i++){
+//		if(remainingVal.find(getAdjacentCells()[i].getValue())!=remainingVal::end){
+//			remainingVal.erase(remainingVal.find(getAdjacentCelss()[i].getValue()));
+//		}
+//	}
+        if(remainingVal.empty()) {
+		for(int i=1; i<10; i++) {
+			remainingVal.insert(i);
+		}
+
+        }
+	for(Cell* c : getAdjacentCells()){
+		if(c->getValue()!=0){
+		if(remainingVal.find(c->getValue())!=remainingVal.end()){
+			remainingVal.erase(c->getValue());
+		}
+		}
+	}
+    
 }

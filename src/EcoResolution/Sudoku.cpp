@@ -2,10 +2,14 @@
 #include <time.h>
 
 Sudoku::Sudoku(){//DONE
+    cout << "sudoku:" << this << endl;
     grid.resize(9);
     for(int i=0; i<9; i++)
         for(int j=0;j<9;j++)
             grid[i].push_back(Cell(i,j,this));
+    for(int i=0; i<9; i++)
+        for(int j=0;j<9;j++)
+            cout << grid[i][j].getSudoku() << endl;       
     ifstream fichier("test.txt", ios::in); // on ouvre en lecture
     if(fichier) // si l'ouverture a fonctionné
     {
@@ -26,8 +30,8 @@ Sudoku::Sudoku(){//DONE
     }
     for(int i=0; i<9;i++)
         ecoAgents.push_back(new LigneAgent(this,i));
-    for(int j=0; j<9; j++)
-        ecoAgents.push_back(new ColonneAgent(this,j));    
+   /* for(int j=0; j<9; j++)
+        ecoAgents.push_back(new ColonneAgent(this,j));   */ 
 }
 Sudoku::Sudoku(const Sudoku& sudoku){//DONE
     grid.resize(9);
@@ -119,4 +123,23 @@ void Sudoku::remplir(){
         cout << endl;
     }
 
+bool Sudoku::estFini(){
+    for(int i=0; i<ecoAgents.size();i++){
+        if(ecoAgents.at(i)->getEtat()!=Etat::SATISFACTION)
+            return false;
+    }
+    return true;
+}
+
+
+EcoAgent* Sudoku::choixEcoAgent(){
+    bool b=false;
+    EcoAgent* e=NULL;
+    while(!b){
+        int alea=rand() %(ecoAgents.size());
+        if(ecoAgents.at(alea)->getEtat()!=Etat::SATISFACTION)
+            return ecoAgents.at(alea);
+    }
+    return e;
+}
 

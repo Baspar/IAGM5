@@ -38,11 +38,17 @@ bool EcoAgent::getGene(){//DONE
  }
  
  void EcoAgent::essayerSatisfaire(){//WIP
+    cout << "test1" << endl;
     if(etat!=Etat::SATISFACTION){
+        cout << "test2" << endl;
         vector<EcoAgent*> geneur=trouverGeneur();
+            cout << "test3" << endl;
         while(geneur.size()!=0){
+            cout << "test4" << endl;
             for(int i=0; i<geneur.size(); i++){
+                cout << "test5" << endl;
                 agresser(geneur[i]);
+                cout << "test6" << endl;
             }
         }
         faireSatisfaction();
@@ -51,15 +57,19 @@ bool EcoAgent::getGene(){//DONE
  
  
  void EcoAgent::fuir(EcoAgent* e){//WIP
+    cout << "testFuir2" << endl;
     if(etat==Etat::SATISFACTION)
         etat=Etat::RECHERCHE_FUITE;
+    cout << "testFuir3"<< endl;    
     EcoAgent* f=trouverPlacePourFuir(e);  
+    cout << "testFuir4"<< endl;
     if(f==NULL)
         cout << "pas de place pour fuire" << endl;
     else {
         //MANQUE PEUT ETRE UNE BOUCLE
         faireFuite(f);
-    }      
+    } 
+    cout << "testFuir5"<< endl;     
  }
  
  
