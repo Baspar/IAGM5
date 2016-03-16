@@ -186,18 +186,23 @@ bool Sudoku::estFini(){
 
 
 EcoAgent* Sudoku::choixEcoAgent(){
-    bool b=false;
-    EcoAgent* e=NULL;
-    while(!b){
-        int alea=rand() %(ecoAgents.size());
-        //if(alea<9)
-            //cout << "  Ligne #" << alea << endl;
-        //else
-            //cout << "  Colon #" << (alea-9) << endl;
-
-        if(ecoAgents.at(alea)->getEtat()!=Etat::SATISFACTION)
-            return ecoAgents.at(alea);
+    EcoAgent* e = nullptr;
+    int scoreMin = 10;
+    for(int i=0; i<9; i++){
+        int score = scoreLigne( ((LigneAgent*)ecoAgents[i])->getNumero() );
+        if(score < scoreMin){
+            scoreMin = score;
+            e = ecoAgents[i];
+        }
     }
+    for(int i=9; i<18; i++){
+        int score = scoreCol( ((ColonneAgent*)ecoAgents[i])->getNumero() );
+        if(score < scoreMin){
+            scoreMin = score;
+            e = ecoAgents[i];
+        }
+    }
+    cout << e << endl;
     return e;
 }
  int Sudoku::fitness(){//DONE
