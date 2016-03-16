@@ -22,17 +22,18 @@ class Cell: public EcoAgent{
         Sudoku* getSudoku();
         Cell();
         Cell(Number number);
-        Cell(int x, int y, Sudoku* sud);
+        Cell(int x, int y);
         Cell(const Cell& cell);
         void setNumber(const Number& num);
         Number getNumber() const;
         CellType getType() const;
         void setValue(int val);
         int getValue() const;
+        void setSudoku(Sudoku* sud);
         vector<EcoAgent*> trouverGeneur();
         void faireSatisfaction();
         void agresser(EcoAgent* e);
         EcoAgent* trouverPlacePourFuir(EcoAgent* e);
-        void faireFuite(EcoAgent* e); 
+        void faireFuite(EcoAgent* e);
 };
 #endif

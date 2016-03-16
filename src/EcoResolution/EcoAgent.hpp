@@ -22,12 +22,12 @@ class EcoAgent{
         void setGene(bool b);
         void setEtat(Etat e);
         void setbut(vector<EcoAgent*> v);
-        void essayerSatisfaire(); 
-        virtual vector<EcoAgent*> trouverGeneur()=0; 
-        virtual void faireSatisfaction()=0;  
-        virtual void agresser(EcoAgent* e)=0;   
-        void fuir(EcoAgent* e);      
-        virtual EcoAgent* trouverPlacePourFuir(EcoAgent* e)=0;         
-        virtual void faireFuite(EcoAgent* e)=0;             
+        void essayerSatisfaire();
+        virtual vector<EcoAgent*> trouverGeneur()=0;
+        virtual void faireSatisfaction()=0;
+        virtual void agresser(EcoAgent* e)=0;
+        void fuir(EcoAgent* e);
+        virtual EcoAgent* trouverPlacePourFuir(EcoAgent* e)=0;
+        virtual void faireFuite(EcoAgent* e)=0;
 };
 #endif

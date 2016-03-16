@@ -2,14 +2,15 @@
 #include <time.h>
 
 Sudoku::Sudoku(){//DONE
-    cout << "sudoku:" << this << endl;
+    cout << this << endl;
     grid.resize(9);
+    grid2.resize(9);
     for(int i=0; i<9; i++)
-        for(int j=0;j<9;j++)
-            grid[i].push_back(Cell(i,j,this));
-    for(int i=0; i<9; i++)
-        for(int j=0;j<9;j++)
-            cout << grid[i][j].getSudoku() << endl;       
+        for(int j=0;j<9;j++){
+            grid[i].push_back(Cell(i,j));
+            grid[i][j].setSudoku(this);
+            cout << getCell(i, j)->getSudoku() << endl;
+        }
     ifstream fichier("test.txt", ios::in); // on ouvre en lecture
     if(fichier) // si l'ouverture a fonctionné
     {
@@ -28,18 +29,14 @@ Sudoku::Sudoku(){//DONE
         }
         fichier.close();
     }
-    for(int i=0; i<9;i++)
-        ecoAgents.push_back(new LigneAgent(this,i));
+    for(int i=0; i<9;i++){
+        cout << "OK" << endl;
+        ecoAgents.push_back(new LigneAgent(i));
+        cout << "OK" << endl;
+        ((LigneAgent*)ecoAgents[i])->setSudoku(this);
+    }
    /* for(int j=0; j<9; j++)
-        ecoAgents.push_back(new ColonneAgent(this,j));   */ 
-}
-Sudoku::Sudoku(const Sudoku& sudoku){//DONE
-    grid.resize(9);
-    for(int i=0; i<9; i++)
-        for(int j=0; j<9; j++){
-            const Cell cellTmp=sudoku.getCell(i, j);
-            grid[i].push_back(Cell(cellTmp));
-        }
+        ecoAgents.push_back(new ColonneAgent(this,j));   */
 }
 void Sudoku::setValue(int x, int y, int val){//DONE
     grid[x][y].setValue(val);
@@ -47,11 +44,8 @@ void Sudoku::setValue(int x, int y, int val){//DONE
 int Sudoku::getValue(int x, int y) const{//DONE
     return grid[x][y].getNumber().getValue();
 }
-Cell Sudoku::getCell(int x, int y) const{//DONE
+Cell* Sudoku::getCell(int x, int y){//DONE
     return grid[x][y];
-}
-Cell* Sudoku::getpCell(int x, int y){//DONE
-    return grid[x].data()+y;
 }
 void Sudoku::remplir(){
     srand (time(NULL));

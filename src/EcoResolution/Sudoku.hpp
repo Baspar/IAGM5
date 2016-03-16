@@ -15,14 +15,13 @@ using namespace std;
 
 class Sudoku: public EcoResoluteur{
     private:
-        vector<vector<Cell>> grid;
+        vector<vector<Cell*>> grid;
     public:
         Sudoku();
         Sudoku(const Sudoku& sudoku);
         void setValue(int x, int y, int val);
         int getValue(int x, int y) const;
-        Cell getCell(int x, int y) const;
-        Cell* getpCell(int x, int y);
+        Cell* getCell(int x, int y);
         void remplir();
         void afficher() const;
         bool estFini();

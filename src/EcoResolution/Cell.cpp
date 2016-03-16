@@ -1,12 +1,11 @@
 #include "Cell.hpp"
-Cell::Cell(){//DONE
+void Cell::setSudoku(Sudoku* sud){
+    sudoku = sud;
 }
-Cell::Cell( int x, int y, Sudoku* sud){//DONE
-    cout << "cnstructeur cell" << sud << endl;
-    sudoku=sud;
-        cout << "cnstructeur cell2" << sudoku << endl;
-    this->x=x;
-    this->y=y;
+Cell::Cell( int xc, int yc){//DONE
+    sudoku=nullptr;
+    x=xc;
+    y=yc;
    /* if(trouverGeneur().size()==0){
         gene=false;
         etat=Etat::SATISFACTION;
@@ -50,7 +49,7 @@ void Cell::faireSatisfaction(){//WIP
     if( (but[0]->getEtat()==Etat::SATISFACTION) && (but[1]->getEtat()==Etat::SATISFACTION) )
         etat==Etat::SATISFACTION;
 }
-        
+
 void Cell::agresser(EcoAgent* e){//WIP
     e->fuir(this);
 }
@@ -75,7 +74,7 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
         cout << "nvy " << nvy << endl;
         if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy).getType()!=CellType::GIVEN )
             b=true;
-        cout << "test" << endl;       
+        cout << "test" << endl;
     }
     return sudoku->getpCell(nvx,nvy);
 }

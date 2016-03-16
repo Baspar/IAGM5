@@ -4,7 +4,7 @@
 int LigneAgent::getNumero(){
     return numero;
 }
-        
+
 Sudoku* LigneAgent::getSudoku(){
     return sudoku;
 }
@@ -15,20 +15,19 @@ void LigneAgent::setNumero(int n){
 
 void LigneAgent::setSudoku(Sudoku* s){
     sudoku=s;
+    for(int i=0; i<9;i++){
+        ajouterBut(sudoku->getpCell(numero,i));
+        sudoku->getpCell(numero,i)->ajouterBut(this);
+    }
 }
 
-LigneAgent::LigneAgent(Sudoku* s, int n){
-    sudoku=s;
-    cout << sudoku << endl;
+LigneAgent::LigneAgent(int n){
+    sudoku=nullptr;
+    cout << "HERE" << sudoku << endl;
     numero=n;
     agresse=false;
     gene=false;
     etat=Etat::RECHERCHE_SATISFACTION;
-    for(int i=0; i<9;i++){
-        ajouterBut(sudoku->getpCell(numero,i));
-        sudoku->getpCell(numero,i)->ajouterBut(this);
-        cout << s->getpCell(numero,i)->getSudoku() << endl;
-    }    
 }
 
 LigneAgent::LigneAgent(){
