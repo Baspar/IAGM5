@@ -77,7 +77,7 @@ void Sudoku::remplir(){
         }
     }
 }
-    void Sudoku::afficher() const{//DONE
+    void Sudoku::afficher() {//DONE
         for(int i=0; i<9; i++){
             if(i%3==0){
                 cout << "+";

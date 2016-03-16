@@ -23,7 +23,7 @@ class Sudoku: public EcoResoluteur{
         int getValue(int x, int y) const;
         Cell* getCell(int x, int y);
         void remplir();
-        void afficher() const;
+        void afficher();
         bool estFini();
         EcoAgent* choixEcoAgent();
 };
