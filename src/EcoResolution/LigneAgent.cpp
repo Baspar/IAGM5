@@ -41,8 +41,10 @@ vector<EcoAgent*> LigneAgent::trouverGeneur(){
     for(int i=0; i<9;i++){
         for(int j=i+1; j<9;j++){
             if (sudoku->getValue(numero,i)==sudoku->getValue(numero,j)){
-                cellules.insert(sudoku->getCell(numero,i));
-                cellules.insert(sudoku->getCell(numero,j));
+                if(sudoku->getCell(numero,i)->getType()==CellType::GUESS)
+                    cellules.insert(sudoku->getCell(numero,i));
+                if(sudoku->getCell(numero,j)->getType()==CellType::GUESS)    
+                    cellules.insert(sudoku->getCell(numero,j));
             }
         }
     }
