@@ -19,36 +19,51 @@ CellType Cell::getType() const{//DONE
 void Cell::setNumber(const Number& num){//DONE
     number=num;
 }
-void Cell::setValue(int val){
+void Cell::setValue(int val){//DONE
     number.setValue(val);
 }
-int Cell::getValue() const{
+int Cell::getValue() const{//DONE
     return number.getValue();
 }
 
-vector<EcoAgent*> Cell::trouverGeneur(){
+vector<EcoAgent*> Cell::trouverGeneur(){//WIP
     vector<EcoAgent*> v=but[0]->trouverGeneur();
     for(int j=0;j<but[1]->trouverGeneur().size();j++)
         v.push_back(but[1]->trouverGeneur()[j]);
     return v;
 }
 
-void Cell::faireSatisfaction(){
+void Cell::faireSatisfaction(){//WIP
     if( (but[0]->getEtat()==Etat::SATISFACTION) && (but[1]->getEtat()==Etat::SATISFACTION) )
         etat==Etat::SATISFACTION;
 }
         
-void Cell::agresser(EcoAgent* e){
+void Cell::agresser(EcoAgent* e){//WIP
     e->fuir(this);
 }
 
 
-EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){
-    return e;
+EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
+    int blocLigne=x/3;
+    int blocColonne=y/3;
+    bool b=false;
+    int nvx;
+    int nvy;
+    while (b==false){
+        int alea=rand() %3;
+        int alea2=rand() %3;
+        nvx=3*blocLigne+alea;
+        nvy=3*blocColonne+alea2;
+        if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy).getType()!=CellType::GIVEN )
+            b=true;   
+    }
+    return sudoku->getpCell(nvx,nvy);
 }
 
 
-void Cell::faireFuite(EcoAgent* e){
-    
-
+void Cell::faireFuite(EcoAgent* e){//WIP
+    Number n=Number(((Cell*)e)->getValue(), CellType::GUESS);
+    Number n2=Number(this->getValue(),CellType::GUESS);
+    ((Cell*)e)->setNumber(n);
+    this->setNumber(n2);
 }
