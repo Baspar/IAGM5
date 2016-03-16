@@ -10,19 +10,21 @@ using namespace std;
 int main(){
     srand(time(nullptr));
 
-    Sudokus oldGen(100, 100, 70);
+    Sudokus oldGen(100, 90, 10);
     int cpt = 0;
     int mem = oldGen.bestFitness();
     Sudoku bestSud = oldGen.getIndividu(99);
 
+    int i=0;
     while(oldGen.bestFitness() < 162){
+        i++;
         int bestFit = oldGen.bestFitness();
         if(bestFit <= mem){
             cpt++;
-            if(cpt>200){
+            if(cpt>500){
                 cpt=0;
                 bestSud.afficher();
-                oldGen=Sudokus(100, 100, 70);
+                //oldGen=Sudokus(100, 90, 10);
                 bestSud = oldGen.getIndividu(99);
                 mem = oldGen.bestFitness();
                 cout << endl << "RESET" << endl << endl;
@@ -41,4 +43,5 @@ int main(){
     }
 
     oldGen.getIndividu(99).afficher();
+    cout << "Solution atteinte en " << i << " generations" << endl;
 }

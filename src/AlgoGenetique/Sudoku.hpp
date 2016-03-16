@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include "Cell.hpp"
-#include "Genome.hpp"
 #include <fstream>
 
 using namespace std;
