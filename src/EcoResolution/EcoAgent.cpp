@@ -1,6 +1,13 @@
 #include "EcoAgent.hpp"
 #include <iostream>
 
+void EcoAgent::checkSatisfaction(){
+    if(trouverGeneur().size() > 0)
+        setEtat(Etat::RECHERCHE_SATISFACTION);
+    else
+        setEtat(Etat::SATISFACTION);
+}
+
 bool EcoAgent::getAgresse(){//DONE
     return agresse;
 }
@@ -69,7 +76,7 @@ bool EcoAgent::getGene(){//DONE
         cout << "pas de place pour fuire" << endl;
     else {
         faireFuite(f);
-        
+
     }
     //cout << "testFuir5"<< endl;
  }
