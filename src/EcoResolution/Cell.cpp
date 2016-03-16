@@ -63,18 +63,38 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     bool b=false;
     int nvx;
     int nvy;
-    while (!b){
-        int alea=rand() %3;
-        //cout << "alea " << alea << endl;
-        int alea2=rand() %3;
-        //cout << "alea2 " << alea2 << endl;
-        nvx=3*blocLigne+alea;
-        //cout << "nvx " << nvx << endl;
-        nvy=3*blocColonne+alea2;
-        //cout << "nvy " << nvy << endl;
-        if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN )
-            b=true;
-        //cout << "test" << endl;
+    set<pair<int,int> > casePossible;
+    for(int i=0; i<3;i++){
+        for(int j=0; j<3;j++){
+            nvx=3*blocLigne+i;
+            nvy=3*blocColonne+j;
+             if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION)
+                casePossible.insert(make_pair(nvx,nvy));
+        }
+    }
+    int chance=rand() %100;
+    if(casePossible.size()==0 || chance >70){
+        while (!b){
+            int alea=rand() %3;
+            //cout << "alea " << alea << endl;
+            int alea2=rand() %3;
+            //cout << "alea2 " << alea2 << endl;
+            nvx=3*blocLigne+alea;
+            //cout << "nvx " << nvx << endl;
+            nvy=3*blocColonne+alea2;
+            //cout << "nvy " << nvy << endl;
+            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN )
+                b=true;
+            //cout << "test" << endl;
+        }
+    }
+    else{
+        int alea=rand() %(casePossible.size());
+        set<pair<int,int> >::const_iterator it=casePossible.begin();
+        for(int l=0; l<alea; l++)
+            it++;
+        nvx=it->first;
+        nvy=it->second;
     }
     sudoku->afficher(x, y, nvx, nvy);
     return sudoku->getCell(nvx,nvy);
