@@ -53,11 +53,12 @@ bool EcoAgent::getGene(){//DONE
             //cout << "test3" << endl;
         while(geneur.size()!=0){
             //cout << "test4" << endl;
-            for(int i=0; i<geneur.size(); i++){
+            int alea=rand() %(geneur.size());
+            //for(int i=0; i<geneur.size(); i++){
                 //cout << "test5" << endl;
-                agresser(geneur[i]);
+                agresser(geneur[alea]);
                 //cout << "test6" << endl;
-            }
+           // }
             geneur=trouverGeneur();
         }
         faireSatisfaction();
