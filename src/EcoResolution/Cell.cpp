@@ -82,7 +82,6 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
 
 
 void Cell::faireFuite(EcoAgent* e){//WIP
-    cout <<"Je suis iciiiiiii" << endl;
     int n = ((Cell*)e)->getValue();
     int n2 = this->getValue();
     ((Cell*)e)->setValue(n2);
