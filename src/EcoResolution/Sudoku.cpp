@@ -79,7 +79,7 @@ void Sudoku::remplir(){
         }
     }
 }
-    void Sudoku::afficher() {//DONE
+    void Sudoku::afficher(){//DONE
         for(int i=0; i<9; i++){
             if(i%3==0){
                 cout << "+";
@@ -90,7 +90,7 @@ void Sudoku::remplir(){
                     else
                         cout << "-";
                 }
-                cout << endl;
+                cout << "--" << endl;
             }
             cout << "|";
             for(int j=0; j<9; j++){
@@ -105,6 +105,7 @@ void Sudoku::remplir(){
                 else
                     cout << " ";
             }
+            cout << " " << scoreLigne(i);
             cout << endl;
         }
         cout << "+";
@@ -115,7 +116,16 @@ void Sudoku::remplir(){
             else
                 cout << "-";
         }
-        cout << endl;
+        cout << "--" << endl;
+        cout << "|";
+        for(int j=0; j<9; j++){
+            cout << " " << scoreCol(j) << " ";
+            if(j%3==2)
+                cout << "|";
+            else
+                cout << " ";
+        }
+        cout << " " << fitness() << endl<< endl;
     }
     void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
         for(int i=0; i<9; i++){
@@ -128,7 +138,7 @@ void Sudoku::remplir(){
                     else
                         cout << "-";
                 }
-                cout << endl;
+                cout << "--" << endl;
             }
             cout << "|";
             for(int j=0; j<9; j++){
@@ -143,6 +153,7 @@ void Sudoku::remplir(){
                 else
                     cout << " ";
             }
+            cout << " " << scoreLigne(i);
             cout << endl;
         }
         cout << "+";
@@ -153,7 +164,16 @@ void Sudoku::remplir(){
             else
                 cout << "-";
         }
-        cout << endl;
+        cout << "--" << endl;
+        cout << "|";
+        for(int j=0; j<9; j++){
+            cout << " " << scoreCol(j) << " ";
+            if(j%3==2)
+                cout << "|";
+            else
+                cout << " ";
+        }
+        cout << " " << fitness() << endl<< endl;
     }
 
 bool Sudoku::estFini(){
