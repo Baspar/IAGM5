@@ -4,7 +4,7 @@
 vector<EcoAgent*> EcoResoluteur::getEcoAgents(){//DONE
     return ecoAgents;
 }
-        
+
 void EcoResoluteur::setEcoAgents(vector<EcoAgent*> eco){//DONE
     ecoAgents=eco;
 }
@@ -18,10 +18,18 @@ void EcoResoluteur::ajouterEcoAgent(EcoAgent* eco){//DONE
 void EcoResoluteur::resolution(){
    // cout << "test"<< endl;
     while (!estFini()) {
-     //   cout << "test" << endl;
+        cout << "Choix" << endl;
+        for(int i=0; i<9; i++)
+            cout << "  Ligne #" << i << ": " << (ecoAgents[i]->getEtat()==Etat::SATISFACTION?"OK":"NOK") << endl;
+
+        for(int i=9; i<18; i++)
+            cout << "  Colon #" << (i-9) << ": " << (ecoAgents[i]->getEtat()==Etat::SATISFACTION?"OK":"NOK") << endl;
+string c;
+cin >> c; 
         EcoAgent* e=choixEcoAgent();
-     //   cout << "test" << e << endl;
-        e->essayerSatisfaire(); 
-     //   cout << "test" << endl;   
+        cout << "Satisfaire" << endl;
+        e->essayerSatisfaire();
+        cout << endl<< "=============================================" << endl << endl;
     }
+    cout << "FINIIIIIIII" << endl;
 }

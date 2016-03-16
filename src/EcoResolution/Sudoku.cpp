@@ -177,11 +177,11 @@ void Sudoku::remplir(){
     }
 
 bool Sudoku::estFini(){
-    for(int i=0; i<ecoAgents.size();i++){
-        if(ecoAgents.at(i)->getEtat()!=Etat::SATISFACTION)
-            return false;
-    }
-    return true;
+    //for(int i=0; i<ecoAgents.size();i++)
+        //if(ecoAgents.at(i)->getEtat()!=Etat::SATISFACTION)
+            //return false;
+    //return true;
+    return (fitness()==162);
 }
 
 
@@ -190,6 +190,11 @@ EcoAgent* Sudoku::choixEcoAgent(){
     EcoAgent* e=NULL;
     while(!b){
         int alea=rand() %(ecoAgents.size());
+        //if(alea<9)
+            //cout << "  Ligne #" << alea << endl;
+        //else
+            //cout << "  Colon #" << (alea-9) << endl;
+
         if(ecoAgents.at(alea)->getEtat()!=Etat::SATISFACTION)
             return ecoAgents.at(alea);
     }
