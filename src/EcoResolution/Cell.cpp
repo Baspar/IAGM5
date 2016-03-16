@@ -2,9 +2,17 @@
 Cell::Cell(){//DONE
 }
 Cell::Cell( int x, int y, Sudoku* sud){//DONE
-sudoku=sud;
+    sudoku=sud;
     this->x=x;
     this->y=y;
+  /*  if(trouverGeneur().size()==0){
+        gene=false;
+        etat=Etat::SATISFACTION;
+    }
+    else {
+        gene=true;
+        etat=Etat::RECHERCHE_SATISFACTION;
+    }*/
 }
 Cell::Cell(Number num):number(num){//DONE
 }
