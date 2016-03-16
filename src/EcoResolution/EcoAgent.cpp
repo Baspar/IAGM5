@@ -68,8 +68,8 @@ bool EcoAgent::getGene(){//DONE
     if(f==NULL)
         cout << "pas de place pour fuire" << endl;
     else {
-        //MANQUE PEUT ETRE UNE BOUCLE
         faireFuite(f);
+        
     }
     //cout << "testFuir5"<< endl;
  }
