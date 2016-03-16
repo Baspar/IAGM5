@@ -84,8 +84,8 @@ int main(){
     cout << endl;
 
     sud.remplir();
-    
-    
+
+
      cout << "Grille de numero" << endl;
 
     for(int i=0; i<9; i++){
@@ -160,6 +160,6 @@ int main(){
             cout << "-";
     }
     cout << endl;
-    
+
     sud.resolution();
 }

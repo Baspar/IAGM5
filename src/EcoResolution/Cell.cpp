@@ -56,8 +56,8 @@ void Cell::agresser(EcoAgent* e){//WIP
 
 
 EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
-    cout << "trouver1"<< endl;
-    cout << sudoku << endl;
+    //cout << "trouver1"<< endl;
+    //cout << sudoku << endl;
     int blocLigne=x/3;
     int blocColonne=y/3;
     bool b=false;
@@ -65,16 +65,16 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     int nvy;
     while (b==false){
         int alea=rand() %3;
-        cout << "alea " << alea << endl;
+        //cout << "alea " << alea << endl;
         int alea2=rand() %3;
-        cout << "alea2 " << alea2 << endl;
+        //cout << "alea2 " << alea2 << endl;
         nvx=3*blocLigne+alea;
         cout << "nvx " << nvx << endl;
         nvy=3*blocColonne+alea2;
         cout << "nvy " << nvy << endl;
         if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN )
             b=true;
-        cout << "test" << endl;
+        //cout << "test" << endl;
     }
     return sudoku->getCell(nvx,nvy);
 }
