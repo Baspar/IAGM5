@@ -4,7 +4,7 @@
 int ColonneAgent::getNumero(){
     return numero;
 }
-        
+
 Sudoku* ColonneAgent::getSudoku(){
     return sudoku;
 }
@@ -15,18 +15,18 @@ void ColonneAgent::setNumero(int n){
 
 void ColonneAgent::setSudoku(Sudoku* s){
     sudoku=s;
+    for(int i=0; i<9;i++){
+        ajouterBut(sudoku->getCell(i,numero));
+        sudoku->getCell(i,numero)->ajouterBut(this);
+    }
 }
 
-ColonneAgent::ColonneAgent(Sudoku* s, int n){
-    sudoku=s;
+ColonneAgent::ColonneAgent(int n){
+    sudoku=nullptr;
     numero=n;
     agresse=false;
     gene=false;
     etat=Etat::RECHERCHE_SATISFACTION;
-    for(int i=0; i<9;i++){
-        ajouterBut(sudoku->getCell(i,numero));
-        sudoku->getCell(i,numero)->ajouterBut(this);
-    }    
 }
 
 ColonneAgent::ColonneAgent(){

@@ -29,13 +29,13 @@ Sudoku::Sudoku(){//DONE
         fichier.close();
     }
     for(int i=0; i<9;i++){
-        cout << "OK" << endl;
         ecoAgents.push_back(new LigneAgent(i));
-        cout << "OK" << endl;
         ((LigneAgent*)ecoAgents[i])->setSudoku(this);
     }
-   /* for(int j=0; j<9; j++)
-        ecoAgents.push_back(new ColonneAgent(this,j));   */
+    for(int i=0; i<9; i++){
+        ecoAgents.push_back(new ColonneAgent(i));
+        ((ColonneAgent*)ecoAgents[i+9])->setSudoku(this);
+    }
 }
 void Sudoku::setValue(int x, int y, int val){//DONE
     grid[x][y]->setValue(val);

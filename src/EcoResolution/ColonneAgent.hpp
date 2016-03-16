@@ -19,12 +19,12 @@ class ColonneAgent : public EcoAgent{
         Sudoku* getSudoku();
         void setNumero(int n);
         void setSudoku(Sudoku* s);
-        ColonneAgent(Sudoku* s, int n);
+        ColonneAgent(int n);
         ColonneAgent();
         vector<EcoAgent*> trouverGeneur();
         void faireSatisfaction();
         void agresser(EcoAgent* e);
         EcoAgent* trouverPlacePourFuir(EcoAgent* e);
-        void faireFuite(EcoAgent* e); 
+        void faireFuite(EcoAgent* e);
 };
 #endif
