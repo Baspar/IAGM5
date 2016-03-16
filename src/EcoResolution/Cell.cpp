@@ -63,26 +63,30 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     bool b=false;
     int nvx;
     int nvy;
-    while (b==false){
+    while (!b){
         int alea=rand() %3;
         //cout << "alea " << alea << endl;
         int alea2=rand() %3;
         //cout << "alea2 " << alea2 << endl;
         nvx=3*blocLigne+alea;
-        cout << "nvx " << nvx << endl;
+        //cout << "nvx " << nvx << endl;
         nvy=3*blocColonne+alea2;
-        cout << "nvy " << nvy << endl;
+        //cout << "nvy " << nvy << endl;
         if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN )
             b=true;
         //cout << "test" << endl;
     }
+    sudoku->afficher(x, y, nvx, nvy);
+    string c;
+    cin>>c;
     return sudoku->getCell(nvx,nvy);
 }
 
 
 void Cell::faireFuite(EcoAgent* e){//WIP
-    Number n=Number(((Cell*)e)->getValue(), CellType::GUESS);
-    Number n2=Number(this->getValue(),CellType::GUESS);
-    ((Cell*)e)->setNumber(n);
-    this->setNumber(n2);
+    cout <<"Je suis iciiiiiii" << endl;
+    int n = ((Cell*)e)->getValue();
+    int n2 = this->getValue();
+    ((Cell*)e)->setValue(n2);
+    this->setValue(n);
 }
