@@ -77,8 +77,6 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
         //cout << "test" << endl;
     }
     sudoku->afficher(x, y, nvx, nvy);
-    string c;
-   // cin>>c;
     return sudoku->getCell(nvx,nvy);
 }
 
