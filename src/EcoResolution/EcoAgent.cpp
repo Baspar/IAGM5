@@ -81,9 +81,9 @@ bool EcoAgent::getGene(){//DONE
         for(int i=0;i<f->getBut().size();i++)
             f->getBut()[i]->checkSatisfaction();
         f->checkSatisfaction();
-        for(int i=0;i<e->getBut().size();i++)
-            e->getBut()[i]->checkSatisfaction();
-        e->checkSatisfaction();
+        for(int i=0;i<this->getBut().size();i++)
+            this->getBut()[i]->checkSatisfaction();
+        this->checkSatisfaction();
     }
     //cout << "testFuir5"<< endl;
  }

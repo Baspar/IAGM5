@@ -106,4 +106,5 @@ void Cell::faireFuite(EcoAgent* e){//WIP
     int n2 = this->getValue();
     ((Cell*)e)->setValue(n2);
     this->setValue(n);
+     
 }
