@@ -19,6 +19,7 @@ void LigneAgent::setSudoku(Sudoku* s){
 
 LigneAgent::LigneAgent(Sudoku* s, int n){
     sudoku=s;
+    cout << sudoku << endl;
     numero=n;
     agresse=false;
     gene=false;
@@ -26,6 +27,7 @@ LigneAgent::LigneAgent(Sudoku* s, int n){
     for(int i=0; i<9;i++){
         ajouterBut(sudoku->getpCell(numero,i));
         sudoku->getpCell(numero,i)->ajouterBut(this);
+        cout << s->getpCell(numero,i)->getSudoku() << endl;
     }    
 }
 
@@ -60,7 +62,9 @@ void LigneAgent::faireSatisfaction(){
 
 
 void LigneAgent::agresser(EcoAgent* e){
+    cout << "testFuir" << endl;
     e->fuir(this);
+    cout << "rate ? " << endl;
 }
 
 EcoAgent* LigneAgent::trouverPlacePourFuir(EcoAgent* e){

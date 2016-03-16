@@ -1,4 +1,5 @@
 #include "EcoResoluteur.hpp"
+#include <iostream>
 
 vector<EcoAgent*> EcoResoluteur::getEcoAgents(){//DONE
     return ecoAgents;
@@ -15,8 +16,12 @@ void EcoResoluteur::ajouterEcoAgent(EcoAgent* eco){//DONE
 }
 
 void EcoResoluteur::resolution(){
+   // cout << "test"<< endl;
     while (!estFini()) {
+     //   cout << "test" << endl;
         EcoAgent* e=choixEcoAgent();
-        e->essayerSatisfaire();    
+     //   cout << "test" << e << endl;
+        e->essayerSatisfaire(); 
+     //   cout << "test" << endl;   
     }
 }

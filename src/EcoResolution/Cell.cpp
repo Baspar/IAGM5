@@ -2,10 +2,12 @@
 Cell::Cell(){//DONE
 }
 Cell::Cell( int x, int y, Sudoku* sud){//DONE
+    cout << "cnstructeur cell" << sud << endl;
     sudoku=sud;
+        cout << "cnstructeur cell2" << sudoku << endl;
     this->x=x;
     this->y=y;
-  /*  if(trouverGeneur().size()==0){
+   /* if(trouverGeneur().size()==0){
         gene=false;
         etat=Etat::SATISFACTION;
     }
@@ -13,6 +15,9 @@ Cell::Cell( int x, int y, Sudoku* sud){//DONE
         gene=true;
         etat=Etat::RECHERCHE_SATISFACTION;
     }*/
+}
+Sudoku* Cell::getSudoku(){
+    return sudoku;
 }
 Cell::Cell(Number num):number(num){//DONE
 }
@@ -52,6 +57,8 @@ void Cell::agresser(EcoAgent* e){//WIP
 
 
 EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
+    cout << "trouver1"<< endl;
+    cout << sudoku << endl;
     int blocLigne=x/3;
     int blocColonne=y/3;
     bool b=false;
@@ -59,11 +66,16 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     int nvy;
     while (b==false){
         int alea=rand() %3;
+        cout << "alea " << alea << endl;
         int alea2=rand() %3;
+        cout << "alea2 " << alea2 << endl;
         nvx=3*blocLigne+alea;
+        cout << "nvx " << nvx << endl;
         nvy=3*blocColonne+alea2;
+        cout << "nvy " << nvy << endl;
         if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy).getType()!=CellType::GIVEN )
-            b=true;   
+            b=true;
+        cout << "test" << endl;       
     }
     return sudoku->getpCell(nvx,nvy);
 }

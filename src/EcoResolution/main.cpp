@@ -160,4 +160,6 @@ int main(){
             cout << "-";
     }
     cout << endl;
+    
+    sud.resolution();
 }

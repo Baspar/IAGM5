@@ -19,6 +19,7 @@ class Cell: public EcoAgent{
         int x,y;
         Sudoku* sudoku;
     public:
+        Sudoku* getSudoku();
         Cell();
         Cell(Number number);
         Cell(int x, int y, Sudoku* sud);
