@@ -1,5 +1,7 @@
 #include "Sudoku.hpp"
 #include <time.h>
+#include <set>
+
 
 Sudoku::Sudoku(){//DONE
     cout << this << endl;
@@ -173,4 +175,49 @@ EcoAgent* Sudoku::choixEcoAgent(){
     }
     return e;
 }
+ int Sudoku::fitness(){//DONE
+        int fitness=0;
+        //fitness Lignes
+        for(int i=0; i<3; i++)
+            fitness+=scoreLignes(i);
 
+        //fitness Colonne
+        for(int i=0; i<3; i++)
+            fitness+=scoreCols(i);
+
+        return fitness;
+    }
+    int Sudoku::scoreLignes(int i){//DONE
+        int out=0;
+        for(int di=0; di<3; di++)
+            out+=scoreLigne(i*3+di);
+        return out;
+    }
+    int Sudoku::scoreLigne(int i){//DONE
+        set<int> chiffreMis;
+        for(int j=0; j<9; j++)
+            if(grid[i][j]->getValue()!=0)
+                chiffreMis.insert(grid[i][j]->getValue());
+        //if(chiffreMis.size() < 5)
+            //return chiffreMis.size();
+        //else if (chiffreMis.size() < 7)
+            //return 2*chiffreMis.size();
+        //else if (chiffreMis.size() < 9)
+            //return 3*chiffreMis.size();
+        //else
+            //return 4*chiffreMis.size();
+        return chiffreMis.size();
+    }
+    int Sudoku::scoreCols(int i){//DONE
+        int out=0;
+        for(int di=0; di<3; di++)
+            out+=scoreCol(i*3+di);
+        return out;
+    }
+    int Sudoku::scoreCol(int i){//DONE
+        set<int> chiffreMis;
+        for(int j=0; j<9; j++)
+            if(grid[j][i]->getValue()!=0)
+                chiffreMis.insert(grid[j][i]->getValue());
+        return chiffreMis.size();
+    }

@@ -16,6 +16,8 @@ using namespace std;
 class Sudoku: public EcoResoluteur{
     private:
         vector<vector<Cell*>> grid;
+        int scoreLigne(int i);
+        int scoreCol(int i);
     public:
         Sudoku();
         Sudoku(const Sudoku& sudoku);
@@ -27,5 +29,8 @@ class Sudoku: public EcoResoluteur{
         void afficher(int xAtt, int yAtt, int xAgr, int yAgr);
         bool estFini();
         EcoAgent* choixEcoAgent();
+        int scoreLignes(int i);
+        int scoreCols(int i);
+        int fitness();
 };
 #endif
