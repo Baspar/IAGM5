@@ -15,19 +15,20 @@ class Sudoku{
         Sudoku* parent;
     public:
         set<Sudoku> enfants;
-        vector<vector<Cell>> grid;
+        vector<vector<Cell*>> grid;
         Sudoku();
 	Sudoku(string filename);
         Sudoku(const Sudoku& sudoku);
         void setValue(int x, int y, int val);
         int getValue(int x, int y) const;
-        Cell getCell(int x, int y) const;
+        Cell* getCell(int x, int y) const;
         bool naiveIsCorrect();
         void computeArcConsistency();
         void addLineWhereIs(int x, int y, set<Cell*>& cells);
         void addColumnWhereIs(int x, int y, set<Cell*>& cells);
         void addBlockWhereIs(int x, int y, set<Cell*>& cells);
 
+	void updateRemaining();
         int getG()const;
         void setG(int value);
         int getH()const;
@@ -43,5 +44,6 @@ class Sudoku{
 
         bool checkDouble();
         bool checkComplete();
+	void afficher();
 };
 #endif

@@ -13,6 +13,7 @@ class AStar{
 	       	Sudoku current;
 	public:
 		set<Sudoku> closeList;
+//		set<Sudoku> searchList;
 		Sudoku developSudoku(Sudoku gridIni);
         //Sudoku FindLowestScore();
 		set<Sudoku> CreateNeighboor(Sudoku parent);

@@ -15,7 +15,7 @@ class Cell{
     public:
         Cell();
         Cell(Number number);
-        Cell(const Cell& cell);
+        Cell(const Cell* cell);
         void setNumber(const Number& num);
         Number getNumber() const;
         CellType getType() const;

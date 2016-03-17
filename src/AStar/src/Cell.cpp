@@ -9,7 +9,7 @@ Cell::Cell(Number num):number(num){//DONE
     for(int i=1; i<10; i++)
         remainingVal.insert(i);
 }
-Cell::Cell(const Cell& cell):number(cell.getNumber()){//DONE
+Cell::Cell(const Cell* cell):number(cell->getNumber()){//DONE
 }
 Number Cell::getNumber() const{//DONE
     return number;
@@ -46,12 +46,12 @@ void Cell::updateRemaining(){//TODO
 //			remainingVal.erase(remainingVal.find(getAdjacentCelss()[i].getValue()));
 //		}
 //	}
-        if(remainingVal.empty()) {
-		for(int i=1; i<10; i++) {
-			remainingVal.insert(i);
-		}
+//        if(remainingVal.empty()) {
+//		for(int i=1; i<10; i++) {
+//			remainingVal.insert(i);
+//		}
 
-        }
+//        }
 	for(Cell* c : getAdjacentCells()){
 		if(c->getValue()!=0){
 		if(remainingVal.find(c->getValue())!=remainingVal.end()){
