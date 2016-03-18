@@ -1,7 +1,7 @@
 #include "Sudoku.hpp"
 
 bool Sudoku::operator<(const Sudoku b) {
-    return(this->getG()+this->getH() <= b.getG()+ b.getH());
+    return(this->getG()+this->getH() >= b.getG()+ b.getH());
 }
 bool Sudoku::egal(const Sudoku b) {
     for(int i=0; i<9; i++) {	
@@ -16,9 +16,7 @@ Sudoku::Sudoku(string filename){//DONE
     for(int i=0; i<9; i++)
 	for(int j=0;j<9;j++)
 	       grid[i].push_back(new Cell());
-	 
 		
-
 
     ifstream fichier(filename, ios::in); // on ouvre en lecture
     if(fichier) // si l'ouverture a fonctionné
@@ -51,12 +49,19 @@ Sudoku::Sudoku(){//DONE
 }
 Sudoku::Sudoku(const Sudoku& sudoku){//DONE
     grid.resize(9);
-    for(int i=0; i<9; i++)
+    for(int i=0; i<9; i++){
         for(int j=0; j<9; j++){
-            Cell* cellTmp=sudoku.getCell(i, j);
-          grid[i].push_back(new Cell(cellTmp->getNumber()));
+		grid[i].push_back(new Cell());
+           	Number n = Number(sudoku.getCell(i,j)->getValue());
+		
+		grid[i][j]->setNumber(n);
+		grid[i][j]->setRemaining(sudoku.getCell(i,j)->getRemaining());	
+	}
         }
     computeArcConsistency();
+    
+    G = sudoku.getG();
+    H = sudoku.getH();
 }
 void Sudoku::setValue(int x, int y, int val){//DONE
     grid[x][y]->setValue(val);

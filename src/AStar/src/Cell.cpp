@@ -8,8 +8,11 @@ Cell::Cell(){//DONE
 Cell::Cell(Number num):number(num){//DONE
     for(int i=1; i<10; i++)
         remainingVal.insert(i);
+
 }
-Cell::Cell(const Cell* cell):number(cell->getNumber()){//DONE
+Cell::Cell(const Cell& cell):number(cell.getNumber()){//DONE
+}
+Cell::Cell(const Cell* cell):number(cell->getNumber()){
 }
 Number Cell::getNumber() const{//DONE
     return number;

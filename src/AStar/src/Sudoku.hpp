@@ -10,12 +10,12 @@ using namespace std;
 
 class Sudoku{
     private:
+	vector<vector<Cell*>> grid;
         int G;
         int H;
         Sudoku* parent;
     public:
         set<Sudoku> enfants;
-        vector<vector<Cell*>> grid;
         Sudoku();
 	Sudoku(string filename);
         Sudoku(const Sudoku& sudoku);

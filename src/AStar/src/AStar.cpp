@@ -20,8 +20,8 @@ Sudoku AStar::developSudoku(Sudoku gridIni){//WIK
 //				if(searchList.find(n)== searchList.end()){
 					for(int i=0; i<9; i++){
 						for(int j=0; j<9; j++) {
-							if(n.grid[i][j]->getValue()==0){
-								n.grid[i][j]->updateRemaining();
+							if(n.getCell(i,j)->getNumber().getValue()==0){
+								n.getCell(i,j)->updateRemaining();
 							}
 						}
 					}
@@ -37,26 +37,76 @@ Sudoku AStar::developSudoku(Sudoku gridIni){//WIK
 }
 
 set<Sudoku> AStar::CreateNeighboor(Sudoku p){//TODO
-
 	set<Sudoku> list;
 	for(int i=0; i<9; i++){
 		for(int j=0; j<9; j++){
 			if(p.getCell(i,j)->getValue()==0){
 				p.getCell(i,j)->updateRemaining();
-				for(int k : p.grid[i][j]->getRemaining()) {
+				for(int k : p.getCell(i,j)->getRemaining()) {
 					Sudoku tmp = Sudoku(p);
 					tmp.setValue(i,j,k);
-					if(!tmp.checkDouble()){
-						list.insert(tmp);
+				if(!tmp.checkDouble()){
+					bool test = true;
+				for(Cell* cell : tmp.getCell(i,j)->getAdjacentCells()){
+						if(cell->getNumber().getValue() == 0 ){
+							cell->updateRemaining();
+							if(cell->getRemaining().size()==0){
+								test = false;
+							}
+						}
 					}
+					tmp.updateGH();
+//					if(test){
+						list.insert(tmp);
+//					}
+					
 				}
 			}
 		}
 	}
+	}
 	p.setNeighboor(list);
 //	p.enfants = set<Sudoku>(list);
 	return list;
+
 }
 
 
 
+
+
+
+void AStar::test(Sudoku s) {
+
+
+
+Cell c = Cell(s.getCell(3,0));
+Cell* p = &c;
+p->setValue(1);
+
+cout << "c ";
+cout << p->getValue();
+cout << endl;
+
+
+Sudoku t = Sudoku(s);
+t.setValue(3,0,1);
+t.afficher();
+
+for(int i=0;i<9;i++){
+for(int j=0;j<9;j++){
+
+if(t.getCell(i,j)->getValue()==0){
+cout << i;
+cout << j;
+cout <<"       ";
+cout << t.getCell(i,j)->getNumber().getValue();
+cout <<  "       ";
+cout << t.getCell(i,j)->getAdjacentCells().size();
+cout << endl;
+
+}
+}
+}
+
+}
