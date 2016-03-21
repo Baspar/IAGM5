@@ -20,8 +20,10 @@ Sudoku* Cell::getSudoku(){
     return sudoku;
 }
 Cell::Cell(Number num):number(num){//DONE
+    type=TypeEcoAgent::CELLULE;
 }
 Cell::Cell(const Cell& cell):number(cell.getNumber()){//DONE
+    type=TypeEcoAgent::CELLULE;
 }
 Number Cell::getNumber() const{//DONE
     return number;

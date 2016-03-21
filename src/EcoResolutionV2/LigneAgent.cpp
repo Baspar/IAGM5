@@ -28,11 +28,13 @@ LigneAgent::LigneAgent(int n){
     agresse=false;
     gene=false;
     etat=Etat::RECHERCHE_SATISFACTION;
+    type=TypeEcoAgent::LIGNE;
 }
 
 LigneAgent::LigneAgent(){
     numero=-1;
     sudoku=NULL;
+    type=TypeEcoAgent::LIGNE;
 }
 
 vector<EcoAgent*> LigneAgent::trouverGeneur(){

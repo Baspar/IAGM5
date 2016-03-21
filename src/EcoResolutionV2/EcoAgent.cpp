@@ -1,6 +1,10 @@
 #include "EcoAgent.hpp"
 #include <iostream>
 
+TypeEcoAgent EcoAgent::getType(){
+    return type;
+}
+
 void EcoAgent::checkSatisfaction(){
     if(trouverGeneur().size() > 0)
         setEtat(Etat::RECHERCHE_SATISFACTION);

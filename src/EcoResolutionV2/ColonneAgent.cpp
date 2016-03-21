@@ -27,11 +27,13 @@ ColonneAgent::ColonneAgent(int n){
     agresse=false;
     gene=false;
     etat=Etat::RECHERCHE_SATISFACTION;
+    type=TypeEcoAgent::COLONNE;
 }
 
 ColonneAgent::ColonneAgent(){
     numero=-1;
     sudoku=NULL;
+    type=TypeEcoAgent::COLONNE;
 }
 
 vector<EcoAgent*> ColonneAgent::trouverGeneur(){
