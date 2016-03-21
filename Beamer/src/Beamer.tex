@@ -1,0 +1,60 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usetheme{Berlin}
+\setbeamerfont{caption}{size=\footnotesize}
+
+\title{Résolution de Sudoku en Intelligence Artificielle}
+\subtitle{Soutenance IA}
+\author{CHAUMONT-FRELET Anatole, LAINE Bastien, POINTIN Damien}
+\institute{Génie Mathématique | INSA Rouen}
+
+\begin{document}
+    \beamertemplatenavigationsymbolsempty
+
+    \begin{frame}
+        \titlepage{}
+    \end{frame}
+
+    \section*{Sommaire}
+        \begin{frame}
+            \tableofcontents
+        \end{frame}
+
+    \section{Introduction}
+        \subsection{}
+            \input{tex/Introduction.tex}
+
+    \section{Présentation méthodes}
+        \subsection{Algorithme génétique}
+            \input{tex/PresentationAGen.tex}
+        \subsection{Éco-résolution}
+            \input{tex/PresentationEco.tex}
+        \subsection{A*}
+            \input{tex/PresentationAStar.tex}
+    \section{Application du problème}
+        \subsection{Algorithme génétique}
+            \input{tex/ApplicationAGen.tex}
+        \subsection{Éco-résolution}
+            \input{tex/ApplicationEco.tex}
+        \subsection{A*}
+            \input{tex/ApplicationAStar.tex}
+    \section{Modélisation}
+        \subsection{Algorithme génétique}
+            \input{tex/ModelisationAGen.tex}
+        \subsection{Éco-résolution}
+            \input{tex/ModelisationEco.tex}
+        \subsection{A*}
+            \input{tex/ModelisationAStar.tex}
+    \section{Résultats/démonstration}
+        \subsection{Algorithme génétique}
+            \input{tex/ResultatAGen.tex}
+        \subsection{Éco-résolution}
+            \input{tex/ResultatEco.tex}
+        \subsection{A*}
+            \input{tex/ResultatAStar.tex}
+    \section{Conclusion}
+        \subsection{}
+            \input{tex/Conclusion.tex}
+\end{document}
