@@ -28,10 +28,10 @@ class EcoAgent{
         void essayerSatisfaire();
         virtual vector<EcoAgent*> trouverGeneur()=0;
         virtual void faireSatisfaction()=0;
-        virtual void agresser(EcoAgent* e)=0;
+        virtual void agresser(EcoAgent* e, EcoAgent* c)=0;
         void checkSatisfaction();
-        void fuir(EcoAgent* e);
-        virtual EcoAgent* trouverPlacePourFuir(EcoAgent* e)=0;
+        void fuir(EcoAgent* e, EcoAgent* c);
+        virtual EcoAgent* trouverPlacePourFuir(EcoAgent* e, EcoAgent* c)=0;
         virtual void faireFuite(EcoAgent* e)=0;
 };
 #endif

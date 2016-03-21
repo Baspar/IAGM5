@@ -61,7 +61,7 @@ void EcoAgent::essayerSatisfaire(){//WIP
             //cout << "    " << alea << endl;
             //for(int i=0; i<geneur.size(); i++){
             //cout << "test5" << endl;
-            agresser(geneur[alea]);
+            agresser(geneur[alea],this);
             //cout << "test6" << endl;
             // }
             geneur=trouverGeneur();
@@ -71,10 +71,10 @@ void EcoAgent::essayerSatisfaire(){//WIP
 }
 
 
-void EcoAgent::fuir(EcoAgent* e){//WIP
+void EcoAgent::fuir(EcoAgent* e, EcoAgent* c){//WIP
     if(etat==Etat::SATISFACTION)
         etat=Etat::RECHERCHE_FUITE;
-    EcoAgent* f=trouverPlacePourFuir(e);
+    EcoAgent* f=trouverPlacePourFuir(e,c);
     if(f==NULL)
         cout << "pas de place pour fuire" << endl;
     else {

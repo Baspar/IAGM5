@@ -63,11 +63,11 @@ void ColonneAgent::faireSatisfaction(){
 }
 
 
-void ColonneAgent::agresser(EcoAgent* e){
-    e->fuir(this);
+void ColonneAgent::agresser(EcoAgent* e, EcoAgent* c){
+    e->fuir(this,c);
 }
 
-EcoAgent* ColonneAgent::trouverPlacePourFuir(EcoAgent* e){
+EcoAgent* ColonneAgent::trouverPlacePourFuir(EcoAgent* e, EcoAgent* c){
     return this;
 }
 

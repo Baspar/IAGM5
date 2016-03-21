@@ -17,10 +17,13 @@ void EcoResoluteur::ajouterEcoAgent(EcoAgent* eco){//DONE
 
 void EcoResoluteur::resolution(){
     // cout << "test"<< endl;
+    int cpt=0;
     while (!estFini()) {
+        cpt++;
         EcoAgent* e=choixEcoAgent();
         e->essayerSatisfaire();
         cout << endl<< "=============================================" << endl << endl;
+        cout << "tour " << cpt << endl;
         string c;
         cin >> c;
     }

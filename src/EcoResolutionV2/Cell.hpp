@@ -32,8 +32,8 @@ class Cell: public EcoAgent{
         void setSudoku(Sudoku* sud);
         vector<EcoAgent*> trouverGeneur();
         void faireSatisfaction();
-        void agresser(EcoAgent* e);
-        EcoAgent* trouverPlacePourFuir(EcoAgent* e);
+        void agresser(EcoAgent* e, EcoAgent* c);
+        EcoAgent* trouverPlacePourFuir(EcoAgent* e, EcoAgent* c);
         void faireFuite(EcoAgent* e);
 };
 #endif

@@ -64,13 +64,13 @@ void LigneAgent::faireSatisfaction(){
 }
 
 
-void LigneAgent::agresser(EcoAgent* e){
+void LigneAgent::agresser(EcoAgent* e, EcoAgent* c){
     //cout << "testFuir" << endl;
-    e->fuir(this);
+    e->fuir(this, c);
     //cout << "rate ? " << endl;
 }
 
-EcoAgent* LigneAgent::trouverPlacePourFuir(EcoAgent* e){
+EcoAgent* LigneAgent::trouverPlacePourFuir(EcoAgent* e, EcoAgent* c){
     return this;
 }
 

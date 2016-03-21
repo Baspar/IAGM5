@@ -4,5 +4,5 @@ enum class TypeEcoAgent{
     CELLULE,
     LIGNE,
     COLONNE
-}
+};
 #endif

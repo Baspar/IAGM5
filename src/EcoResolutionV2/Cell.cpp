@@ -53,12 +53,12 @@ void Cell::faireSatisfaction(){//WIP
         etat==Etat::SATISFACTION;
 }
 
-void Cell::agresser(EcoAgent* e){//WIP
-    e->fuir(this);
+void Cell::agresser(EcoAgent* e, EcoAgent* c){//WIP
+    e->fuir(this, c);
 }
 
 
-EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
+EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e, EcoAgent* c){//WIP
     //cout << "trouver1"<< endl;
     //cout << sudoku << endl;
     int blocLigne=x/(int) sqrt(sudoku->getTaille());
@@ -71,12 +71,16 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
         for(int j=0; j<(int) sqrt(sudoku->getTaille());j++){
             nvx=(int) sqrt(sudoku->getTaille())*blocLigne+i;
             nvy=(int) sqrt(sudoku->getTaille())*blocColonne+j;
-            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION)
-                casePossible.insert(make_pair(nvx,nvy));
+            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION){
+                if(c->getType()==TypeEcoAgent::LIGNE && ((LigneAgent*)c)->getNumero()!=nvx)
+                    casePossible.insert(make_pair(nvx,nvy));
+                if(c->getType()==TypeEcoAgent::COLONNE && ((ColonneAgent*)c)->getNumero()!=nvy)   
+                    casePossible.insert(make_pair(nvx,nvy));
+            }    
         }
     }
     int chance=rand() %100;
-    if(casePossible.size()==0 || chance >70){
+    if(casePossible.size()==0 || chance >95){
         while (!b){
             int alea=rand() %(int) sqrt(sudoku->getTaille());
             //cout << "alea " << alea << endl;
