@@ -1,5 +1,5 @@
-#ifndef SUDOKU_HPP
-#define SUDOKU_HPP
+#ifndef GRAPHE_HPP
+#define GRAPHE_HPP
 
 #include <iostream>
 #include "Node.hpp"
@@ -13,9 +13,10 @@ class Graphe{
     public:
 	Graphe(Node a);
 	Graphe(set<Node> sa);
+
 	set<Node> getGraph()const;
 	void setGraph(set<Node> g);
-	void AddNodes(set<Node> l);
-	int Distance(Node a, Node b);
+
+	virtual int Distance(Node a, Node b);
 };
 #endif

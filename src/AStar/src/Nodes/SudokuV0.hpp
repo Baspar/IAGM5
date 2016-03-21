@@ -6,6 +6,7 @@
 #include "Cell.hpp"
 #include <vector>
 #include <fstream>
+#include <math.h>
 using namespace std;
 
 class Sudoku : public Node {
@@ -13,12 +14,15 @@ class Sudoku : public Node {
     private:
         vector<vector<Cell*>> grid;
     public:
-        Sudoku();
-        Sudoku(string filename);
+   	int taille;
+	Sudoku(int t);
+        Sudoku(string filename, int t);
         Sudoku(const Sudoku& sudoku);
+
         void setValue(int x, int y, int val);
         int getValue(int x, int y) const;
         Cell* getCell(int x, int y) const;
+
         bool naiveIsCorrect();
         void computeArcConsistency();
         void addLineWhereIs(int x, int y, set<Cell*>& cells);
@@ -28,12 +32,12 @@ class Sudoku : public Node {
         void updateRemaining();
 
         bool checkDouble();
-        bool checkComplete();
+//        bool checkComplete();
         void afficher();
 
-	virtual void updateG();
-	virtual void updateH();
 	virtual void updateGH();
+	virtual set<Node> getVoisins() const;
+	
 };
 #endif
 

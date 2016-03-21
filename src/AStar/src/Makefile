@@ -1,6 +1,9 @@
 GPP=g++ --std=c++11 -fpermissive
-all: Cell.o Sudoku.o Number.o AStar.o
-	$(GPP) main.cpp $^ -o main
+
+all:V0
+
+V%: Cell.o SudokuV%.o Number.o AStarV%.o
+	$(GPP) main$@.cpp $^ -o main
 
 %.o: %.cpp
 	$(GPP) -c $<

@@ -2,26 +2,34 @@
 
 bool AStar::FindShortestWay(Node a, Node b){
 
+cout << "Find Shortest Way";
+cout << endl;
+int c = 0;
 	set<Node> closeList;
 	std::priority_queue<Node> openList;
-	set<Node> searchList;
 
 	openList.push(a);
-	searchList.insert(a);
 
-	while(!openList.enpty()){
+	while(!openList.empty()){
+c++;
+cout << "Choix current    ";
+cout << c;
+cout << endl;
 		current = openList.top();
 		openList.pop();
-		searchList.earse(current);
 
-		if(graphe.distance(current,b) == 0){
+
+cout << "Test Distance";
+cout << endl;
+		if(graphe.Distance(current,b) == 0){
 			return true;
 		} else {
-			for(Node n : current.getEnfants()) {
-				if(searchList.find(n) == searchList.end()) {
+cout << "Voisins()";
+cout << endl;
+			for(Node n : current.getVoisins()) {
+				if(closeList.find(n) == closeList.end()) {
 					n.updateGH();
 					openList.push(n);
-					searchList.insert(n);
 				}	
 			}
 			closeList.insert(current);

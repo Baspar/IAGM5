@@ -28,11 +28,15 @@ class Node{
 	void setParents(set<Node*> sp);
 	set<Node*> getEnfants() const;
 	void setEnfants(set<Node*> se);
-         
+
+	         
 	bool operator<(const Node b);
 
 	//virtual void updateG();
 	//virtual void updateH();
+
 	virtual void updateGH();
+
+	virtual set<Node> getVoisins() const;
 };
 #endif
