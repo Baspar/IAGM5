@@ -15,6 +15,7 @@ using namespace std;
 
 class Sudoku: public EcoResoluteur{
     private:
+        int taille;
         vector<vector<Cell*>> grid;
         int scoreLigne(int i);
         int scoreCol(int i);
@@ -32,5 +33,6 @@ class Sudoku: public EcoResoluteur{
         int scoreLignes(int i);
         int scoreCols(int i);
         int fitness();
+        int getTaille();
 };
 #endif
