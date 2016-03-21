@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Etat.hpp"
+#include "TypeEcoAgent.hpp"
 
 using namespace std;
 
@@ -12,7 +13,9 @@ class EcoAgent{
         Etat etat;
         bool agresse;
         bool gene;
+        TypeEcoAgent type;
     public:
+        TypeEcoAgent getType();
         bool getAgresse();
         bool getGene();
         Etat getEtat();
