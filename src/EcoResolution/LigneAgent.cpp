@@ -15,7 +15,7 @@ void LigneAgent::setNumero(int n){
 
 void LigneAgent::setSudoku(Sudoku* s){
     sudoku=s;
-    for(int i=0; i<9;i++){
+    for(int i=0; i<sudoku->getTaille();i++){
         ajouterBut(sudoku->getCell(numero,i));
         sudoku->getCell(numero,i)->ajouterBut(this);
     }
@@ -38,8 +38,8 @@ LigneAgent::LigneAgent(){
 vector<EcoAgent*> LigneAgent::trouverGeneur(){
     vector<EcoAgent*> v;
     set<EcoAgent*> cellules;
-    for(int i=0; i<9;i++){
-        for(int j=i+1; j<9;j++){
+    for(int i=0; i<sudoku->getTaille();i++){
+        for(int j=i+1; j<sudoku->getTaille();j++){
             if (sudoku->getValue(numero,i)==sudoku->getValue(numero,j)){
                 if(sudoku->getCell(numero,i)->getType()==CellType::GUESS)
                     cellules.insert(sudoku->getCell(numero,i));

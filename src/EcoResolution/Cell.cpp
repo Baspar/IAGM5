@@ -1,4 +1,5 @@
 #include "Cell.hpp"
+#include <math.h>
 void Cell::setSudoku(Sudoku* sud){
     sudoku = sud;
 }
@@ -58,16 +59,16 @@ void Cell::agresser(EcoAgent* e){//WIP
 EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     //cout << "trouver1"<< endl;
     //cout << sudoku << endl;
-    int blocLigne=x/3;
-    int blocColonne=y/3;
+    int blocLigne=x/(int) sqrt(sudoku->getTaille());
+    int blocColonne=y/(int) sqrt(sudoku->getTaille());
     bool b=false;
     int nvx;
     int nvy;
     set<pair<int,int> > casePossible;
-    for(int i=0; i<3;i++){
-        for(int j=0; j<3;j++){
-            nvx=3*blocLigne+i;
-            nvy=3*blocColonne+j;
+    for(int i=0; i<(int) sqrt(sudoku->getTaille());i++){
+        for(int j=0; j<(int) sqrt(sudoku->getTaille());j++){
+            nvx=(int) sqrt(sudoku->getTaille())*blocLigne+i;
+            nvy=(int) sqrt(sudoku->getTaille())*blocColonne+j;
             if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION)
                 casePossible.insert(make_pair(nvx,nvy));
         }
@@ -75,13 +76,13 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     int chance=rand() %100;
     if(casePossible.size()==0 || chance >70){
         while (!b){
-            int alea=rand() %3;
+            int alea=rand() %(int) sqrt(sudoku->getTaille());
             //cout << "alea " << alea << endl;
-            int alea2=rand() %3;
+            int alea2=rand() %(int) sqrt(sudoku->getTaille());
             //cout << "alea2 " << alea2 << endl;
-            nvx=3*blocLigne+alea;
+            nvx=(int) sqrt(sudoku->getTaille())*blocLigne+alea;
             //cout << "nvx " << nvx << endl;
-            nvy=3*blocColonne+alea2;
+            nvy=(int) sqrt(sudoku->getTaille())*blocColonne+alea2;
             //cout << "nvy " << nvy << endl;
             if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN )
                 b=true;

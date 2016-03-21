@@ -15,7 +15,7 @@ void ColonneAgent::setNumero(int n){
 
 void ColonneAgent::setSudoku(Sudoku* s){
     sudoku=s;
-    for(int i=0; i<9;i++){
+    for(int i=0; i<sudoku->getTaille();i++){
         ajouterBut(sudoku->getCell(i,numero));
         sudoku->getCell(i,numero)->ajouterBut(this);
     }
@@ -37,8 +37,8 @@ ColonneAgent::ColonneAgent(){
 vector<EcoAgent*> ColonneAgent::trouverGeneur(){
     vector<EcoAgent*> v;
     set<EcoAgent*> cellules;
-    for(int i=0; i<9;i++){
-        for(int j=i+1; j<9;j++){
+    for(int i=0; i<sudoku->getTaille();i++){
+        for(int j=i+1; j<sudoku->getTaille();j++){
             if (sudoku->getValue(i, numero)==sudoku->getValue(j,numero)){
                 if(sudoku->getCell(i, numero)->getType()==CellType::GUESS)
                     cellules.insert(sudoku->getCell(i,numero));
