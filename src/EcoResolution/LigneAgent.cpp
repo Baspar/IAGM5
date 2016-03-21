@@ -23,7 +23,7 @@ void LigneAgent::setSudoku(Sudoku* s){
 
 LigneAgent::LigneAgent(int n){
     sudoku=nullptr;
-    cout << "HERE" << sudoku << endl;
+    //cout << "HERE" << sudoku << endl;
     numero=n;
     agresse=false;
     gene=false;

@@ -18,15 +18,7 @@ void EcoResoluteur::ajouterEcoAgent(EcoAgent* eco){//DONE
 void EcoResoluteur::resolution(){
     // cout << "test"<< endl;
     while (!estFini()) {
-        cout << "Choix" << endl;
-        for(int i=0; i<4; i++)
-            cout << "  Ligne #" << i << ": " << (ecoAgents[i]->getEtat()==Etat::SATISFACTION?"OK":"NOK") << endl;
-
-        for(int i=4; i<8; i++)
-            cout << "  Colon #" << (i-4) << ": " << (ecoAgents[i]->getEtat()==Etat::SATISFACTION?"OK":"NOK") << endl;
-
         EcoAgent* e=choixEcoAgent();
-        cout << "Satisfaire" << endl;
         e->essayerSatisfaire();
         cout << endl<< "=============================================" << endl << endl;
         string c;

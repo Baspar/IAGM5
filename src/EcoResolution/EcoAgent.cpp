@@ -45,16 +45,16 @@ void EcoAgent::setbut(vector<EcoAgent*> v){//DONE
 }
 
 void EcoAgent::essayerSatisfaire(){//WIP
-    //cout << "test1" << endl;
+  //  cout << "test1" << endl;
     if(etat!=Etat::SATISFACTION){
         //cout << "test2" << endl;
         vector<EcoAgent*> geneur=trouverGeneur();
-        // cout << "geneur +" << geneur.size() << endl;
-        //cout << "test3" << endl;
+     //   cout << "geneur +" << geneur.size() << endl;
+     //   cout << "test3" << endl;
         while(geneur.size()!=0){
-            //cout << "test4" << endl;
+       //     cout << "test4" << endl;
             int alea=rand() %(geneur.size());
-            cout << "    " << alea << endl;
+            //cout << "    " << alea << endl;
             //for(int i=0; i<geneur.size(); i++){
             //cout << "test5" << endl;
             agresser(geneur[alea]);
@@ -68,12 +68,9 @@ void EcoAgent::essayerSatisfaire(){//WIP
 
 
 void EcoAgent::fuir(EcoAgent* e){//WIP
-    //cout << "testFuir2" << endl;
     if(etat==Etat::SATISFACTION)
         etat=Etat::RECHERCHE_FUITE;
-    //cout << "testFuir3"<< endl;
     EcoAgent* f=trouverPlacePourFuir(e);
-    //cout << "testFuir4"<< endl;
     if(f==NULL)
         cout << "pas de place pour fuire" << endl;
     else {
@@ -85,7 +82,7 @@ void EcoAgent::fuir(EcoAgent* e){//WIP
             this->getBut()[i]->checkSatisfaction();
         this->checkSatisfaction();
     }
-    //cout << "testFuir5"<< endl;
+
 }
 
 

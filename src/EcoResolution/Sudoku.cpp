@@ -5,7 +5,6 @@
 
 
 Sudoku::Sudoku(){//DONE
-    cout << this << endl;
     ifstream fichier("test.txt", ios::in); // on ouvre en lecture
     if(fichier) // si l'ouverture a fonctionné
     {
@@ -17,7 +16,6 @@ Sudoku::Sudoku(){//DONE
             for(int j=0;j<taille;j++){
                 grid[i].push_back(new Cell(i,j));
              grid[i][j]->setSudoku(this);
-             cout << getCell(i, j)->getSudoku() << endl;
         }
         for(int i=0; i<taille; i++){
             getline(fichier, contenu);
@@ -81,6 +79,8 @@ void Sudoku::remplir(){
             }
         }
     }
+    for(int i=0; i<2*taille; i++)
+        ecoAgents[i]->checkSatisfaction();
 }
 void Sudoku::afficher(){//DONE
     for(int i=0; i<taille; i++){
@@ -88,7 +88,7 @@ void Sudoku::afficher(){//DONE
             cout << "+";
             for(int j=0; j<taille; j++){
                 cout << "---";
-                if(j%(int) sqrt(taille)==2)
+                if(j%(int) sqrt(taille)==(int) sqrt(taille)-1)
                     cout << "+";
                 else
                     cout << "-";
@@ -103,7 +103,7 @@ void Sudoku::afficher(){//DONE
                 cout << type << val << type;
             else
                 cout <<"   ";
-            if(j%(int) sqrt(taille)==2)
+            if(j%(int) sqrt(taille)==(int) sqrt(taille)-1)
                 cout << "|";
             else
                 cout << " ";
@@ -114,7 +114,7 @@ void Sudoku::afficher(){//DONE
     cout << "+";
     for(int j=0; j<taille; j++){
         cout << "---";
-        if(j%(int) sqrt(taille)==2)
+        if(j%(int) sqrt(taille)==(int) sqrt(taille)-1)
             cout << "+";
         else
             cout << "-";
@@ -123,7 +123,7 @@ void Sudoku::afficher(){//DONE
     cout << "|";
     for(int j=0; j<taille; j++){
         cout << " " << scoreCol(j) << " ";
-        if(j%(int) sqrt(taille)==2)
+        if(j%(int) sqrt(taille)==(int) sqrt(taille)-1)
             cout << "|";
         else
             cout << " ";
@@ -136,7 +136,7 @@ void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
             cout << "+";
             for(int j=0; j<taille; j++){
                 cout << "---";
-                if(j%(int) sqrt(taille)==2)
+                if(j%(int) sqrt(taille)==(int) sqrt(taille)-1)
                     cout << "+";
                 else
                     cout << "-";
@@ -151,7 +151,7 @@ void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
                 cout << type << val << type;
             else
                 cout <<"   ";
-            if(j%(int) sqrt(taille)==2)
+            if(j%(int) sqrt(taille)==(int) sqrt(taille)-1)
                 cout << "|";
             else
                 cout << " ";
@@ -162,7 +162,7 @@ void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
     cout << "+";
     for(int j=0; j<taille; j++){
         cout << "---";
-        if(j%(int) sqrt(taille)==2)
+        if(j%(int) sqrt(taille)==(int) sqrt(taille)-1)
             cout << "+";
         else
             cout << "-";
@@ -171,7 +171,7 @@ void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
     cout << "|";
     for(int j=0; j<taille; j++){
         cout << " " << scoreCol(j) << " ";
-        if(j%(int) sqrt(taille)==2)
+        if(j%(int) sqrt(taille)==(int) sqrt(taille)-1)
             cout << "|";
         else
             cout << " ";
@@ -180,35 +180,72 @@ void Sudoku::afficher(int xAtt, int yAtt, int xAgr, int yAgr) {//DONE
 }
 
 bool Sudoku::estFini(){
-    //for(int i=0; i<ecoAgents.size();i++)
-    //if(ecoAgents.at(i)->getEtat()!=Etat::SATISFACTION)
-    //return false;
-    //return true;
-    return (fitness()==taille*taille*2);
+    for(int i=0; i<ecoAgents.size();i++)
+    if(ecoAgents.at(i)->getEtat()!=Etat::SATISFACTION)
+        return false;
+    afficher();    
+    return true;
+    //return (fitness()==taille*taille*2);
 }
 
 
 EcoAgent* Sudoku::choixEcoAgent(){
     EcoAgent* e = nullptr;
+    set<int> valeurs;
     int scoreMin = taille+1;
+   for(int i=0; i<taille; i++){
+        int score = scoreLigne( ((LigneAgent*)ecoAgents[i])->getNumero() );
+        if(score==scoreMin)
+             valeurs.insert(i);
+        if(score < scoreMin){
+             scoreMin = score;
+             valeurs.clear();
+             valeurs.insert(i);
+        }
+    }
+     for(int i=taille; i<2*taille; i++){
+        int score = scoreCol( ((ColonneAgent*)ecoAgents[i])->getNumero() );
+        if(score==scoreMin)
+             valeurs.insert(i);
+        if(score < scoreMin){
+             scoreMin = score;
+             valeurs.clear();
+             valeurs.insert(i);
+        }
+     }   
+   // cout << "score Min" << scoreMin << endl; 
+    /*int scoreMax=0;
     for(int i=0; i<taille; i++){
         int score = scoreLigne( ((LigneAgent*)ecoAgents[i])->getNumero() );
-        if(score < scoreMin){
-            scoreMin = score;
-            e = ecoAgents[i];
-            cout << "  Ligne #" << i << ": " << score << endl;
+        if(score!=taille){
+            if(score==scoreMax)
+                valeurs.insert(i);
+            if(score > scoreMax){
+                scoreMax = score;
+                valeurs.clear();
+                valeurs.insert(i);
+            }
         }
     }
-    for(int i=taille; i<2*taille; i++){
+     for(int i=taille; i<2*taille; i++){
         int score = scoreCol( ((ColonneAgent*)ecoAgents[i])->getNumero() );
-        if(score < scoreMin){
-            scoreMin = score;
-            e = ecoAgents[i];
-            cout << "  Colonne #" << (i-taille) << ": " << score << endl;
+        if(score!=taille){
+            if(score==scoreMax)
+                valeurs.insert(i);
+            if(score > scoreMax){
+                scoreMax = score;
+                valeurs.clear();
+                valeurs.insert(i);
+            }
         }
-    }
-    cout << e << endl;
-    return e;
+    }*/
+    int alea=rand() %(valeurs.size());
+    set<int>::const_iterator it=valeurs.begin();
+    for(int l=0; l<alea; l++)
+        it++;
+    int nb=*it;
+   // cout << nb << endl;
+    return ecoAgents[nb];
 }
 int Sudoku::fitness(){//DONE
     int fitness=0;
@@ -233,14 +270,6 @@ int Sudoku::scoreLigne(int i){//DONE
     for(int j=0; j<taille; j++)
         if(grid[i][j]->getValue()!=0)
             chiffreMis.insert(grid[i][j]->getValue());
-    //if(chiffreMis.size() < 5)
-    //return chiffreMis.size();
-    //else if (chiffreMis.size() < 7)
-    //return 2*chiffreMis.size();
-    //else if (chiffreMis.size() < 9)
-    //return 3*chiffreMis.size();
-    //else
-    //return 4*chiffreMis.size();
     return chiffreMis.size();
 }
 int Sudoku::scoreCols(int i){//DONE
