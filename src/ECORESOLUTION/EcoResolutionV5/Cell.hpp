@@ -18,6 +18,8 @@ class Cell: public EcoAgent{
         Number number;
         int x,y;
         Sudoku* sudoku;
+        int tailleMemoire;
+        vector<int> memoire;
     public:
         Sudoku* getSudoku();
         Cell();
@@ -35,5 +37,6 @@ class Cell: public EcoAgent{
         void agresser(EcoAgent* e);
         EcoAgent* trouverPlacePourFuir(EcoAgent* e);
         void faireFuite(EcoAgent* e);
+        void ajouterMemoire(int i);
 };
 #endif

@@ -7,6 +7,8 @@ Cell::Cell( int xc, int yc){//DONE
     sudoku=nullptr;
     x=xc;
     y=yc;
+    tailleMemoire=3;
+    memoire.resize(tailleMemoire);
 }
 Sudoku* Cell::getSudoku(){
     return sudoku;
@@ -23,14 +25,15 @@ CellType Cell::getType() const{//DONE
 }
 void Cell::setNumber(const Number& num){//DONE
     number=num;
+    ajouterMemoire(num.getValue());
 }
 void Cell::setValue(int val){//DONE
     number.setValue(val);
+    ajouterMemoire(val);
 }
 int Cell::getValue() const{//DONE
     return number.getValue();
 }
-
 vector<EcoAgent*> Cell::trouverGeneur(){//WIP
     vector<EcoAgent*> v=but[0]->trouverGeneur();
     for(int j=0;j<but[1]->trouverGeneur().size();j++)
@@ -59,8 +62,16 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
         for(int j=0; j<(int) sqrt(sudoku->getTaille());j++){
             nvx=(int) sqrt(sudoku->getTaille())*blocLigne+i;
             nvy=(int) sqrt(sudoku->getTaille())*blocColonne+j;
-            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION)
-                casePossible.insert(make_pair(nvx,nvy));
+            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN ){
+                bool b2=false;
+                for(int i=0; i<memoire.size();i++){
+                    if(memoire[i]==sudoku->getCell(nvx,nvy)->getValue()){
+                        b2=true;
+                    }
+                }         
+                if(!b2)        
+                    casePossible.insert(make_pair(nvx,nvy));
+            }    
         }
     }
     int chance=rand() %100;
@@ -85,8 +96,12 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     sudoku->afficher(x, y, nvx, nvy);
     return sudoku->getCell(nvx,nvy);
 }
-
-
+void Cell::ajouterMemoire(int i){
+    if(memoire.size()==tailleMemoire){
+        memoire.erase(memoire.begin());
+    }
+    memoire.push_back(i);
+}
 void Cell::faireFuite(EcoAgent* e){//WIP
     int n = ((Cell*)e)->getValue();
     int n2 = this->getValue();
