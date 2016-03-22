@@ -37,6 +37,7 @@ class Node{
 
 	virtual void updateGH();
 
-	virtual set<Node> getVoisins() const;
+	virtual set<Node*> getVoisins();
+
 };
 #endif

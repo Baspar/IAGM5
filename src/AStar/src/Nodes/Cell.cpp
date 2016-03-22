@@ -12,7 +12,7 @@ Cell::Cell(Number num):number(num){//DONE
 }
 Cell::Cell(const Cell& cell):number(cell.getNumber()){//DONE
 }
-Cell::Cell(const Cell* cell):number(cell->getNumber()){
+Cell::Cell(Cell* cell):number(cell->getNumber()){
 }
 Number Cell::getNumber() const{//DONE
     return number;

@@ -2,7 +2,7 @@ GPP=g++ --std=c++11 -fpermissive
 
 all:V0
 
-V%:   Node.o Graphe.o Number.o Cell.o SudokuV%.o Sudokus.o AStarV%.o
+V%:   Node.o Graphe.o Cell.o SudokuV%.o Number.o Sudokus.o AStarV%.o
 	$(GPP) main$@.cpp $^ -o main
 
 %.o: %.cpp

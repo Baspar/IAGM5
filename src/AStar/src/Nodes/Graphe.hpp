@@ -13,6 +13,7 @@ class Graphe{
     public:
 	Graphe(Node a);
 	Graphe(set<Node> sa);
+	Graphe();
 
 	set<Node> getGraph()const;
 	void setGraph(set<Node> g);

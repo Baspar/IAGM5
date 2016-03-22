@@ -1,5 +1,9 @@
 #include "AStarV0.hpp"
 
+AStar::AStar()  {
+	graphe = Graphe();
+}
+
 bool AStar::FindShortestWay(Node a, Node b){
 
 cout << "Find Shortest Way";
@@ -21,17 +25,33 @@ cout << endl;
 
 cout << "Test Distance";
 cout << endl;
+cout<<"H    ";
+cout<< current.getH();
+cout << endl;
 		if(graphe.Distance(current,b) == 0){
+cout << "Victory";
+cout << endl;
 			return true;
 		} else {
-cout << "Voisins()";
+cout << "Voisins()           ";
+cout << current.getVoisins().size();
 cout << endl;
-			for(Node n : current.getVoisins()) {
-				if(closeList.find(n) == closeList.end()) {
-					n.updateGH();
-					openList.push(n);
-				}	
-			}
+
+Node & tmp = current;
+set<Node*> d = tmp.getVoisins();
+cout << d.size();
+cout <<endl;
+cout << "boucle";
+cout << endl;
+//			for(Node n : d) {
+
+cout << "close test";
+cout << endl;
+//				if(closeList.find(n) == closeList.end()) {
+//					n.updateGH();
+//					openList.push(n);
+//				}	
+//			}
 			closeList.insert(current);
 		}
 	}

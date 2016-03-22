@@ -21,7 +21,8 @@ class Sudoku : public Node {
 
         void setValue(int x, int y, int val);
         int getValue(int x, int y) const;
-        Cell* getCell(int x, int y) const;
+        Cell* getCell(int x, int y);
+	void setCell(int x, int y, Cell* cell);
 
         bool naiveIsCorrect();
         void computeArcConsistency();
@@ -36,7 +37,7 @@ class Sudoku : public Node {
         void afficher();
 
 	virtual void updateGH();
-	virtual set<Node> getVoisins() const;
+	virtual set<Node*> getVoisins() ;
 	
 };
 #endif

@@ -47,17 +47,11 @@ void Node::setEnfants(set<Node*> se){
 void Node::updateGH(){
 
 }
-set<Node> Node::getVoisins() const {
-	set<Node> voisins;
-	for(Node* n : getEnfants()){
-		Node tmp = *n;
-		voisins.insert(tmp);
-	}
-	return voisins;
-}
-
 bool Node::operator<(const Node b){
 	return(this->getG()+this->getH() >= b.getG()+b.getH());
 }
-
+set<Node*> Node::getVoisins(){
+cout << "node getvoisins";
+cout << endl;
+}
 

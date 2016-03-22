@@ -12,8 +12,6 @@ using namespace std;
 
 int main(){
 
-	AStar* as;
-
 	cout << "Grille initiale";
 	cout << endl;
 
@@ -25,17 +23,30 @@ int main(){
 
 	Sudokus g = Sudokus(sud);
 
+	cout << "G   ";
+	cout << sud.getG();
 	cout << endl;
+	cout << "H   ";
+	cout << sud.getH();
+	cout <<endl;
+
+	cout << endl;
+
+
 	cout << "Resultat";
 	cout << endl;
 
-	
-//	as->graphe = g;
+	AStar as = AStar();	
+	as.graphe = g;
+	bool res = as.FindShortestWay(sud,sud);
 
-//	bool res = as->FindShortestWay(sud,sud);
+	cout << res;
+//	set<Node> sn = sud.getVoisins();
+//	cout << sn.size();
+//	cout << endl;
 
-
-	cout << endl;
-
+//for(Node n : sn){
+//n.updateGH();
+//}
 }
 

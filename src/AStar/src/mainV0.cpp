@@ -10,7 +10,7 @@ int main(){
 
     cout << "Grille initiale";
     cout << endl;
-    Sudoku sud = Sudoku("test3.txt"); 
+    Sudoku sud = Sudoku("test.txt"); 
     
 	sud.afficher();
 

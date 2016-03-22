@@ -23,46 +23,49 @@ taille = t;
                 else
                     n=Number(test, CellType::GIVEN);
                 grid[i][j]->setNumber(n);
+//		grid[i][j]->setValue(test);
             }
         }
         fichier.close();
     }
-//    computeArcConsistency();
-//    updateRemaining();
-//    updateGH();
+    computeArcConsistency();
+    updateRemaining();
+    updateGH();
 }
 
 
 Sudoku::Sudoku(int t) : Node() {
     grid.resize(t);
     for(int i=0; i<t; i++)
-        grid[i].resize(t);
+        grid[i].push_back(new Cell());
    computeArcConsistency();
 }
 Sudoku::Sudoku(const Sudoku& sudoku) : Node(sudoku){//DONE
-    grid.resize(sudoku.taille);
-    for(int i=0; i<sudoku.taille; i++){
-        for(int j=0; j<sudoku.taille; j++){
-		grid[i].push_back(new Cell());
-           	Number n = Number(sudoku.getCell(i,j)->getValue());
-		
-		grid[i][j]->setNumber(n);
-		grid[i][j]->setRemaining(sudoku.getCell(i,j)->getRemaining());	
+
+    taille = sudoku.taille;
+    grid.resize(taille);
+    for(int i=0; i<taille; i++){
+        for(int j=0; j<taille; j++){
+           	Number n = Number(sudoku.getValue(i,j));
+		Cell tmp = Cell(n);
+		Cell* p = &tmp;
+		grid[i].push_back(new Cell(n));
+//		grid[i][j]->setRemaining(sudoku->getCell(i,j)->getRemaining());	
 	}
         }
     computeArcConsistency();
-    
-    setG( sudoku.getG());
-    setH(sudoku.getH());
 }
 void Sudoku::setValue(int x, int y, int val){//DONE
     grid[x][y]->setValue(val);
 }
-int Sudoku::getValue(int x, int y) const{//DONE
-    return grid[x][y]->getValue();
+int Sudoku::getValue(int x, int y)const  {//DONE
+    return grid[x][y]->getNumber().getValue();
 }
-Cell* Sudoku::getCell(int x, int y) const{//DONE
+Cell* Sudoku::getCell(int x, int y) {//DONE
     return grid[x][y];
+}
+void Sudoku::setCell(int x, int y, Cell* cell){
+	grid[x][y]=cell;
 }
 bool Sudoku::naiveIsCorrect(){//DONE
     return true;
@@ -117,15 +120,19 @@ void Sudoku::updateGH(){ //TODO
 		}
 	}
 }
-set<Node> Sudoku::getVoisins() const {
-	set<Node> voisins;
+set<Node*> Sudoku::getVoisins()  {
+cout << "sudoku::getVoisins()	";
+cout << endl;
+
+	set<Node*> voisins;
         for(int i=0; i<taille; i++){
                 for(int j=0; j<taille; j++){
-			if(getCell(i,j)->getValue() == 0) {
+			if(getValue(i,j) == 0) {
 				getCell(i,j)->updateRemaining();
-				for(int k=0;k<taille;k++){
+				for(int k : getCell(i,j)->getRemaining()){
 					Sudoku tmp = Sudoku(*this);
 					tmp.setValue(i,j,k);
+
 					// Doublons ?
 					if(!tmp.checkDouble()){	
 						bool test = true;
@@ -139,7 +146,8 @@ set<Node> Sudoku::getVoisins() const {
 						}	
 						if(test) {
 							tmp.updateRemaining();
-							voisins.insert(tmp);
+
+							voisins.insert(&tmp);
 						}
 					}
 				}

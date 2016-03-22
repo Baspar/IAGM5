@@ -12,6 +12,8 @@ class AStar{
 	public:
 		Graphe graphe;
 		Node current;
+
+		AStar();
 		bool FindShortestWay(Node a, Node b);
 };
 

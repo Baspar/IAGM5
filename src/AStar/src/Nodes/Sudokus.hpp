@@ -10,7 +10,6 @@ class Sudokus : public Graphe {
 	public:
 		Sudokus(Node n);
 		virtual int Distance(Node a, Node b);
-
 };
 #endif
 
