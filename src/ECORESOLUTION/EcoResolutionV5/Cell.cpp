@@ -62,7 +62,7 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
         for(int j=0; j<(int) sqrt(sudoku->getTaille());j++){
             nvx=(int) sqrt(sudoku->getTaille())*blocLigne+i;
             nvy=(int) sqrt(sudoku->getTaille())*blocColonne+j;
-            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN ){
+            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION){
                 bool b2=false;
                 for(int i=0; i<memoire.size();i++){
                     if(memoire[i]==sudoku->getCell(nvx,nvy)->getValue()){
