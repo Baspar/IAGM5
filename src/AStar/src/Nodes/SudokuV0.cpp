@@ -1,13 +1,14 @@
 #include "SudokuV0.hpp"
 
 
+
 Sudoku::Sudoku(string filename, int t) : Node (){//DONE
 
 taille = t;
     grid.resize(t);
     for(int i=0; i<t; i++)
 	for(int j=0;j<t;j++)
-	       grid[i].push_back(new Cell());
+	       grid[i].push_back(new Cell(t));
 		
     ifstream fichier(filename, ios::in); // on ouvre en lecture
     if(fichier) // si l'ouverture a fonctionné
@@ -37,7 +38,7 @@ taille = t;
 Sudoku::Sudoku(int t) : Node() {
     grid.resize(t);
     for(int i=0; i<t; i++)
-        grid[i].push_back(new Cell());
+        grid[i].push_back(new Cell(t));
    computeArcConsistency();
 }
 Sudoku::Sudoku(const Sudoku& sudoku) : Node(sudoku){//DONE
@@ -47,9 +48,9 @@ Sudoku::Sudoku(const Sudoku& sudoku) : Node(sudoku){//DONE
     for(int i=0; i<taille; i++){
         for(int j=0; j<taille; j++){
            	Number n = Number(sudoku.getValue(i,j));
-		Cell tmp = Cell(n);
-		Cell* p = &tmp;
-		grid[i].push_back(new Cell(n));
+//		Cell tmp = Cell(n, taille);
+//		Cell* p = &tmp;
+		grid[i].push_back(new Cell(n,taille));
 //		grid[i][j]->setRemaining(sudoku->getCell(i,j)->getRemaining());	
 	}
         }
@@ -123,20 +124,24 @@ void Sudoku::updateGH(){ //TODO
 set<Node*> Sudoku::getVoisins()  {
 cout << "sudoku::getVoisins()	";
 cout << endl;
-
+int m =0;
 	set<Node*> voisins;
+
+
         for(int i=0; i<taille; i++){
                 for(int j=0; j<taille; j++){
 			if(getValue(i,j) == 0) {
-				getCell(i,j)->updateRemaining();
+
+//				getCell(i,j)->updateRemaining();
 				for(int k : getCell(i,j)->getRemaining()){
-					Sudoku tmp = Sudoku(*this);
-					tmp.setValue(i,j,k);
+
+					Sudoku* tmp = new Sudoku(*this);
+					tmp->setValue(i,j,k);
 
 					// Doublons ?
-					if(!tmp.checkDouble()){	
+					if(!tmp->checkDouble()){	
 						bool test = true;
-						for(Cell* cell : tmp.getCell(i,j)->getAdjacentCells()){
+						for(Cell* cell : tmp->getCell(i,j)->getAdjacentCells()){
 							if(cell->getValue()==0){
 								cell->updateRemaining();
 								if(cell->getRemaining().size() == 0){
@@ -145,15 +150,17 @@ cout << endl;
 							}
 						}	
 						if(test) {
-							tmp.updateRemaining();
+							tmp->updateRemaining();
+							voisins.insert(tmp);
 
-							voisins.insert(&tmp);
+
 						}
 					}
 				}
 			}
 		}
 	}
+
 	return voisins;
 }
 bool Sudoku::checkDouble(){//TODO

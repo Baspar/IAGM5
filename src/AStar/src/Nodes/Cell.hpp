@@ -13,8 +13,8 @@ class Cell{
         set<int> remainingVal;
         set<Cell*> adjacentCells;
     public:
-        Cell();
-        Cell(Number number);
+        Cell(int taille);
+        Cell(Number number, int taille);
         Cell(const Cell& cell);
 	Cell(Cell* cell);
         void setNumber(const Number& num);

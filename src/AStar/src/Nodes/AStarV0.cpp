@@ -4,7 +4,7 @@ AStar::AStar(Graphe* grap )  {
     graphe=grap;
 }
 
-bool AStar::FindShortestWay(Node* a, Node* b){
+set<Node*> AStar::FindShortestWay(Node* a, Node* b){
 
 cout << "Find Shortest Way";
 cout << endl;
@@ -17,44 +17,34 @@ int c = 0;
 	while(!openList.empty()){
 c++;
 cout << "Choix current    ";
-cout << c;
+cout << closeList.size();
 cout << endl;
 		current = openList.top();
 		openList.pop();
 
 
-cout << "Test Distance";
-cout << endl;
 cout<<"H    ";
 cout<< current->getH();
 cout << endl;
 		if(graphe->Distance(current,b) == 0){
 cout << "Victory";
 cout << endl;
-			return true;
+			closeList.insert(current);
+			return closeList;
 		} else {
-cout << "Voisins()           ";
-cout << current->getVoisins().size();
-cout << endl;
 
-Node*  tmp = current;
-set<Node*> d = tmp->getVoisins();
-cout << d.size();
-cout <<endl;
-cout << "boucle";
-cout << endl;
-//			for(Node n : d) {
+			set<Node*> d = current->getVoisins();
+			for(Node* n : d) {
 
-cout << "close test";
-cout << endl;
-//				if(closeList.find(n) == closeList.end()) {
-//					n.updateGH();
-//					openList.push(n);
-//				}	
-//			}
+				if(closeList.find(n) == closeList.end()) {
+					n->updateGH();
+					openList.push(n);
+				}	
+			}
 			closeList.insert(current);
 		}
 	}
-
-	return false;
+	set<Node*> res;
+	res.insert(a);
+	return res;
 }

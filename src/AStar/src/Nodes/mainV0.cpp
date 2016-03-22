@@ -15,7 +15,7 @@ int main(){
 	cout << "Grille initiale";
 	cout << endl;
 
-	Sudoku sud = Sudoku("test.txt",9);
+	Sudoku sud = Sudoku("test2.txt",9);
 
 
 
@@ -38,15 +38,16 @@ int main(){
 
 	AStar as = AStar(g);	
 	as.graphe = g;
-	bool res = as.FindShortestWay(&sud,&sud);
+	set<Node*> res = as.FindShortestWay(&sud,&sud);
 
-	cout << res;
-//	set<Node> sn = sud.getVoisins();
-//	cout << sn.size();
-//	cout << endl;
+	for(Node* n : res) {
+		n->afficher();
 
-//for(Node n : sn){
-//n.updateGH();
-//}
+		cout << n->getG();
+		cout <<endl;
+		cout << n->getH();
+	cout <<endl;
+	}
+
 }
 

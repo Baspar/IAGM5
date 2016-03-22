@@ -16,7 +16,7 @@ class AStar{
 
 
         AStar(Graphe* grap );
-		bool FindShortestWay(Node* a, Node* b);//A quoi correspond le boolean ?
+		set<Node*> FindShortestWay(Node* a, Node* b);//A quoi correspond le boolean ?
 };
 
 

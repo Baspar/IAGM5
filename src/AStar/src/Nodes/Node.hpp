@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <set>
-
+#include <vector>
 using namespace std;
 
 class Node{
@@ -34,6 +34,7 @@ class Node{
 
 	//virtual void updateG();
 	//virtual void updateH();
+	virtual void afficher()=0;
 
 	virtual void updateGH()=0;
 
