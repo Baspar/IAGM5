@@ -28,7 +28,7 @@ do
             done
         done
 
-        cat results/$(basename $test) | sort > results/$(basename $test)
+        #cat results/$(basename $test) | sort > results/$(basename $test)
     } || echo "FAIL"
     cd ..
 done
