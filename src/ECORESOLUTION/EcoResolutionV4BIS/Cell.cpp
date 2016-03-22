@@ -20,8 +20,10 @@ Sudoku* Cell::getSudoku(){
     return sudoku;
 }
 Cell::Cell(Number num):number(num){//DONE
+    type=TypeEcoAgent::CELLULE;
 }
 Cell::Cell(const Cell& cell):number(cell.getNumber()){//DONE
+    type=TypeEcoAgent::CELLULE;
 }
 Number Cell::getNumber() const{//DONE
     return number;
@@ -51,12 +53,12 @@ void Cell::faireSatisfaction(){//WIP
         etat==Etat::SATISFACTION;
 }
 
-void Cell::agresser(EcoAgent* e){//WIP
-    e->fuir(this);
+void Cell::agresser(EcoAgent* e, EcoAgent* c){//WIP
+    e->fuir(this, c);
 }
 
 
-EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
+EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e, EcoAgent* c){//WIP
     //cout << "trouver1"<< endl;
     //cout << sudoku << endl;
     int blocLigne=x/(int) sqrt(sudoku->getTaille());
@@ -65,16 +67,33 @@ EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     int nvx;
     int nvy;
     set<pair<int,int> > casePossible;
+    int min;
     for(int i=0; i<(int) sqrt(sudoku->getTaille());i++){
         for(int j=0; j<(int) sqrt(sudoku->getTaille());j++){
             nvx=(int) sqrt(sudoku->getTaille())*blocLigne+i;
             nvy=(int) sqrt(sudoku->getTaille())*blocColonne+j;
-            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION)
-                casePossible.insert(make_pair(nvx,nvy));
+            if ((!( ((nvx) ==x) && ((nvy)==y))) && sudoku->getCell(nvx,nvy)->getType()!=CellType::GIVEN && sudoku->getCell(nvx,nvy)->getEtat()!=Etat::SATISFACTION){
+                if(c->getType()==TypeEcoAgent::LIGNE){
+                   if (((LigneAgent*)c)->nombreOccurence(sudoku->getValue(nvx,nvy),y)==min)
+                        casePossible.insert(make_pair(nvx,nvy));
+                   else if(((LigneAgent*)c)->nombreOccurence(sudoku->getValue(nvx,nvy),y)<min){
+                        casePossible.clear();
+                        casePossible.insert(make_pair(nvx,nvy));
+                   }      
+                }    
+                if(c->getType()==TypeEcoAgent::COLONNE ){
+                    if (((ColonneAgent*)c)->nombreOccurence(sudoku->getValue(nvx,nvy),x)==min)
+                        casePossible.insert(make_pair(nvx,nvy));
+                   else if(((ColonneAgent*)c)->nombreOccurence(sudoku->getValue(nvx,nvy),x)<min){
+                        casePossible.clear();
+                        casePossible.insert(make_pair(nvx,nvy));
+                    }    
+                }
+            }    
         }
     }
     int chance=rand() %100;
-    if(casePossible.size()==0 || chance >70){
+    if(casePossible.size()==0 || chance >95){
         while (!b){
             int alea=rand() %(int) sqrt(sudoku->getTaille());
             //cout << "alea " << alea << endl;
