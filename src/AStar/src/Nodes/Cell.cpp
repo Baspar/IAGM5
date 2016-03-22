@@ -1,12 +1,12 @@
 #include "Cell.hpp"
 
-Cell::Cell(){//DONE
+Cell::Cell(int taille){//DONE
     // On remplit le vecteur de possiblités
-    for(int i=1; i<10; i++)
+    for(int i=1; i<taille+1; i++)
         remainingVal.insert(i);
 }
-Cell::Cell(Number num):number(num){//DONE
-    for(int i=1; i<10; i++)
+Cell::Cell(Number num, int taille):number(num){//DONE
+    for(int i=1; i<taille+1; i++)
         remainingVal.insert(i);
 
 }

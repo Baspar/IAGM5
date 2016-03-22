@@ -1,5 +1,5 @@
 #!/bin/bash
-nbTest=10
+nbTest=3
 
 for dir in Eco*
 do
@@ -17,18 +17,30 @@ do
                 T="$(date +%s%N)"
 
                 #Commande muette
-                #cat $test | ./main >> /dev/null
+                cat $test | ./main >> /dev/null || echo "ERREUR"
 
                 #Commande verbeuse
                 #cat $test | ./main
 
-                T="$(( ($(date +%s%N)-T) / 1000000000 ))"
-                echo "$T secondes"
+                T="$(( ($(date +%s%N)-T) / 1000000 ))"
+                echo "$T millisecondes"
                 echo $T >> results/$(basename "$test")
             done
-        done
 
-        cat results/$(basename $test) | sort > results/$(basename $test)
+            cat results/$(basename $test) | sort -n > results/$(basename $test)Sort
+
+            min=$(cat results/$(basename $test)Sort | head -n 1)
+            max=$(cat results/$(basename $test)Sort | tail -n 1)
+
+            moy=0
+            while read line
+            do
+                moy=$((moy + line))
+            done <  results/$(basename $test)Sort
+            
+            moy=$((moy/nbTest))
+            echo "  min: $min, max: $max, moy: $moy"
+        done
     } || echo "FAIL"
     cd ..
 done
