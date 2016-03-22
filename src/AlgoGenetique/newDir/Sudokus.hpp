@@ -7,12 +7,12 @@
 
 class Sudokus: public Generation{
     private:
-        int tailleGen;
         void shuffle();
+        void insert(Sudoku* sud);
+
     public:
-        Sudokus(int k, int tc, int tm);
-        Sudokus(const Sudokus& oldGen);
-        void insert(Sudoku sud);
+        Sudokus(int tailleGen, double tc, double tm);
+        Sudokus(const Sudokus& sudoku);
         void evoluer();
         void selection();
 };
