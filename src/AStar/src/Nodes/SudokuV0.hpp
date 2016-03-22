@@ -36,8 +36,8 @@ class Sudoku : public Node {
 //        bool checkComplete();
         void afficher();
 
-	virtual void updateGH();
-	virtual set<Node*> getVoisins() ;
+	    void updateGH();
+	    set<Node*> getVoisins() ;
 	
 };
 #endif

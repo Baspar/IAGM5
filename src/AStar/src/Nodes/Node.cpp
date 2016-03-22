@@ -47,8 +47,9 @@ void Node::setEnfants(set<Node*> se){
 void Node::updateGH(){
 
 }
-bool Node::operator<(const Node b){
-	return(this->getG()+this->getH() >= b.getG()+b.getH());
+bool Node::operator<(const Node* b){
+	return(this->getG()+this->getH() >= b->getG()+b->getH());
+	//Il y a pas une deuxième condition pour trier les distance, genre quand le g est egal tu renvois le plus petit h ? S
 }
 set<Node*> Node::getVoisins(){
 cout << "node getvoisins";

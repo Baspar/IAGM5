@@ -21,7 +21,7 @@ int main(){
 
 	sud.afficher();
 
-	Sudokus g = Sudokus(sud);
+	Sudokus* g = new Sudokus(&sud);
 
 	cout << "G   ";
 	cout << sud.getG();
@@ -36,9 +36,9 @@ int main(){
 	cout << "Resultat";
 	cout << endl;
 
-	AStar as = AStar();	
+	AStar as = AStar(g);	
 	as.graphe = g;
-	bool res = as.FindShortestWay(sud,sud);
+	bool res = as.FindShortestWay(&sud,&sud);
 
 	cout << res;
 //	set<Node> sn = sud.getVoisins();

@@ -1,16 +1,16 @@
 #include "AStarV0.hpp"
 
-AStar::AStar()  {
-	graphe = Graphe();
+AStar::AStar(Graphe* grap )  {
+    graphe=grap;
 }
 
-bool AStar::FindShortestWay(Node a, Node b){
+bool AStar::FindShortestWay(Node* a, Node* b){
 
 cout << "Find Shortest Way";
 cout << endl;
 int c = 0;
-	set<Node> closeList;
-	std::priority_queue<Node> openList;
+	set<Node*> closeList;
+	std::priority_queue<Node*> openList;
 
 	openList.push(a);
 
@@ -26,19 +26,19 @@ cout << endl;
 cout << "Test Distance";
 cout << endl;
 cout<<"H    ";
-cout<< current.getH();
+cout<< current->getH();
 cout << endl;
-		if(graphe.Distance(current,b) == 0){
+		if(graphe->Distance(current,b) == 0){
 cout << "Victory";
 cout << endl;
 			return true;
 		} else {
 cout << "Voisins()           ";
-cout << current.getVoisins().size();
+cout << current->getVoisins().size();
 cout << endl;
 
-Node & tmp = current;
-set<Node*> d = tmp.getVoisins();
+Node*  tmp = current;
+set<Node*> d = tmp->getVoisins();
 cout << d.size();
 cout <<endl;
 cout << "boucle";

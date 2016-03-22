@@ -10,11 +10,13 @@ using namespace std;
 
 class AStar{
 	public:
-		Graphe graphe;
-		Node current;
+		Graphe* graphe;
+		Node* current;
+        //Pour que ça soit generique il te faut un noeud depart, le noeud courant
 
-		AStar();
-		bool FindShortestWay(Node a, Node b);
+
+        AStar(Graphe* grap );
+		bool FindShortestWay(Node* a, Node* b);//A quoi correspond le boolean ?
 };
 
 

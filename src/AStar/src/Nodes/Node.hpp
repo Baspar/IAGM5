@@ -30,14 +30,14 @@ class Node{
 	void setEnfants(set<Node*> se);
 
 	         
-	bool operator<(const Node b);
+	bool operator<(const Node* b);
 
 	//virtual void updateG();
 	//virtual void updateH();
 
-	virtual void updateGH();
+	virtual void updateGH()=0;
 
-	virtual set<Node*> getVoisins();
+	virtual set<Node*> getVoisins()=0;
 
 };
 #endif
