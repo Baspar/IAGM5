@@ -6,21 +6,24 @@
 #include "Genome.hpp"
 
 class Generation{
-    private:
+    protected:
         vector<Genome*> generation;
         int nombreGenerations;
         double tauxCroisement;
         double tauxMutation;
+        int tailleGeneration;
 
     public:
         virtual void evoluer()=0;
         virtual void selection()=0;
 
-        double getTauxCroisement();
-        double getTauxMutation();
-        double bestFitness();
-        double avgFitness();
-        double worstFitness();
+        double getTauxCroisement() const;
+        double getTauxMutation() const;
+        int getTailleGeneration() const;
+        double bestFitness() const;
+        double avgFitness() const;
+        double worstFitness() const;
         Genome* getIndividu(int i);
+        Genome* getConstIndividu(int i)const;
 };
 #endif
