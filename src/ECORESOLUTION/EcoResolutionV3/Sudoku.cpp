@@ -5,7 +5,9 @@
 
 
 Sudoku::Sudoku(){//DONE
-    ifstream fichier("test.txt", ios::in); // on ouvre en lecture
+    string nomFichier;
+    cin >> nomFichier;
+    ifstream fichier(nomFichier, ios::in); // on ouvre en lecture
     if(fichier) // si l'ouverture a fonctionné
     {
         string contenu;
