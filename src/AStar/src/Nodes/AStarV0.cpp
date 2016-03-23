@@ -27,7 +27,7 @@ cout << "open	";
 cout << openList.size();
 cout << endl;
 
-//current->afficher();
+current->afficher();
 cout << current->getNodeID();
 cout << endl;
 cout << "G   ";
@@ -45,9 +45,10 @@ cout << endl;
 			set<Node*> d = current->getVoisins();
 			for(Node* n : d) {
 				if(!FindInList(n, closeList)){
-//				if(closeList.find(n) == closeList.end()) {
+//				if(!FindInQ(n, openList)){
 					n->updateGH();
 					openList.push(n);
+//				}
 				}
 			}
 			closeList.insert(current);

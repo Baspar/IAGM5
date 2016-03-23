@@ -15,7 +15,7 @@ int main(){
 	cout << "Grille initiale";
 	cout << endl;
 
-	Sudoku sud = Sudoku("test2.txt",9);
+	Sudoku sud = Sudoku("test.txt",9);
 
 
 

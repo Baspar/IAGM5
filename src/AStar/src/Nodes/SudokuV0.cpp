@@ -55,10 +55,7 @@ Sudoku::Sudoku(const Sudoku& sudoku) : Node(sudoku){//DONE
     for(int i=0; i<taille; i++){
         for(int j=0; j<taille; j++){
            	Number n = Number(sudoku.getValue(i,j));
-//		Cell tmp = Cell(n, taille);
-//		Cell* p = &tmp;
 		grid[i].push_back(new Cell(n,taille));
-//		grid[i][j]->setRemaining(sudoku->getCell(i,j)->getRemaining());	
 	}
         }
     computeArcConsistency();
@@ -120,7 +117,7 @@ string Sudoku::getID(){
 	for(int i=0; i<taille;i++){
 		for(int j=0;j<taille;j++){
 			id += std::to_string(getValue(i,j));
-			id+="#";
+			id+=" # ";
 		}
 	}
 	return id;
@@ -143,20 +140,27 @@ void Sudoku::updateGH(){ //TODO
 set<Node*> Sudoku::getVoisins()  {
 cout << "sudoku::getVoisins()	";
 cout << endl;
-int m =0;
 	set<Node*> voisins;
-
-
         for(int i=0; i<taille; i++){
                 for(int j=0; j<taille; j++){
 			if(getValue(i,j) == 0) {
 
-//				getCell(i,j)->updateRemaining();
-				for(int k : getCell(i,j)->getRemaining()){
+// Recherche de cases avec une seule possibilité
+				if(getCell(i,j)->getRemaining().size()==1){
+					set<Node*> v;
+					Sudoku* tmp = new Sudoku(*this);
+					for(int k : getCell(i,j)->getRemaining()){
+						tmp->setValue(i,j,k);
+					}
+					tmp->setNodeID(tmp->getID());
+					tmp->updateRemaining();
+					v.insert(tmp);
+					return v;
+				} else {
 
+				for(int k : getCell(i,j)->getRemaining()){
 					Sudoku* tmp = new Sudoku(*this);
 					tmp->setValue(i,j,k);
-
 					// Doublons ?
 					if(!tmp->checkDouble()){	
 						bool test = true;
@@ -169,11 +173,12 @@ int m =0;
 							}
 						}	
 						if(test) {
-							tmp->setNodeID(getID());
+							tmp->setNodeID(tmp->getID());
 							tmp->updateRemaining();
 							voisins.insert(tmp);
 						}
 					}
+				}
 				}
 			}
 		}
