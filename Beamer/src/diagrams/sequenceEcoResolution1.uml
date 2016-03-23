@@ -1,0 +1,13 @@
+@startuml
+title diagramme séquence seSatisfaire 
+activate ecoAgent1
+loop tant que pas Satisfait (sur les gêneurs)
+activate ecoAgent2
+ecoAgent1 --> ecoAgent2 : agresser()
+deactivate ecoAgent2
+end
+ecoAgent1 --> ecoAgent1 : faireSatisfaction()
+activate ecoAgent1
+deactivate ecoAgent1
+deactivate ecoAgent1
+@enduml
