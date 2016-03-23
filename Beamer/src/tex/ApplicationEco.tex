@@ -1,4 +1,197 @@
+\begin{frame}
+    \frametitle{Éco-résolution}
+    \begin{block}{Définition des éco-agents}
+    		\begin{itemize}
+    		
+    		\item Pour définir l'éco-résolution il nous faut définir une liste d'agent dont le but est de converger vers un état un final (solution du problème), dans notre cas la grille correctement remplie.\\
+    		\item Nous avons défini les agents suivants:
+    		\begin{itemize}
+    			\item Ligne
+    			\item Colonne
+    			\item Cellule
+    		\end{itemize}
+    		\item Pas d'agent bloc car ils seront par défaut résolu
+    		\end{itemize}
+
+    \end{block}
+\end{frame}
 
 \begin{frame}
     \frametitle{Éco-résolution}
+    \begin{block}{Les éco-agents Ligne}
+    		\begin{itemize}
+    			\item Le but d'une ligne est que tous les numéros soient différents
+    			\item Gêneurs : cellules dont le numéro est présent plus d'une fois.
+    			\item Une ligne ne pourra ni fuir, ni être en recherche de fuir. 
+    		\end{itemize}
+    \end{block}
+    \pause
+     \begin{block}{Les éco-agents Colonne}
+    		\begin{itemize}
+    			\item Le but d'une colonne est que tous les numéros soient différents
+    			\item Gêneurs : cellules dont le numéro est présent plus d'une fois.
+    			\item Une colonne ne pourra ni fuir, ni être en recherche de fuir. 
+    		\end{itemize}
+    \end{block}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Éco-résolution}
+    \begin{block}{Les éco-agents Cellule}
+    		\begin{itemize}
+    			\item Satisfaite si sa ligne et sa colonne sont satisfaites
+    			\item Gêneurs : cellules dont le numéro est présent plus d'une fois sur la ligne ou la colonne a laquelle appartient la cellule.
+    			\item Pour la place choisie pour une cellule pour fuir nous avons eu plusieurs idées : la plus simple, choisir une cellule de son bloc.
+    			\item FaireFuite : deux cellules échangent leur numéro
+    		\end{itemize}
+    \end{block}
+    \pause
+    \begin{alertblock}{}
+		C'est bien beau vos agents mais concrètement comment cela fonctionne ? 	
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	Pour simplifier l'exemple, nous avons choisi de le faire sur une grille 4*4
+    \frametitle{Éco-résolution}
+    	\begin{columns}[t]
+    \begin{column}{5cm}
+    \begin{block}{Grille de depart}
+	\begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&&&\\
+               \hline
+               &&\textbf{2}&\\
+               \hline
+               \hline
+               &&&\\
+               \hline
+               &\textbf{3}&&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+    
+     \end{block} 
+
+    \end{column}
+    
+   \pause  
+  \begin{column}{5cm}
+  \begin{block}{Premiere étape : remplissage aléatoire}
+    \begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&1&3\\
+               \hline
+               3&4&\textbf{2}&4\\
+               \hline
+               \hline
+               4&1&2&3\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+  \end{block}   
+  \end{column}
+ \end{columns}  
+\end{frame}
+
+\begin{frame}
+    \frametitle{Éco-résolution}
+    	\begin{columns}
+    \begin{column}{5cm}
+    \begin{block}{Resolution colonne 4}
+	\begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&{\color{green} 1}&{\color{red} 3}\\
+               \hline
+               3&4&\textbf{2}&4\\
+               \hline
+               \hline
+               4&1&2&3\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+    \pause
+    \begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2& 3&{\color{green} 1}\\
+               \hline
+               3&4&\textbf{2}&{\color{red} 4}\\
+               \hline
+               \hline
+               4&1&2&3\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+     \end{block} 
+
+    \end{column}
+    
+   \pause  
+  \begin{column}{5cm}
+  \begin{block}{Resolution colonne 4 : suite}
+	\begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&{\color{green} 3}&{\color{red} 4}\\
+               \hline
+               3&4&\textbf{2}&1\\
+               \hline
+               \hline
+               4&1&2&3\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+    \pause
+    \begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&4&3\\
+               \hline
+               3&4&\textbf{2}&1\\
+               \hline
+               \hline
+               4&1&{\color{green} 2}&{\color{red} 3}\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+     \end{block} 
+     \end{column}
+ \end{columns}  
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Éco-résolution}
+    \begin{block}{Grille résolue}
+    	On arrive ainsi a la grille résolue :
+    	\begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&4&3\\
+               \hline
+               3&4&\textbf{2}&1\\
+               \hline
+               \hline
+               4&1&3&2\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+    \end{block}
 \end{frame}
