@@ -14,9 +14,12 @@ class AStar{
 		Node* current;
         //Pour que ça soit generique il te faut un noeud depart, le noeud courant
 
+	set<Node*> closeList;	
 
         AStar(Graphe* grap );
-		set<Node*> FindShortestWay(Node* a, Node* b);//A quoi correspond le boolean ?
+	set<Node*> FindShortestWay(Node* a, Node* b);//A quoi correspond le boolean ?
+	bool FindInList(Node* n, set<Node*> list);
+	bool FindInQ(Node* n, priority_queue<Node*> q);
 };
 
 

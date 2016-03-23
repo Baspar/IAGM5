@@ -7,6 +7,10 @@
 #include <vector>
 #include <fstream>
 #include <math.h>
+
+#include <sstream>
+#include<string>
+
 using namespace std;
 
 class Sudoku : public Node {
@@ -32,13 +36,13 @@ class Sudoku : public Node {
 
         void updateRemaining();
 
+
         bool checkDouble();
 //        bool checkComplete();
         void afficher();
-
+ 	string  getID();
 	    void updateGH();
 	    set<Node*> getVoisins() ;
-	
 };
 #endif
 
