@@ -6,10 +6,9 @@ Node::Node(){
 	G=0;
 	H=0;
 }
-Node::Node(string n, int g, int h){
+Node::Node(int g, int h){
 	G=g;
 	H=h;
-	name=n;
 }
 Node::Node(const Node& node){
 	G = node.getG();
@@ -44,6 +43,13 @@ set<Node*> Node::getEnfants()const{
 void Node::setEnfants(set<Node*> se){
 	enfants = se;
 }
+string Node::getNodeID() const{
+ 	return nodeID;
+}
+void Node::setNodeID(string id) {
+	nodeID = id;
+}
+
 void Node::updateGH(){
 
 }
@@ -55,4 +61,3 @@ set<Node*> Node::getVoisins(){
 cout << "node getvoisins";
 cout << endl;
 }
-

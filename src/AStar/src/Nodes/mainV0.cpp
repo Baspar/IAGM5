@@ -29,8 +29,10 @@ int main(){
 	cout << "H   ";
 	cout << sud.getH();
 	cout <<endl;
-
+	cout << sud.getNodeID();
 	cout << endl;
+
+
 
 
 	cout << "Resultat";
@@ -38,15 +40,16 @@ int main(){
 
 	AStar as = AStar(g);	
 	as.graphe = g;
+
 	set<Node*> res = as.FindShortestWay(&sud,&sud);
-
 	for(Node* n : res) {
+		if(n->getG()==81){
 		n->afficher();
-
 		cout << n->getG();
 		cout <<endl;
 		cout << n->getH();
 	cout <<endl;
+		}
 	}
 
 }

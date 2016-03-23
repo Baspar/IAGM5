@@ -8,15 +8,15 @@ using namespace std;
 
 class Node{
     private:
+	string nodeID;
 	int G;
 	int H;
 	set<Node*> parents;
 	set<Node*> enfants;
 
     public:
-	string name;
 	Node();
-	Node(string n, int g, int h);
+	Node(int g, int h);
 	Node(const Node& node);
 
 	int getG() const;
@@ -29,16 +29,22 @@ class Node{
 	set<Node*> getEnfants() const;
 	void setEnfants(set<Node*> se);
 
+	string getNodeID() const;
+	void setNodeID(string id);
 	         
 	bool operator<(const Node* b);
 
 	//virtual void updateG();
 	//virtual void updateH();
+
+	virtual string  getID()=0;
+
 	virtual void afficher()=0;
 
 	virtual void updateGH()=0;
 
 	virtual set<Node*> getVoisins()=0;
+
 
 };
 #endif

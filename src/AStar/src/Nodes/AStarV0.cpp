@@ -9,7 +9,7 @@ set<Node*> AStar::FindShortestWay(Node* a, Node* b){
 cout << "Find Shortest Way";
 cout << endl;
 int c = 0;
-	set<Node*> closeList;
+//	set<Node*> closeList;
 	std::priority_queue<Node*> openList;
 
 	openList.push(a);
@@ -19,11 +19,20 @@ c++;
 cout << "Choix current    ";
 cout << closeList.size();
 cout << endl;
+
 		current = openList.top();
 		openList.pop();
 
+cout << "open	";
+cout << openList.size();
+cout << endl;
 
-cout<<"H    ";
+//current->afficher();
+cout << current->getNodeID();
+cout << endl;
+cout << "G   ";
+cout <<current->getG();
+cout<<"		H    ";
 cout<< current->getH();
 cout << endl;
 		if(graphe->Distance(current,b) == 0){
@@ -35,11 +44,11 @@ cout << endl;
 
 			set<Node*> d = current->getVoisins();
 			for(Node* n : d) {
-
-				if(closeList.find(n) == closeList.end()) {
+				if(!FindInList(n, closeList)){
+//				if(closeList.find(n) == closeList.end()) {
 					n->updateGH();
 					openList.push(n);
-				}	
+				}
 			}
 			closeList.insert(current);
 		}
@@ -47,4 +56,23 @@ cout << endl;
 	set<Node*> res;
 	res.insert(a);
 	return res;
+}
+
+bool AStar::FindInList(Node* n, set<Node*> list){
+	for(Node* a : list){
+		if(n->getNodeID()==a->getNodeID()){
+			return true;
+		}
+	}
+	return false;
+}
+bool AStar:: FindInQ(Node* n, priority_queue<Node*> q){
+	priority_queue<Node*> tmp = q;
+	while(!tmp.empty()){
+		if(n->getNodeID() == tmp.top()->getNodeID()){
+			return true;
+		}
+		tmp.pop();
+	}
+	return false;
 }

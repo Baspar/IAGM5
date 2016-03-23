@@ -4,7 +4,8 @@
 
 Sudoku::Sudoku(string filename, int t) : Node (){//DONE
 
-taille = t;
+//    ostringstream  oss;
+    taille = t;
     grid.resize(t);
     for(int i=0; i<t; i++)
 	for(int j=0;j<t;j++)
@@ -24,7 +25,7 @@ taille = t;
                 else
                     n=Number(test, CellType::GIVEN);
                 grid[i][j]->setNumber(n);
-//		grid[i][j]->setValue(test);
+//		oss << test;
             }
         }
         fichier.close();
@@ -32,6 +33,12 @@ taille = t;
     computeArcConsistency();
     updateRemaining();
     updateGH();
+//    istreamstring iss(oss.str());
+//    int id;
+//    oss >> id;
+//    setNodeID(id);
+
+    setNodeID(getID());
 }
 
 
@@ -108,6 +115,18 @@ void Sudoku::updateRemaining() {
 		}
 	}	
 }
+string Sudoku::getID(){
+	string id;
+	for(int i=0; i<taille;i++){
+		for(int j=0;j<taille;j++){
+			id += std::to_string(getValue(i,j));
+			id+="#";
+		}
+	}
+	return id;
+}
+
+
 void Sudoku::updateGH(){ //TODO
 	setG(0);
 	setH(0);
@@ -150,10 +169,9 @@ int m =0;
 							}
 						}	
 						if(test) {
+							tmp->setNodeID(getID());
 							tmp->updateRemaining();
 							voisins.insert(tmp);
-
-
 						}
 					}
 				}
@@ -163,6 +181,7 @@ int m =0;
 
 	return voisins;
 }
+
 bool Sudoku::checkDouble(){//TODO
 	for(int i=0; i<taille; i++){
 		for(int j=0; j<taille; j++){
@@ -213,4 +232,3 @@ void Sudoku::afficher(){
     }
     cout << endl;
 }
-
