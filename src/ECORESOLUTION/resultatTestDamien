@@ -1,0 +1,94 @@
+EcoResolutionV0 : Make en cours... OK
+  testTresFacile 1/10...11 millisecondes
+  testTresFacile 2/10...11 millisecondes
+  testTresFacile 3/10...11 millisecondes
+  testTresFacile 4/10...13 millisecondes
+  testTresFacile 5/10...13 millisecondes
+  testTresFacile 6/10...11 millisecondes
+  testTresFacile 7/10...13 millisecondes
+  testTresFacile 8/10...14 millisecondes
+  testTresFacile 9/10...12 millisecondes
+  testTresFacile 10/10...11 millisecondes
+  min: 11, max: 14, moy: 12
+EcoResolutionV1 : Make en cours... OK
+  testFacile 1/10...22861 millisecondes
+  testFacile 2/10...5625 millisecondes
+  testFacile 3/10...1271 millisecondes
+  testFacile 4/10...87932 millisecondes
+  testFacile 5/10...98355 millisecondes
+  testFacile 6/10...83774 millisecondes
+  testFacile 7/10...58021 millisecondes
+  testFacile 8/10...13643 millisecondes
+  testFacile 9/10...36115 millisecondes
+  testFacile 10/10...100010 millisecondes
+  min: 1271, max: 100010, moy: 50760
+  testTresFacile 1/10...36 millisecondes
+  testTresFacile 2/10...20 millisecondes
+  testTresFacile 3/10...19 millisecondes
+  testTresFacile 4/10...20 millisecondes
+  testTresFacile 5/10...19 millisecondes
+  testTresFacile 6/10...13 millisecondes
+  testTresFacile 7/10...11 millisecondes
+  testTresFacile 8/10...11 millisecondes
+  testTresFacile 9/10...12 millisecondes
+  testTresFacile 10/10...10 millisecondes
+  min: 10, max: 36, moy: 17
+EcoResolutionV2 : Make en cours... OK
+  testFacile 1/10...1003 millisecondes
+  testFacile 2/10...1488 millisecondes
+  testFacile 3/10...1834 millisecondes
+  testFacile 4/10...2005 millisecondes
+  testFacile 5/10...1576 millisecondes
+  testFacile 6/10...2618 millisecondes
+  testFacile 7/10...2567 millisecondes
+  testFacile 8/10...3555 millisecondes
+  testFacile 9/10...1189 millisecondes
+  testFacile 10/10...922 millisecondes
+  min: 922, max: 3555, moy: 1875
+  testMoyen 1/10...39152 millisecondes
+  testMoyen 2/10...10285 millisecondes
+  testMoyen 3/10...5897 millisecondes
+  testMoyen 4/10...3932 millisecondes
+  testMoyen 5/10...11863 millisecondes
+  testMoyen 6/10...55465 millisecondes
+  testMoyen 7/10...131051 millisecondes
+  testMoyen 8/10...78235 millisecondes
+  testMoyen 9/10...26050 millisecondes
+  testMoyen 10/10...3378 millisecondes
+  min: 3378, max: 131051, moy: 36530
+  testTresFacile 1/10...28 millisecondes
+  testTresFacile 2/10...10 millisecondes
+  testTresFacile 3/10...11 millisecondes
+  testTresFacile 4/10...8 millisecondes
+  testTresFacile 5/10...8 millisecondes
+  testTresFacile 6/10...9 millisecondes
+  testTresFacile 7/10...9 millisecondes
+  testTresFacile 8/10...8 millisecondes
+  testTresFacile 9/10...9 millisecondes
+  testTresFacile 10/10...10 millisecondes
+  min: 8, max: 28, moy: 11
+EcoResolutionV3 : Make en cours... OK
+  testFacile 1/10...1832 millisecondes
+  testFacile 2/10...2320 millisecondes
+  testFacile 3/10...5769 millisecondes
+  testFacile 4/10...3998 millisecondes
+  testFacile 5/10...3010 millisecondes
+  testFacile 6/10...3967 millisecondes
+  testFacile 7/10...4763 millisecondes
+  testFacile 8/10...3759 millisecondes
+  testFacile 9/10...1320 millisecondes
+  testFacile 10/10...4387 millisecondes
+  min: 1320, max: 5769, moy: 3512
+  testTresFacile 1/10...28 millisecondes
+  testTresFacile 2/10...16 millisecondes
+  testTresFacile 3/10...15 millisecondes
+  testTresFacile 4/10...18 millisecondes
+  testTresFacile 5/10...16 millisecondes
+  testTresFacile 6/10...15 millisecondes
+  testTresFacile 7/10...20 millisecondes
+  testTresFacile 8/10...17 millisecondes
+  testTresFacile 9/10...16 millisecondes
+  testTresFacile 10/10...16 millisecondes
+  min: 15, max: 28, moy: 17
+EcoResolutionV4 : Make en cours... OK
+  testDifficile 1/10...
