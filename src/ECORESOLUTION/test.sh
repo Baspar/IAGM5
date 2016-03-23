@@ -1,5 +1,5 @@
 #!/bin/bash
-nbTest=3
+nbTest=30
 
 for dir in Eco*
 do
