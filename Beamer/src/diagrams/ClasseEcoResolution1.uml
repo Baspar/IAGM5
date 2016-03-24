@@ -1,0 +1,22 @@
+@startuml
+Class EcoResoluteur{
+- ecoAgents : List<EcoAgent>
++ {abstract} estFini()
++ {abstract} choixEcoAgent()
+}
+Class EcoAgent{
+- but : List<EcoAgent>
+- etatInterne : Etat
+- agresse : boolean
+- gene : boolean
++ essayerSatisfaire()
++ agresser(x EcoAgent)
++ fuir (y Ecogent)
++ {abstract} trouverPlacePourFuir() :EcoAgent
++ {abstract} faireFuite(x EcoAgent) 
++ {abstract} trouverGeneur() : List<Agent>
++ {abstract} faireSatisfaction()
+}
+
+EcoResoluteur o-- EcoAgent
+@enduml
