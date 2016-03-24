@@ -14,7 +14,7 @@ void Sudokus::evoluer(){//DONE
     for(int i=0; i<tailleGeneration/2-1; i++){
         Sudoku* indiv1 = (Sudoku*) oldGen.getIndividu(i);
         Sudoku* indiv2 = (Sudoku*) oldGen.getIndividu(i+1);
-        if(rand()%100<tauxCroisement){
+        if(rand()<tauxCroisement){
             pair<Genome*, Genome*> children = indiv1->croisement(indiv2);
             insert((Sudoku*)children.first);
             insert((Sudoku*)children.second);
@@ -26,7 +26,7 @@ void Sudokus::evoluer(){//DONE
 
     Sudoku* indiv1 = (Sudoku*) oldGen.getIndividu(0);
     Sudoku* indiv2 = (Sudoku*) oldGen.getIndividu(tailleGeneration/2-1);
-    if(rand()%100<tauxCroisement){
+    if(rand()<tauxCroisement){
         pair<Genome*, Genome*> children = indiv1->croisement(indiv2);
         insert((Sudoku*)children.first);
         insert((Sudoku*)children.second);
