@@ -17,7 +17,7 @@ int main(){
 
 	Sudoku sud = Sudoku("test.txt",9);
 
-
+//	sud.CaptainObvious();
 
 	sud.afficher();
 
@@ -33,11 +33,10 @@ int main(){
 	cout << endl;
 
 
-
-
 	cout << "Resultat";
 	cout << endl;
 
+	if(true){
 	AStar as = AStar(g);	
 	as.graphe = g;
 
@@ -51,6 +50,6 @@ int main(){
 	cout <<endl;
 		}
 	}
+	}
 
 }
-

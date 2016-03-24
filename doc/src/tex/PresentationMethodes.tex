@@ -42,7 +42,7 @@
         \textit{Remarque : on peut utiliser ces règles pour améliorer la recherche de case optimale dans $A^*$ par exemple.}
     \section{Eco-résolution}
         \subsection{Principe de résolution}
-            L'éco-résolution est une méthode de résolution de problème qui prend le contre-pied des techniques classiques. Plutôt que de résonner que manière globale et définir des méthodes de résolution, l'éco-résolution préfère considérer le problème comme des agents en interactions devant satisfaire un but. \\ \\
+            L'éco-résolution est une méthode de résolution de problème qui prend le contre-pied des techniques classiques. Plutôt que de raisonner que manière globale et définir des méthodes de résolution, l'éco-résolution considère le problème comme des agents en interactions devant satisfaire un but. \\ \\
             Il faut donc pour pouvoir appliquer l'éco-résolution définir un ensemble d'agents dont le but est de tendre vers un état stable (solution du problème). Chaque agent répond à deux principes importants: autonomie et localité. C'est à dire que chaque agent agit de manière locale mais aussi en fonction des interactions qu'il a avec les différents agents avec lesquels il est en relation.
             Les particularités de l'éco-résolution sont les suivantes:
             \begin{itemize}
@@ -76,7 +76,7 @@
                     La fonction faireSatisfaction dépend du domaine d'application. Execute l'opération donc le résultat aura pour conséquence que l'agent vérifie sa condition de satisfaction. La fonction agression consiste à ce que l'agent y fuis l'agent x en s'éloignant de son objectif.  
                 \item L'obligation de fuir. Lorsqu'un eco-agent est attaqué il est obligé de fuir. Il doit choisir une satisfaction qui satisfasse la contrainte passée en argument de la fonction fuir. \\
                     \begin{verbatim}
-                        Procedure fuir(y,c)    notre agent(x) fuis y avec la contrainte c
+                        Procedure fuir(y,c)    notre agent(x) fuit y avec la contrainte c
                         si x etait satisfait, x devient insatisfait 
                         soit p=trouverPlacePourFuir(x,y,c) 
                         si p = Nil alors "pas de solution"

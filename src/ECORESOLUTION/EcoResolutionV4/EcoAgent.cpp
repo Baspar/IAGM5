@@ -49,21 +49,11 @@ void EcoAgent::setbut(vector<EcoAgent*> v){//DONE
 }
 
 void EcoAgent::essayerSatisfaire(){//WIP
-  //  cout << "test1" << endl;
     if(etat!=Etat::SATISFACTION){
-        //cout << "test2" << endl;
         vector<EcoAgent*> geneur=trouverGeneur();
-     //   cout << "geneur +" << geneur.size() << endl;
-     //   cout << "test3" << endl;
         while(geneur.size()!=0){
-       //     cout << "test4" << endl;
             int alea=rand() %(geneur.size());
-            //cout << "    " << alea << endl;
-            //for(int i=0; i<geneur.size(); i++){
-            //cout << "test5" << endl;
             agresser(geneur[alea],this);
-            //cout << "test6" << endl;
-            // }
             geneur=trouverGeneur();
         }
         faireSatisfaction();

@@ -34,8 +34,6 @@ class Node{
 	         
 	bool operator<(const Node* b);
 
-	//virtual void updateG();
-	//virtual void updateH();
 
 	virtual string  getID()=0;
 

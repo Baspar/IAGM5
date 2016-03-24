@@ -1,4 +1,43 @@
 
 \begin{frame}
     \frametitle{A*}
+
+\begin{block}{Idée générale}
+
+L'idée est de considérer les grilles de Sudoku comme les noeuds d'un graphe. On peut passer d'une grille à une autre en lui ajoutant un chiffre dans une case vide.
+
+\bigskip
+
+Pour appliquer A* au problème du Sudoku, on doit en modifier certains aspects :
+
+\begin{description}
+\item[Le graphe :]  le graphe doit être construit au fur et mesure que l'on développe les noeuds.
+
+\item[L'état final :] le noeud final correspond en réalité à n'importe quelle grille complète \textit{(en ayant vérifier qu'elle ne possède pas de doublon)}
+
+\end{description}
+
+\end{block}
+\end{frame}
+
+\begin{frame}{A*}
+\begin{block}{Construction du graphe}
+
+On doit donc construire de nouvelles grilles quand l'algorithme doit développer un nœud. \textit{On construit autant de grille qu'il y a de valeurs possibles pour les cases vides dans la grille du noeud à développer.}
+
+\end{block}
+
+\begin{alertblock}{Choix des fonctions coût}
+
+On définit bien sur des fonctions coût pour le problème :
+
+\begin{description}
+\item[G : ] on choisit le nombre de cases remplies de la grille.
+
+\item[H : ] on prend la somme du nombre de valeurs possibles de chaque cases vides de la grille
+
+\end{description}
+
+
+\end{alertblock}
 \end{frame}

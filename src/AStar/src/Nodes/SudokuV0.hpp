@@ -35,9 +35,11 @@ class Sudoku : public Node {
         void addBlockWhereIs(int x, int y, set<Cell*>& cells);
 
         void updateRemaining();
-
+	void updateRegion(int i, int j);
+	void CaptainObvious();
 
         bool checkDouble();
+	bool checkEmptyRemaining();
 //        bool checkComplete();
         void afficher();
  	string  getID();
