@@ -9,7 +9,7 @@ set<Node*> AStar::FindShortestWay(Node* a, Node* b){
 cout << "Find Shortest Way";
 cout << endl;
 int c = 0;
-//	set<Node*> closeList;
+	set<Node*> closeList;
 	std::priority_queue<Node*> openList;
 
 	openList.push(a);
@@ -19,13 +19,12 @@ c++;
 cout << "Choix current    ";
 cout << closeList.size();
 cout << endl;
-
-		current = openList.top();
-		openList.pop();
-
 cout << "open	";
 cout << openList.size();
 cout << endl;
+		current = openList.top();
+		openList.pop();
+
 
 current->afficher();
 cout << current->getNodeID();
@@ -38,6 +37,7 @@ cout << endl;
 		if(graphe->Distance(current,b) == 0){
 cout << "Victory";
 cout << endl;
+current->afficher();
 			closeList.insert(current);
 			return closeList;
 		} else {
@@ -56,7 +56,10 @@ cout << endl;
 	}
 	set<Node*> res;
 	res.insert(a);
+cout << "You dled";
+cout << endl;
 	return res;
+
 }
 
 bool AStar::FindInList(Node* n, set<Node*> list){

@@ -4,7 +4,6 @@
 
 Sudoku::Sudoku(string filename, int t) : Node (){//DONE
 
-//    ostringstream  oss;
     taille = t;
     grid.resize(t);
     for(int i=0; i<t; i++)
@@ -25,7 +24,6 @@ Sudoku::Sudoku(string filename, int t) : Node (){//DONE
                 else
                     n=Number(test, CellType::GIVEN);
                 grid[i][j]->setNumber(n);
-//		oss << test;
             }
         }
         fichier.close();
@@ -33,10 +31,6 @@ Sudoku::Sudoku(string filename, int t) : Node (){//DONE
     computeArcConsistency();
     updateRemaining();
     updateGH();
-//    istreamstring iss(oss.str());
-//    int id;
-//    oss >> id;
-//    setNodeID(id);
 
     setNodeID(getID());
 }
@@ -112,6 +106,13 @@ void Sudoku::updateRemaining() {
 		}
 	}	
 }
+void Sudoku::updateRegion(int i, int j){
+	for(Cell* cell : getCell(i,j)->getAdjacentCells()){
+		if(cell->getValue()==0){
+			grid[i][j]->updateRemaining();
+		}
+	}
+}
 string Sudoku::getID(){
 	string id;
 	for(int i=0; i<taille;i++){
@@ -137,48 +138,50 @@ void Sudoku::updateGH(){ //TODO
 		}
 	}
 }
+void Sudoku::CaptainObvious(){
+               for(int i=0;i<taille;i++){
+                        for(int j=0;j<taille;j++){
+                                if(getValue(i,j) == 0){
+                                        if(getCell(i,j)->getRemaining().size()==1){
+                                                for(int k : getCell(i,j)->getRemaining()) setValue(i,j,k);
+                                        }
+                                }
+                        }
+                }
+                updateRemaining();
+		updateGH();
+		setNodeID(getID());
+}
+
 set<Node*> Sudoku::getVoisins()  {
 cout << "sudoku::getVoisins()	";
 cout << endl;
 	set<Node*> voisins;
+
+
+bool captainObvious = true;
+
+	if(captainObvious){
+		CaptainObvious();
+
+cout << "Captain";
+cout << endl;
+
+afficher();
+	}
+
         for(int i=0; i<taille; i++){
                 for(int j=0; j<taille; j++){
 			if(getValue(i,j) == 0) {
-
-// Recherche de cases avec une seule possibilité
-				if(getCell(i,j)->getRemaining().size()==1){
-					set<Node*> v;
-					Sudoku* tmp = new Sudoku(*this);
-					for(int k : getCell(i,j)->getRemaining()){
-						tmp->setValue(i,j,k);
-					}
-					tmp->setNodeID(tmp->getID());
-					tmp->updateRemaining();
-					v.insert(tmp);
-					return v;
-				} else {
-
 				for(int k : getCell(i,j)->getRemaining()){
 					Sudoku* tmp = new Sudoku(*this);
 					tmp->setValue(i,j,k);
 					// Doublons ?
-					if(!tmp->checkDouble()){	
-						bool test = true;
-						for(Cell* cell : tmp->getCell(i,j)->getAdjacentCells()){
-							if(cell->getValue()==0){
-								cell->updateRemaining();
-								if(cell->getRemaining().size() == 0){
-									test = false;
-								}
-							}
-						}	
-						if(test) {
+						tmp->updateRemaining();
+						if(tmp->checkEmptyRemaining()){
 							tmp->setNodeID(tmp->getID());
-							tmp->updateRemaining();
 							voisins.insert(tmp);
 						}
-					}
-				}
 				}
 			}
 		}
@@ -193,14 +196,27 @@ bool Sudoku::checkDouble(){//TODO
 		    if(grid[i][j]->getValue()!=0){
 	                for(Cell* cell : grid[i][j]->getAdjacentCells()){
         	            if(grid[i][j]->getValue()==cell->getValue()){
-				return true;
+				return false;
 			    }
 			}
 		    }
 		}
 	}
-	return false;
+	return true;
 }
+bool Sudoku::checkEmptyRemaining() {
+         for(int i =0;i<taille;i++){
+		for(int j=0;j<taille;j++){
+     	          if(getValue(i,j)==0){
+                     if(getCell(i,j)->getRemaining().size() == 0){
+                            return false;
+                     }
+                  }
+        	}   
+	}
+	return true;
+}
+
 void Sudoku::afficher(){
     int val;
 

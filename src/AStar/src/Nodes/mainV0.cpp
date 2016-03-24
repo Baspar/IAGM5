@@ -15,9 +15,9 @@ int main(){
 	cout << "Grille initiale";
 	cout << endl;
 
-	Sudoku sud = Sudoku("test.txt",9);
+	Sudoku sud = Sudoku("test_dim16.txt",16);
 
-
+	sud.CaptainObvious();
 
 	sud.afficher();
 
@@ -33,11 +33,10 @@ int main(){
 	cout << endl;
 
 
-
-
 	cout << "Resultat";
 	cout << endl;
 
+	if(!true){
 	AStar as = AStar(g);	
 	as.graphe = g;
 
@@ -51,6 +50,6 @@ int main(){
 	cout <<endl;
 		}
 	}
+	}
 
 }
-

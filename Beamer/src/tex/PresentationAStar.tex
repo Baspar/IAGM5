@@ -1,4 +1,52 @@
 
 \begin{frame}
     \frametitle{A*}
+
+\begin{block}{Principe}
+
+Algorithme de recherche de plus court chemin dans un graphe, d'un nœud initial à un nœud final.
+
+\bigskip
+
+
+Chaque nœud est pondéré par un coût $F = G + H$.
+
+
+\bigskip
+
+On utilise deux listes : 
+
+\begin{itemize}
+\item la liste fermée, qui contient les nœuds que l'on a déjà étudié
+
+\item la liste ouverte, contenant les nœuds à étudier
+
+\end{itemize}
+
+\end{block}
+\end{frame}
+
+\begin{frame}{A*}
+
+\begin{block}{Fonctionnement}
+
+A chaque étape, l'algorithme : 
+\begin{itemize}
+\item choisit dans la liste ouverte le nœud ``optimal'' possédant la plus petite valeur de F,
+\item parcourt ses voisins et les ajoute à la liste ouverte \textit{(si ils n'y sont pas déjà)} 
+\item met à jour leur valeurs de G et H.
+\item passe le noeud ``optimal'' de la liste ouverte à la liste fermée
+
+\end{itemize}
+
+L'algorithme s'arrête quand il à trouver le nœud final ou qu'il à parcourut tout les chemins possibles sans avoir pu l'atteindre.
+
+
+\end{block} 
+
+\bigskip
+
+
+\textit{Le choix des fonctions G et H influe grandement sur l'efficacité de l'algorithme.}
+
 \end{frame}

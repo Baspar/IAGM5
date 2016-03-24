@@ -1,4 +1,49 @@
 
 \begin{frame}
     \frametitle{A*}
+	\framesubtitle{Version 0}
+    
+    \begin{block}{Dimension 4}
+    
+    Avec 16 cases et 4 possibilités au maximum par cases, l'algorithme trouve la solution rapidement.
+    
+    \end{block}
+    
+    \begin{block}{Dimension 9}
+    
+    \textit{81 cases, 9 possibilités}
+    
+    L'algorithme utilise \textbf{beaucoup} de mémoire, mais parvient à trouver les solutions de grille à moitié remplies.
+    
+    \end{block}
+    
+\end{frame}
+
+
+\begin{frame}{A*}
+
+\framesubtitle{Version 1}
+
+\begin{block}{Recherche de valeurs évidentes}
+
+Pour aider un peu l'algorithme, on peut le guider dans le choix de noeud ``optimal''. En effet, toute case ne possédant qu'une seule valeur possible est un case que l'on peut remplir immédiatement. On peut donc améliorer grandement l'efficacité de l'algorithme en remplissant ces cases avant de développer un noeud.
+
+\end{block}
+
+
+\begin{block}{Dimension 4}
+
+Cette amélioration ne présente pas grand intérêt : dans ce genre de grille, on se retrouve souvent dans une situation ou l'on avance de valeurs évidentes en évidentes, sans vraiment utiliser les mécaniques de l'algorithme A*.
+
+\end{block}
+
+
+\begin{block}{Dimension 9}
+
+Le gain en efficacité dépend fortement de la grille étudiée ........
+
+
+\end{block}
+
+
 \end{frame}
