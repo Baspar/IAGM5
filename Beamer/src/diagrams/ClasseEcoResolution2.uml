@@ -49,7 +49,7 @@ EcoAgent <|-- EcoCellule
 EcoSudoku o-- EcoCellule
 EcoSudoku o-- EcoLigne
 EcoSudoku o-- EcoColonne
-EcoColonne -right- EcoCellule 
-EcoLigne -right- EcoCellule 
+EcoColonne o-right- EcoCellule 
+EcoLigne o-right- EcoCellule 
 
 @enduml

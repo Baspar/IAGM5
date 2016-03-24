@@ -2,6 +2,7 @@
 !include skin
 Class EcoResoluteur{
 - ecoAgents : List<EcoAgent>
++ resolution()
 + {abstract} estFini()
 + {abstract} choixEcoAgent()
 }
