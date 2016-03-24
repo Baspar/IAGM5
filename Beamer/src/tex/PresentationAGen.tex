@@ -1,4 +1,89 @@
 
 \begin{frame}
-    \frametitle{Algorithme génétique}
+    \frametitle{Présentation}
+    \begin{block}{But}
+        \pause
+        Imiter le principe de sélection naturelle pour résoudre des problèmes d'optimisation.
+    \end{block}
+    \pause
+    \begin{block}{Avantages}
+        \begin{itemize}
+            \pause
+            \item Bons résultats à des problèmes complexes
+            \pause
+            \item Inutilité de comprendre parfaitement le problème
+            \pause
+            \item Simples a implémenter (Difficiles à régler)
+        \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}
+    \frametitle{Idées générales}
+    Explication succincte:
+    \begin{itemize}
+        \pause
+        \item Modélisation d'individus-\textbf{génomes} (Ensemble de gènes)
+        \pause
+        \item Groupement en \textbf{génération}
+        \pause
+        \item \textbf{Évolution} de la génération
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{Déroulement}
+    \only<-5>{
+        \begin{block}{Étapes clef}
+            4 étapes majeures:
+            \begin{description}
+                \pause[2]
+                \item[Évaluation:] Affectation d'un \textbf{fitness} à chaque génome
+                \pause[3]
+                \item[Sélection:]  \textbf{Choix de représentants} basé sur leur fitness
+                \pause[4]
+                \item[Croisement:] \textbf{Mélange des gènes} de deux individus
+                \pause[5]
+                \item[Mutation:] \textbf{Altération de gène} de chaque individu
+            \end{description}
+        \end{block}
+    }
+    \pause[6]
+    \only<6>{
+        \begin{exampleblock}{Schéma}
+            \begin{center}
+                \includegraphics[scale=0.5]{diagrams/PresAlgoGen.png}
+            \end{center}
+        \end{exampleblock}
+    }
+\end{frame}
+\begin{frame}
+    \frametitle{Exemples de techniques}
+    \begin{columns}
+        \begin{column}{3cm}
+            \begin{block}{Sélection}
+                \begin{itemize}
+                    \item Rank selection
+                    \item Roulette wheel 
+                    \item Uniforme
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \pause
+        \begin{column}{3cm}
+            \begin{block}{Croisement}
+                \begin{itemize}
+                    \item Croisement en N points
+                    \item Moyenne
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \pause
+        \begin{column}{3cm}
+            \begin{block}{Mutation}
+                \begin{itemize}
+                    \item Échange
+                    \item Changement 
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
 \end{frame}
