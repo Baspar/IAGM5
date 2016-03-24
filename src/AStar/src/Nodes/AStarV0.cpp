@@ -10,7 +10,7 @@ cout << "Find Shortest Way";
 cout << endl;
 int c = 0;
 	set<Node*> closeList;
-	std::priority_queue<Node*> openList;
+	std::priority_queue<Node*, vector<Node*>, Compare> openList;
 
 	openList.push(a);
 
@@ -46,13 +46,7 @@ current->afficher();
 			for(Node* n : d) {
 				if(!FindInList(n, closeList)){
 //				if(!FindInQ(n, openList)){
-n->afficher();
 					n->updateGH();
-cout << "G    ";
-cout << n->getG();
-cout << "    H    ";
-cout << n->getH();
-cout << endl;
 					openList.push(n);
 //				}
 				}
@@ -77,8 +71,8 @@ bool AStar::FindInList(Node* n, set<Node*> list){
 	}
 	return false;
 }
-bool AStar:: FindInQ(Node* n, priority_queue<Node*> q){
-	priority_queue<Node*> tmp = q;
+bool AStar:: FindInQ(Node* n, priority_queue<Node*, vector<Node*>, Compare> q){
+	priority_queue<Node*, vector<Node*>, Compare> tmp = q;
 	while(!tmp.empty()){
 		if(n->getNodeID() == tmp.top()->getNodeID()){
 			return true;

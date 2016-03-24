@@ -36,44 +36,26 @@ int main(){
 	cout << "Resultat";
 	cout << endl;
 
-
-priority_queue<Node*> openL;
-
-set<Node*> tmp = sud.getVoisins();
+// Debug test : opérateur de comparaison
+if(!true){
+set<Node*>tmp = sud.getVoisins();
+std::priority_queue<Node*, vector<Node*>, Compare> openL;
 
 for(Node* n : tmp){
 	n->updateGH();
-
-//n->afficher();
-//cout << n->getG()+n->getH();
-//cout <<endl;
-	openL.emplace(n);
+	openL.push(n);
 }
 
 while(!openL.empty()){
-//n->afficher();
 Node* n = openL.top();
 openL.pop();
-cout << n->getG()+n->getH();
-cout << endl;
+cout<< n->getG() << "	"<< n->getH() << "	"<< n->getG()+n->getH() << endl;
+
 }
 
-
-Node* r = openL.top();
-
-r->afficher();
-
-cout << "g ";
-cout<< r->getG();
-cout << "    h ";
-cout << r->getH();
-cout << endl;
-
-cout << "f   ";
-cout << r->getG() + r->getH();
-cout << endl;	
-
-	if(!true){
+} else {
+// MAIN ASTAR
+	if(true){
 	AStar as = AStar(g);	
 	as.graphe = g;
 
@@ -89,4 +71,5 @@ cout << endl;
 //	}
 	}
 
+}
 }

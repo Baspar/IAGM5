@@ -160,7 +160,7 @@ cout << endl;
 
 bool captainObvious = true;
 
-	if(!captainObvious){
+	if(captainObvious){
 		CaptainObvious();
 
 cout << "Captain";

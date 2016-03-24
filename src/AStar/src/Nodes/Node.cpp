@@ -53,6 +53,7 @@ void Node::updateGH(){
 
 }
 bool Node::operator<(Node* b){
+	cout << "operator";
 	if(this->getG()+this->getH()< b->getG()+b->getH()){
 		if(this->getG()<b->getG()){
 			return true;
