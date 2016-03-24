@@ -1,0 +1,21 @@
+@startuml
+!include skin
+class Graphe{
+    - Liste<Noeud> : graph
+    + Entier : distance(Noeud a, Noeud b)
+}
+class AStar{
+    - Graphe : graphe
+    - Noeud : depart, current
+    + Liste<Noeud> : findShortestWay(Node arrivee)
+}
+class Noeud{
+    - Entier : G, H
+    - Liste<Noeud> : parents, enfants
+    + Booleen : operator<(Noeud b)
+    + void : updateGH()
+}
+AStar *-- Graphe
+AStar *-- Noeud
+Graphe *- Noeud
+@enduml

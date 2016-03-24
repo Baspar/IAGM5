@@ -1,0 +1,37 @@
+@startuml
+!include skin
+class Graphe{
+    - Liste<Noeud> : graph
+    + Entier : distance(Noeud a, Noeud b)
+}
+class AStar{
+    - Graphe : graphe
+    - Noeud : depart, current
+    + Liste<Noeud> : findShortestWay(Node arrivee)
+}
+class Noeud{
+    - Entier : G, H
+    - Liste<Noeud> : parents, enfants
+    + Booleen : operator<(Noeud b)
+    + Void : updateGH()
+}
+class Sudokus{
+    + Entier : distance(Noeud* a, Noeud* b)
+}
+class Sudoku{
+    - Liste<Liste<Cell*>> : grid
+    - Entier : taille
+    + Void : definirRegions()
+    + Void : MAJValeursPossibles()
+    + Booleen : checkDoublons()
+    + String : createID()
+    + Void updateGH()
+    + Liste<Noeud> getVoisins()
+}
+
+AStar *-- Graphe
+AStar *-- Noeud
+Graphe *- Noeud
+Graphe <|-- Sudokus
+Noeud <|-- Sudoku
+@enduml
