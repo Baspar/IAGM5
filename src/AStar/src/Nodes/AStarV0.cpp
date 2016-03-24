@@ -46,7 +46,13 @@ current->afficher();
 			for(Node* n : d) {
 				if(!FindInList(n, closeList)){
 //				if(!FindInQ(n, openList)){
+n->afficher();
 					n->updateGH();
+cout << "G    ";
+cout << n->getG();
+cout << "    H    ";
+cout << n->getH();
+cout << endl;
 					openList.push(n);
 //				}
 				}

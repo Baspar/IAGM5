@@ -32,7 +32,7 @@ class Node{
 	string getNodeID() const;
 	void setNodeID(string id);
 	         
-	bool operator<(const Node* b);
+	bool operator<(Node* b);
 
 
 	virtual string  getID()=0;

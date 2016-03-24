@@ -52,8 +52,17 @@ void Node::setNodeID(string id) {
 void Node::updateGH(){
 
 }
-bool Node::operator<(const Node* b){
-	return(this->getG()+this->getH() >= b->getG()+b->getH());
+bool Node::operator<(Node* b){
+	if(this->getG()+this->getH()< b->getG()+b->getH()){
+		if(this->getG()<b->getG()){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	return false;
+
+//	return(this->getG()+this->getH() <= b->getG()+b->getH());
 	//Il y a pas une deuxième condition pour trier les distance, genre quand le g est egal tu renvois le plus petit h ? S
 }
 set<Node*> Node::getVoisins(){

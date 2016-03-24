@@ -36,16 +36,42 @@ int main(){
 	cout << "Resultat";
 	cout << endl;
 
-for(int i=0;i<9;i++){
-for(int j=0;j<9;j++){
 
-	if(sud.getValue(i,j)==0){
-		cout <<i;	cout << j;	 cout << "    ";	cout << sud.getCell(i,j)->getRemaining().size(); cout << endl;
-	}
+priority_queue<Node*> openL;
 
+set<Node*> tmp = sud.getVoisins();
+
+for(Node* n : tmp){
+	n->updateGH();
+
+//n->afficher();
+//cout << n->getG()+n->getH();
+//cout <<endl;
+	openL.emplace(n);
 }
+
+while(!openL.empty()){
+//n->afficher();
+Node* n = openL.top();
+openL.pop();
+cout << n->getG()+n->getH();
+cout << endl;
 }
 
+
+Node* r = openL.top();
+
+r->afficher();
+
+cout << "g ";
+cout<< r->getG();
+cout << "    h ";
+cout << r->getH();
+cout << endl;
+
+cout << "f   ";
+cout << r->getG() + r->getH();
+cout << endl;	
 
 	if(!true){
 	AStar as = AStar(g);	
