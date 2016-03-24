@@ -5,6 +5,7 @@
 #include <queue>
 #include "Graphe.hpp"
 #include "Node.hpp"
+#include "Compare.hpp"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ class AStar{
 		set<Node*> FindShortestWay(Node* a, Node* b);
 
 		bool FindInList(Node* n, set<Node*> list);
-	bool FindInQ(Node* n, priority_queue<Node*> q);
+	bool FindInQ(Node* n, priority_queue<Node*, vector<Node*>, Compare> q);
 };
 
 
