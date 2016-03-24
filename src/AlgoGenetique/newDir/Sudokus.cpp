@@ -8,13 +8,16 @@ void Sudokus::evoluer(){//DONE
     Sudokus oldGen(*this);
     oldGen.shuffle();
 
+    for(Genome* gen: generation)
+        delete gen;
+
     generation.clear();
     nombreGenerations++;
 
     for(int i=0; i<tailleGeneration/2-1; i++){
         Sudoku* indiv1 = (Sudoku*) oldGen.getIndividu(i);
         Sudoku* indiv2 = (Sudoku*) oldGen.getIndividu(i+1);
-        if(rand()<tauxCroisement){
+        if(((double)rand())/RAND_MAX<tauxCroisement){
             pair<Genome*, Genome*> children = indiv1->croisement(indiv2);
             insert((Sudoku*)children.first);
             insert((Sudoku*)children.second);
@@ -26,7 +29,7 @@ void Sudokus::evoluer(){//DONE
 
     Sudoku* indiv1 = (Sudoku*) oldGen.getIndividu(0);
     Sudoku* indiv2 = (Sudoku*) oldGen.getIndividu(tailleGeneration/2-1);
-    if(rand()<tauxCroisement){
+    if(((double)rand())/RAND_MAX<tauxCroisement){
         pair<Genome*, Genome*> children = indiv1->croisement(indiv2);
         insert((Sudoku*)children.first);
         insert((Sudoku*)children.second);
@@ -34,10 +37,22 @@ void Sudokus::evoluer(){//DONE
         insert(indiv1);
         insert(indiv2);
     }
+
+    //for(Genome* gen : generation)
+    for(vector<Genome*>::iterator it=generation.begin(); it != generation.end(); it++)
+        if(((double)rand())/RAND_MAX<tauxMutation){
+            Genome* tmp = (*it)->mutate();
+            generation.erase(it);
+            insert((Sudoku*)tmp);
+        }
 }
 void Sudokus::selection(){//DONE
+    for(Genome* gen:generation)
+        cout << gen->fitness() << ", ";
+    cout << endl;
+
     int tailleInit = generation.size();
-    while(generation.size() > tailleInit){
+    while(generation.size() > tailleInit/2){
         int myRand = rand()%(generation.size()*(1+generation.size())/2);
         int indice = generation.size() - floor( (-1+sqrt(1+8*myRand))/2 ) - 1;
         generation.erase(generation.begin()+indice);
@@ -69,19 +84,26 @@ void Sudokus::insert(Sudoku* sudoku){
     vector<Genome*>::iterator it = generation.begin();
     while(it < generation.end()){
         if((*it)->fitness() >= fitness){
-            generation.insert(it, sudoku);
+            generation.insert(it,new Sudoku(sudoku));
             break;
         }
         it++;
     }
     if(it==generation.end())
-        generation.insert(it, sudoku);
+        generation.insert(it, new Sudoku(sudoku));
+}
+int Sudokus::getTaille(){
+    return ((Sudoku*)generation[0])->getTaille();
 }
 
 int main(){
     srand(time(nullptr));
-    Sudokus myGen(50, 0.5, 0.5);
-    myGen.getIndividu(49)->afficher();
-    myGen.evoluer();
+    Sudokus myGen(50, 0.9, 0.4);
+    cout << 2*myGen.getTaille()*myGen.getTaille() << endl;
+    while(myGen.bestFitness() < 2*myGen.getTaille()*myGen.getTaille()){
+        myGen.selection();
+        myGen.evoluer();
+    }
+    cout << "Atteint en " << myGen.getNombreGenerations() << " generations" << endl; 
     myGen.getIndividu(49)->afficher();
 }

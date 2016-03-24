@@ -23,6 +23,7 @@ class Generation{
         double bestFitness() const;
         double avgFitness() const;
         double worstFitness() const;
+        int getNombreGenerations();
         Genome* getIndividu(int i);
         Genome* getConstIndividu(int i)const;
 };

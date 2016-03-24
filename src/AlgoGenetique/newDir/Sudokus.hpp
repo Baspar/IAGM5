@@ -13,6 +13,7 @@ class Sudokus: public Generation{
     public:
         Sudokus(int tailleGen, double tc, double tm);
         Sudokus(const Sudokus& sudoku);
+        int getTaille();
         void evoluer();
         void selection();
 };

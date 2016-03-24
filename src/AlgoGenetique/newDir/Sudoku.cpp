@@ -114,6 +114,7 @@ void Sudoku::afficher(){//DONE
     }
     cout << " " << (int)fitness() << endl<< endl;
 }
+//Genome* Sudoku::mutate(){//DONE
 Genome* Sudoku::mutate(){//DONE
     Sudoku* out = new Sudoku(this);
 
@@ -155,12 +156,12 @@ pair<Genome*, Genome*> Sudoku::croisement(Genome* genome){//DONE
     Sudoku* child1 = new Sudoku((Sudoku*)genome, false);
     Sudoku* child2 = new Sudoku((Sudoku*)genome, false);
 
-    int nbSeparateurs=3;
+    int nbSeparateurs=2;
 
     set<int> separateurs;
-    separateurs.insert(taille*taille*2);
+    separateurs.insert(taille);
     while(separateurs.size() != nbSeparateurs)
-        separateurs.insert(1+rand()%(taille*taille*2-1));
+        separateurs.insert(1+rand()%(taille-1));
 
 
     bool mode=rand()%2==1;
@@ -168,17 +169,19 @@ pair<Genome*, Genome*> Sudoku::croisement(Genome* genome){//DONE
     for(int separateur : separateurs){
         mode = !mode;
         for(int i=old; i<separateur; i++){
-            int x=i/taille;
-            int y=i%taille;
-            if(grid[x][y].getType() == CellType::GUESS){
-                if(mode){
-                    child1->setValue(x, y, grid[x][y].getValue());
-                    child2->setValue(x, y, ((Sudoku*)genome)->getValue(x, y));
-                } else {
-                    child1->setValue(x, y, ((Sudoku*)genome)->getValue(x, y));
-                    child2->setValue(x, y, grid[x][y].getValue());
-                }
-            }
+            int x=i/sqrtTaille;
+            int y=i%sqrtTaille;
+            for(int dx=0; dx<sqrtTaille; dx++)
+                for(int dy=0; dy<sqrtTaille; dy++)
+                    if(grid[x*sqrtTaille+dx][y*sqrtTaille+dy].getType() == CellType::GUESS){
+                        if(mode){
+                            child1->setValue(x*sqrtTaille+dx, y*sqrtTaille+dy, grid[x*sqrtTaille+dx][y*sqrtTaille+dy].getValue());
+                            child2->setValue(x*sqrtTaille+dx, y*sqrtTaille+dy, ((Sudoku*)genome)->getValue(x*sqrtTaille+dx, y*sqrtTaille+dy));
+                        } else {
+                            child1->setValue(x*sqrtTaille+dx, y*sqrtTaille+dy, ((Sudoku*)genome)->getValue(x*sqrtTaille+dx, y*sqrtTaille+dy));
+                            child2->setValue(x*sqrtTaille+dx, y*sqrtTaille+dy, grid[x*sqrtTaille+dx][y*sqrtTaille+dy].getValue());
+                        }
+                    }
         }
         old=separateur;
     }

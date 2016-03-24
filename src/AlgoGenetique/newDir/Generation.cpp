@@ -35,3 +35,8 @@ double Generation::getTauxCroisement() const{
 double Generation::getTauxMutation() const{
     return tauxMutation;
 }
+int Generation::getNombreGenerations(){
+    return nombreGenerations;
+}
+//Generation::~Generation(){
+//}
