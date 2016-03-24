@@ -1,4 +1,5 @@
 @startuml
+!include skin
 title diagramme séquence Fuir 
 activate ecoAgent1
 alt estSatisfait
@@ -7,15 +8,9 @@ activate ecoAgent1
 deactivate ecoAgent1
 end
 ecoAgent1 --> ecoAgent1 : trouverPlacePourFuir()
-activate ecoAgent1
-deactivate ecoAgent1
-loop tant qu'il y a un geneur
-ecoAgent1 --> ecoAgent2 : agresser()
+
+ecoAgent1 --> ecoAgent2 : faireFuite()
 activate ecoAgent2
 deactivate ecoAgent2
-end
-ecoAgent1 --> ecoAgent1 : faireFuite()
-activate ecoAgent1
-deactivate ecoAgent1
 deactivate ecoAgent1
 @enduml

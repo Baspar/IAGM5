@@ -1,0 +1,55 @@
+@startuml
+!include skin
+Class EcoResoluteur{
+- ecoAgents : List<EcoAgent>
++ {abstract} estFini()
++ {abstract} choixEcoAgent()
+}
+Class EcoAgent{
+- but : List<EcoAgent>
+- etatInterne : Etat
+- agresse : boolean
+- gene : boolean
++ essayerSatisfaire()
++ agresser(x EcoAgent)
++ fuir (y Ecogent)
++ {abstract} trouverPlacePourFuir() :EcoAgent
++ {abstract} faireFuite(x EcoAgent) 
++ {abstract} trouverGeneur() : List<Agent>
++ {abstract} faireSatisfaction()
+}
+Class EcoSudoku{
++ estFini()
++ choixEcoAgent()
+}
+Class EcoLigne{
++ trouverPlacePourFuir() :EcoAgent
++ faireFuite(x EcoAgent) 
++ trouverGeneur() : List<Agent>
++ faireSatisfaction()
+}
+Class EcoColonne{
++ trouverPlacePourFuir() :EcoAgent
++ faireFuite(x EcoAgent) 
++ trouverGeneur() : List<Agent>
++ faireSatisfaction()
+}
+Class EcoCellule{
++ trouverPlacePourFuir() :EcoAgent
++ faireFuite(x EcoAgent) 
++ trouverGeneur() : List<Agent>
++ faireSatisfaction()
+}
+
+EcoResoluteur o-- EcoAgent
+EcoResoluteur <|-- EcoSudoku
+EcoAgent <|-- EcoLigne
+EcoAgent <|-- EcoColonne 
+EcoAgent <|-- EcoCellule
+EcoSudoku o-- EcoCellule
+EcoSudoku o-- EcoLigne
+EcoSudoku o-- EcoColonne
+EcoColonne -right- EcoCellule 
+EcoLigne -right- EcoCellule 
+
+@enduml
