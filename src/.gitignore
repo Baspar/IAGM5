@@ -1,2 +1,4 @@
+*.png
+**/Class*.uml
 *.o
 main
