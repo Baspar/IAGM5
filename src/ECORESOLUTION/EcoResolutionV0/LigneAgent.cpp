@@ -62,11 +62,7 @@ void LigneAgent::faireSatisfaction(){
 }
 
 
-void LigneAgent::agresser(EcoAgent* e){
-    //cout << "testFuir" << endl;
-    e->fuir(this);
-    //cout << "rate ? " << endl;
-}
+
 
 EcoAgent* LigneAgent::trouverPlacePourFuir(EcoAgent* e){
     return this;

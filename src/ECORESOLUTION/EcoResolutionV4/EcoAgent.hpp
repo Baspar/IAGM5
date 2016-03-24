@@ -28,7 +28,7 @@ class EcoAgent{
         void essayerSatisfaire();
         virtual vector<EcoAgent*> trouverGeneur()=0;
         virtual void faireSatisfaction()=0;
-        virtual void agresser(EcoAgent* e, EcoAgent* c)=0;
+        void agresser(EcoAgent* e, EcoAgent* c);
         void checkSatisfaction();
         void fuir(EcoAgent* e, EcoAgent* c);
         virtual EcoAgent* trouverPlacePourFuir(EcoAgent* e, EcoAgent* c)=0;

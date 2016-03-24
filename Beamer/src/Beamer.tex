@@ -19,7 +19,14 @@
 
     \section*{Sommaire}
         \begin{frame}
-            \tableofcontents
+            \begin{columns}[t]
+  				\begin{column}{5cm}
+  					\tableofcontents[sections={1-4}]
+  				\end{column}
+  				\begin{column}{5cm}
+  					\tableofcontents[sections={5-8}]
+  				\end{column}
+  			\end{columns}
         \end{frame}
 
     \section{Introduction}
@@ -33,7 +40,7 @@
             \input{tex/PresentationEco.tex}
         \subsection{A*}
             \input{tex/PresentationAStar.tex}
-    \section{Application du problème}
+    \section{Application au problème}
         \subsection{Algorithme génétique}
             \input{tex/ApplicationAGen.tex}
         \subsection{Éco-résolution}

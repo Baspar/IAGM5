@@ -1,4 +1,4 @@
-UML=$(wildcard src/graph/*.uml)
+UML=$(wildcard src/diagrams/*.uml)
 PNG=$(UML:.uml=.png)
 
 TEX=$(wildcard src/*.tex)
@@ -7,7 +7,7 @@ PDF=$(TEX:.tex=.pdf,src/=doc/)
 all: $(PNG) doc/Beamer.pdf pseudoclean
 
 %.png: %.uml
-	java -jar src/graph/plantuml.jar $<
+	java -jar src/diagrams/plantuml.jar $<
 
 doc/Beamer.pdf: src/Beamer.tex
 	cd src;pdflatex Beamer.tex && pdflatex Beamer.tex && mv Beamer.pdf ../doc; cd ..

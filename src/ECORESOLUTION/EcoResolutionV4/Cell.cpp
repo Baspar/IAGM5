@@ -53,9 +53,7 @@ void Cell::faireSatisfaction(){//WIP
         etat==Etat::SATISFACTION;
 }
 
-void Cell::agresser(EcoAgent* e, EcoAgent* c){//WIP
-    e->fuir(this, c);
-}
+
 
 
 EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e, EcoAgent* c){//WIP

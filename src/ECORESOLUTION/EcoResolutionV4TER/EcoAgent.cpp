@@ -82,4 +82,7 @@ void EcoAgent::fuir(EcoAgent* e, EcoAgent* c){//WIP
 }
 
 
+void EcoAgent::agresser(EcoAgent* e, EcoAgent* c){
+    e->fuir(this,c);
+}
 

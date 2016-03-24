@@ -23,7 +23,6 @@ class ColonneAgent : public EcoAgent{
         ColonneAgent();
         vector<EcoAgent*> trouverGeneur();
         void faireSatisfaction();
-        void agresser(EcoAgent* e, EcoAgent* c);
         EcoAgent* trouverPlacePourFuir(EcoAgent* e, EcoAgent* c);
         void faireFuite(EcoAgent* e);
 };

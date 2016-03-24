@@ -23,7 +23,6 @@ class LigneAgent : public EcoAgent{
         LigneAgent();
         vector<EcoAgent*> trouverGeneur();
         void faireSatisfaction();
-        void agresser(EcoAgent* e, EcoAgent* c);
         EcoAgent* trouverPlacePourFuir(EcoAgent* e, EcoAgent* c);
         void faireFuite(EcoAgent* e);
         int nombreOccurence(int number, int place);

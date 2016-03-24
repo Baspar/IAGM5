@@ -71,13 +71,6 @@ void LigneAgent::faireSatisfaction(){
     etat=Etat::SATISFACTION;
 }
 
-
-void LigneAgent::agresser(EcoAgent* e, EcoAgent* c){
-    //cout << "testFuir" << endl;
-    e->fuir(this, c);
-    //cout << "rate ? " << endl;
-}
-
 EcoAgent* LigneAgent::trouverPlacePourFuir(EcoAgent* e, EcoAgent* c){
     return this;
 }

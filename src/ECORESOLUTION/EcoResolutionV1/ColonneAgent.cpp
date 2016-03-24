@@ -61,10 +61,6 @@ void ColonneAgent::faireSatisfaction(){
 }
 
 
-void ColonneAgent::agresser(EcoAgent* e){
-    e->fuir(this);
-}
-
 EcoAgent* ColonneAgent::trouverPlacePourFuir(EcoAgent* e){
     return this;
 }

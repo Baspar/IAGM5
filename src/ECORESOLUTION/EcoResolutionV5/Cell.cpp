@@ -46,11 +46,6 @@ void Cell::faireSatisfaction(){//WIP
         etat==Etat::SATISFACTION;
 }
 
-void Cell::agresser(EcoAgent* e){//WIP
-    e->fuir(this);
-}
-
-
 EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e){//WIP
     int blocLigne=x/(int) sqrt(sudoku->getTaille());
     int blocColonne=y/(int) sqrt(sudoku->getTaille());

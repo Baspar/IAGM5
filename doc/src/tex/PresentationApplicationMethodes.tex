@@ -405,12 +405,27 @@
             L'éco-résolution est un mode de résolution utilisant plusieurs agents, la partie la plus complexe étant de définir quels sont nos agents et comment ils agissent entre eux. \\
             Nous avons ainsi défini le diagramme de classe suivant : \\
             \begin{center}
-                \includegraphics[scale=0.7]{diagrams/ecoResolution.png}
+                \includegraphics[scale=0.7]{diagrams/ClasseEcoResolution1.png}
             \end{center} 
-
-            Pour l'éco-résolution, nous retrouvons une seule méthode estFini(), qui vérifie lorsque tous les éco-agents de notre système sont satisfaits. \\
+			
+			Ce diagramme représente un schéma classique de l'éco-résolution. En effet, nous voyons que notre problème considéré comme éco-résoluteur a deux méthodes abstraites : estFini() et choixEcoAgent() qui seront redéfinies pour chacune des applications. 
+			La méthode résolution est définie comme suit : 
+					\begin{verbatim}
+                        Procédure resolution() 
+						tant que estFini()==false                        
+                        		x=choixEcoAgent()
+                        		essayerSatisfaire(x)
+                    \end{verbatim}
+            L'éco-Agent est défini comme vu dans la partie précédente.
+                    
+			\begin{center}
+                \includegraphics[scale=0.7]{diagrams/ClasseEcoResolution2.png}
+            \end{center} 
+            
+			Ce diagramme représente la modélisation de notre problème selon l'éco-résolution. Notre sudoku hérite de l'éco-résoluteur, nous retrouvons la estFini(), qui vérifie lorsque tous les éco-agents de notre système sont satisfaits et choixEcoAgent qui choisi a quel agent il donne la main (de manière aléatoire  dans un premier temps)\\			
             Avant de démarrer l'éco-résolution, nous allons compléter les cases vides de notre sudoku. Les cases étant déjà dans l'énoncé comporteront un attribut cellType valant "GIVEN". Pour remplir notre sudoku, nous allons effectué un remplissage "intelligent", c'est-à-dire que dans chaque bloc nous allons placer une et une seule fois chaque numéro de 1 à 9.\\
-            Nous avons choisi que nos cellules, nos lignes et nos colonnes seraient considérés comme éco-agent. \\
+            Nos blocs étant déjà correctement rempli, nous avons choisi que nos cellules, nos lignes et nos colonnes seraient considérés comme éco-agent. \\
+            
             \subsubsection{Les lignes}
                 Nous allons voir les lignes comme éco-agent de la manière suivante : \\
                 \begin{itemize}
@@ -436,6 +451,129 @@
                     \item Pour trouverPlacePourFuir d'une cellule nous avons plusieurs idées : choisir une cellule aléatoirement dans le même bloc, choisir une cellule aléatoirement dans le bloc mais qui ne soit pas sur la ligne ou colonne de notre agent qui lance l'agression et enfin choisir la cellule qui a le plus de gêne.
                     \item Pour faireFuite, nous allons échanger les numéros de nos deux cellules.
                 \end{itemize}
+                
+        \subsection{Exemple de déroulé de l'éco-résolution}
+        
+        	Nous allons présenté le déroulé de la résolution d'une grille de Sudoku par l'éco-résolution sur une grille 4*4.\\
+        	Considérons la grille suivante comme étant notre point de départ.
+        		\begin{center}
+       			  \begin{tabular}{|c|c| |c|c| }
+            			   \hline
+            			   \textbf{1}&&&\\
+            			   \hline
+            			   &&\textbf{2}&\\
+            	   		   \hline
+               		   \hline
+               		   &&&\\
+                       \hline
+               		   &\textbf{3}&&\textbf{4}\\                      
+            			   \hline
+        			 \end{tabular}
+   			\end{center}
+    
+		
+		La première étape consiste à remplir la grille. Pour cela nous remplissons chaque bloc de tel sorte que tous les numéros de 1 à 4 soient présents dans le bloc.
+    
+    		  \begin{center}
+         		\begin{tabular}{|c|c| |c|c| }
+             	 	  \hline
+             	 	  \textbf{1}&2&1&3\\
+             		  \hline
+             		  3&4&\textbf{2}&4\\
+             		  \hline
+             		  \hline
+             		  4&1&2&3\\
+             		  \hline
+             		  2&\textbf{3}&1&\textbf{4}\\                      
+            			  \hline
+        			\end{tabular}
+    		\end{center}
+
+	Ensuite nous rentrons dans la résolution a proprement parlé. Considérons le choix de la colonne 4 comme étant la colonne que l'on souhaite comme étant satisfaite (que des numéros différents présents sur cette colonne). \\
+	Pour se faire la colonne trouve tous les gêneurs il s'agit des cellules (1,4), (2,4) et (3,4) car les numéros sont présents plus d'une fois dans la colonne mais ne sont pas donnés dans l'énoncé. \\
+	Il faut ensuite choisir un agent parmi ces gêneurs à agresser par exemple la cellule (1,4). Cette cellule doit ensuite trouver une place pour fuir. Elle a le choix entre les cellules (1,3) et (2,4) car ces cellules sont dans le bloc mais ne sont données dans l'énoncé. Considérons le choix de la cellule (1,3). \\
+	Nous arrivons ainsi au sudoku suivant avec en rouge la cellule agressé et en vert la cellule ou elle fuis. \\
+		
+	\begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&{\color{green} 1}&{\color{red} 3}\\
+               \hline
+               3&4&\textbf{2}&4\\
+               \hline
+               \hline
+               4&1&2&3\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+    
+    Les cellules (1,4) et (1,3) vont ainsi changer leur numéro. La colonne 4 n'étant toujours pas satisfaite il faut qu'elle choisisse un nouveau gêneur, cette fois ci il n'y a plus de choix il s'agit de la cellule (2,4). Cette cellule est agressé. Elle va choisir de fuir en (1,4) nous avons donc le nouveau sudoku suivant : \\
+    \begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2& 3&{\color{green} 1}\\
+               \hline
+               3&4&\textbf{2}&{\color{red} 4}\\
+               \hline
+               \hline
+               4&1&2&3\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+
+    De même nous continuons, la cellule (1,4) est agressée. Elle choisis de fuir en (1,3) \\
+	\begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&{\color{green} 3}&{\color{red} 4}\\
+               \hline
+               3&4&\textbf{2}&1\\
+               \hline
+               \hline
+               4&1&2&3\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+    
+    Enfin, la colonne 4 sera satisfaite quand la cellule(3,4) sera agressée et choisira de fuir en (3,3) \\
+    \begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&4&3\\
+               \hline
+               3&4&\textbf{2}&1\\
+               \hline
+               \hline
+               4&1&{\color{green} 2}&{\color{red} 3}\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}
+
+	Nous arrivons ainsi à la grille résolue suivante :\\
+
+    	\begin{center}
+         \begin{tabular}{|c|c| |c|c| }
+               \hline
+               \textbf{1}&2&4&3\\
+               \hline
+               3&4&\textbf{2}&1\\
+               \hline
+               \hline
+               4&1&3&2\\
+               \hline
+               2&\textbf{3}&1&\textbf{4}\\                      
+            \hline
+        \end{tabular}
+    \end{center}        
+    
         \subsection{Diagramme de séquence}
             \subsubsection{SeSatisfaire}
                 \begin{center}

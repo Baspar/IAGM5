@@ -45,14 +45,8 @@ void Cell::faireSatisfaction(){//WIP
         etat==Etat::SATISFACTION;
 }
 
-void Cell::agresser(EcoAgent* e, EcoAgent* c){//WIP
-    e->fuir(this, c);
-}
-
 
 EcoAgent* Cell::trouverPlacePourFuir(EcoAgent* e, EcoAgent* c){//WIP
-    //cout << "trouver1"<< endl;
-    //cout << sudoku << endl;
     int blocLigne=x/(int) sqrt(sudoku->getTaille());
     int blocColonne=y/(int) sqrt(sudoku->getTaille());
     bool b=false;
