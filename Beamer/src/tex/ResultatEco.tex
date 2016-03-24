@@ -1,14 +1,82 @@
+\begin{frame}
+    \frametitle{Éco-résolution - Version 0}
+    \begin{block}{Choix d'implémentation}
+    		Version totalement naïve :
+    		\begin{itemize}
+    			\item Trouver place pour fuir : une case aléatoire dans le bloc
+    			\item Choix éco-agent : aléatoire également
+    		\end{itemize}
+    \end{block}
+    \pause
+    \begin{alertblock}{Résultat}
+    		Fonctionne pour une sudoku 4*4 mais pas pour un 9*9
+    \end{alertblock}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{Éco-résolution - Version 1}
+    \begin{block}{Choix d'implémentation}
+    		Améliorations effectuées
+    		\begin{itemize}
+    			\item EssayerSatisfaire pour l'écoAgent suppression de la boucle sur les gêneurs
+    			\item Trouver place pour fuir : une case aléatoire parmi les cellules non satisfaites du bloc avec une proba de 95%
+    			\item Choix éco-agent : parmi les éco-Agents où il y a le plus d'erreur 
+    		\end{itemize}
+    \end{block}
+    \pause
+    \begin{alertblock}{Résultat}
+    		Fonctionne pour une grille facile de sudoku 9*9 mais lent (40sec)
+    \end{alertblock}
 \end{frame}
 
 \begin{frame}
     \frametitle{Éco-résolution - Version 2}
+    \begin{block}{Choix d'implémentation}
+    		Amélioration effectuée
+    		\begin{itemize}
+    			\item Trouver place pour fuir : ajout d'une contrainte (l'éco-Agent qui essaie d'être satisfait) donc choix d'une case non satisfaite dans le bloc qui n'est pas sur la ligne(ou colonne)
+    		\end{itemize}
+    \end{block}
+    \pause
+    \begin{alertblock}{Résultat}
+    		Fonctionne pour une grille facile (1,7 sec) et moyen (51 sec)
+    \end{alertblock}
+    \pause
+    \begin{exampleblock}{Autre test}
+		Choisir l'éco-Agent avec le plus gros score n'étant pas résolu
+	\end{exampleblock}
 \end{frame}
 
 
 \begin{frame}
     \frametitle{Éco-résolution - Version 3}
+    \begin{block}{Choix d'implémentation}
+    		Amélioration effectuée
+    		\begin{itemize}
+    			\item Trouver place pour fuir : modification contrainte, choix aléatoire parmi les cellules dont le numéro apparaît le moins de fois dans la contrainte
+    		\end{itemize}
+    \end{block}
+    \pause
+    \begin{alertblock}{Résultat}
+    		Fonctionne pour une grille facile (0,2 sec), moyen (1.425 sec), difficile (14.7 sec) et diabolique (51.95 sec)
+    \end{alertblock}
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{Éco-résolution - Version 2}
+    \begin{exampleblock}{Autres tests}
+   		 \begin{itemize}
+    				\item Choisir parmi toutes les cellules et non pas seulement celles qui sont non-satisfaites
+    		 \pause
+    				\item Ajouter une mémoire aux cellules pour pas qu'elles aient deux fois le même numéro que pendant les deux tours précédents 
+		 \pause
+				\item Combiner le test précédent avec la méthode la plus efficace précédente
+		 \end{itemize}
+	\end{exampleblock}
+	\pause
+	\begin{alertblock}{Résultat}
+		Fonctionne mais n'améliore pas le résultat, beaucoup plus lent avec la mémoire (50sec pour une grille facile).
+    \end{alertblock}
+\end{frame}
