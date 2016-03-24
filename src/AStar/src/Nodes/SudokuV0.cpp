@@ -1,7 +1,6 @@
 #include "SudokuV0.hpp"
 
 
-
 Sudoku::Sudoku(string filename, int t) : Node (){//DONE
 
     taille = t;

@@ -36,20 +36,31 @@ int main(){
 	cout << "Resultat";
 	cout << endl;
 
-	if(true){
+for(int i=0;i<9;i++){
+for(int j=0;j<9;j++){
+
+	if(sud.getValue(i,j)==0){
+		cout <<i;	cout << j;	 cout << "    ";	cout << sud.getCell(i,j)->getRemaining().size(); cout << endl;
+	}
+
+}
+}
+
+
+	if(!true){
 	AStar as = AStar(g);	
 	as.graphe = g;
 
 	set<Node*> res = as.FindShortestWay(&sud,&sud);
-	for(Node* n : res) {
-		if(n->getG()==81){
-		n->afficher();
-		cout << n->getG();
-		cout <<endl;
-		cout << n->getH();
+//	for(Node* n : res) {
+//		if(n->getG()==81){
+//		n->afficher();
+//		cout << n->getG();
+//		cout <<endl;
+//		cout << n->getH();
 	cout <<endl;
-		}
-	}
+//		}
+//	}
 	}
 
 }

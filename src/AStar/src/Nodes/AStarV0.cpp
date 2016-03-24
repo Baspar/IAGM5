@@ -50,6 +50,7 @@ current->afficher();
 					openList.push(n);
 //				}
 				}
+				
 			}
 			closeList.insert(current);
 		}

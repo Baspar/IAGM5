@@ -16,7 +16,6 @@ Node::Node(const Node& node){
 	parents = node.getParents();
 	enfants = node.getEnfants();
 }
-
 //Get Set
 
 int Node::getG()const{

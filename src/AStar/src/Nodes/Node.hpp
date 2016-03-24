@@ -18,7 +18,7 @@ class Node{
 	Node();
 	Node(int g, int h);
 	Node(const Node& node);
-
+	
 	int getG() const;
 	void setG(int g);
 	int getH() const;
