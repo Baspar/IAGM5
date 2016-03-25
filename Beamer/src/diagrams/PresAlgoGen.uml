@@ -1,0 +1,17 @@
+@startuml
+!include skin
+usecase INIT as "Création population
+initiale"
+usecase EVAL as "Évaluation"
+usecase SELEC as "Sélection"
+usecase B as "Croisement
+==
+Mutation"
+
+(INIT)-->(EVAL)
+(EVAL)-->(SELEC)
+(B)<-(SELEC)
+(EVAL)<--(B)
+
+
+@enduml
