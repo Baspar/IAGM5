@@ -1,0 +1,29 @@
+@startuml
+Class Sudoku{
+- int taille 
+- vector<vector<Cell*>> grille  
++ Sudoku()
++ void setValue(int x,int y,int val)
++ int getValue(int x int y)
+}
+Class Cell{
+- Number number
+- int x
+- int y
+- Sudoku* sudoku
++ void setValue(int val)
++ Number getNumber()
+}
+Class Number{
+- int value
+- CellType cellType
+}
+Enum CellType{
+GIVEN
+GUESS
+}
+
+Sudoku *-- Cell
+Cell *-- Number
+Number *-- CellType
+@enduml
