@@ -1,7 +1,6 @@
 
 \begin{frame}
-    \frametitle{A*}
-	\framesubtitle{Version 0}
+    	\frametitle{Version 0}
     
     \begin{block}{Dimension 4}
     
@@ -19,10 +18,22 @@
     
 \end{frame}
 
+\begin{frame}
+\frametitle{Version 1}
 
-\begin{frame}{A*}
+\begin{block}{Opérateur de comparaison des nœuds}
 
-\framesubtitle{Version 1}
+Les grilles sont normalement classées par leur score $F=F+G$ croissant. On a modifier l'opérateur de comparaison des nœuds pour les trier par $G$ croissant puis par $F$ croissant.
+
+L'algorithme préférera alors choisir les grilles les plus remplies de la liste ouverte \textit{avant de minimiser F}.
+\end{block}
+
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Version 2}
 
 \begin{block}{Recherche de valeurs évidentes}
 
@@ -30,8 +41,11 @@ Pour aider un peu l'algorithme, on peut le guider dans le choix de noeud ``optim
 
 \end{block}
 
+\end{frame}
 
-\begin{block}{Dimension 4}
+\begin{frame}
+
+\begin{block}{Dimension 4 - Effet boule de neige}
 
 Cette amélioration ne présente pas grand intérêt : dans ce genre de grille, on se retrouve souvent dans une situation ou l'on avance de valeurs évidentes en évidentes, sans vraiment utiliser les mécaniques de l'algorithme A*.
 
@@ -40,8 +54,11 @@ Cette amélioration ne présente pas grand intérêt : dans ce genre de grille, 
 
 \begin{block}{Dimension 9}
 
-Le gain en efficacité dépend fortement de la grille étudiée ........
+Le gain en efficacité dépend fortement de la grille étudiée, on peut souvent retrouver cet effet \textit{boule de neige} quand il ne reste que plus beaucoup de cases vides.
 
+\bigskip
+
+Cela permet dans la plupart des cas d'arriver à la solution sans problème de mémoire.
 
 \end{block}
 

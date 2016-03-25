@@ -1,6 +1,5 @@
 
 \begin{frame}
-    \frametitle{A*}
 
 \begin{block}{Idée générale}
 
@@ -20,7 +19,7 @@ Pour appliquer A* au problème du Sudoku, on doit en modifier certains aspects :
 \end{block}
 \end{frame}
 
-\begin{frame}{A*}
+\begin{frame}
 \begin{block}{Construction du graphe}
 
 On doit donc construire de nouvelles grilles quand l'algorithme doit développer un nœud. \textit{On construit autant de grille qu'il y a de valeurs possibles pour les cases vides dans la grille du noeud à développer.}
@@ -40,4 +39,75 @@ On définit bien sur des fonctions coût pour le problème :
 
 
 \end{alertblock}
+
 \end{frame}
+
+\begin{frame}
+\frametitle{Exemple}
+
+
+\begin{minipage}{.45\textwidth}
+
+\includegraphics[scale=0.5]{images/ASTARExample/ini.png}
+
+
+\end{minipage} \hfill
+\begin{minipage}{.45\textwidth}
+
+\includegraphics[scale=0.3]{images/ASTARExample/ini_H.png}
+
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{minipage}{.45\textwidth}
+
+\includegraphics[scale=0.2]{images/ASTARExample/1_1.png}
+
+\includegraphics[scale=0.2]{images/ASTARExample/1_3.png}
+
+
+\end{minipage}\hfill
+\begin{minipage}{.45\textwidth}
+
+\includegraphics[scale=0.2]{images/ASTARExample/1_1.png}
+
+\includegraphics[scale=0.2]{images/ASTARExample/1_4.png}
+
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{minipage}{.2\textwidth}
+\huge{...}
+\end{minipage}\hfill
+\begin{minipage}{.8\textwidth}
+\includegraphics[scale=0.4]{images/ASTARExample/1.png}
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{minipage}{.45\textwidth}
+
+\includegraphics[scale=0.2]{images/ASTARExample/2_1.png}
+
+\includegraphics[scale=0.2]{images/ASTARExample/2_2.png}
+
+\end{minipage}\hfill
+\begin{minipage}{.05\textwidth}
+\huge{...}
+
+\end{minipage}\hfill
+\begin{minipage}{.45\textwidth}
+
+\includegraphics[scale=0.3]{images/ASTARExample/2.png}
+
+\end{minipage}
+\end{frame}
+
