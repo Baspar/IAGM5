@@ -1,0 +1,31 @@
+@startuml
+    !include skin
+
+    class Genome{
+        + {abstract} void afficher()
+        + {abstract} Genome* mutate()
+        + {abstract} Double fitness()
+        + {abstract} Pair<Genome*, Genome*> croisement(Genome* genome)
+    }
+    class Generation{
+        + {abstract} void evoluer()
+        + {abstract} void selection()
+        - nbGeneration
+        - Vector<Genoome*> generation
+        - double tauxMutation
+        - double tauxCroisement
+    }
+    class Sudoku{
+        - Vector<Vector<Cell>> grid
+        - int scoreLigne(int i)
+        - int scoreCol(int i)
+    }
+    class Sudokus{
+        - void shuffle()
+    }
+    Generation <|- Sudokus
+    Genome <|- Sudoku
+
+    Generation o-- Genome
+    Sudokus o-- Sudoku
+@enduml
