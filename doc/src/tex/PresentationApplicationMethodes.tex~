@@ -1,217 +1,53 @@
 \chapter{Application des méthodes au problème}
     Dans cette partie, nous allons présenter comment les diverses techniques que nous souhaitons appliquer sont compatibles avec notre cas spécifique du sudoku.
     \section{A*}
-
- \textit{Cette partie présente l'application de l'algorithme au problème du Sudoku, dans le cas d'une grille de dimension 9 par 9.}
-   
-\textit{   Rappel : la``région'' d'une case correspond aux autres cases de sa ligne, sa colonne et son bloc.
-   }
-     
-  \subsection{Construction du graphe}
-    
-   
-    Comme vu précédemment, l'algorithme A* est un algorithme de recherche de plus court chemin dans un graphe. Plus précisément dans le cas du Sudoku, on construit un graphe ayant pour racine la \textbf{grille initiale}, avec seulement les indications de départ.
-    
-    Chaque sommet correspond ensuite à un état de la grille, parmi lesquels on avance en ajoutant un chiffre dans une case vide. On va donc de case en case jusqu'à ce que la grille soit complète ou que l'on ai trouvé une erreur, au quel cas on retourne en arrière et on retente une autre possibilité.
-    
-   On a donc un graphe $G = (V,E)$, où : 
-   
-\begin{description} 
-\item[V, pour vertices,] est l'ensemble des sommets ou encore des états de la grille.
-
- \item[E, pour edges,] est l'ensemble des arrêtes, chacune constituée d'une paire d'éléments de $V$. \textit{Une arrête ``ajoute'' permet de passer de grille en grille en ajoutant un chiffre à une case vide...}
-
-\end{description}
-    
+    Comme vu précédemment, l'algorithme A* est un algorithme de recherche de plus court chemin dans un graphe. Plus précisément dans le cas du Sudoku, on construit un graphe ayant pour racine la \textbf{grille initiale}, avec seulement les indications de départ.\\
+            Chaque sommet correspond ensuite à un état de la grille, parmi lesquels on avance en ajoutant un chiffre dans une case vide. On va donc de case en case jusqu'à ce que la grille soit complète ou que l'on ai trouvé une erreur, au quel cas on retourne en arrière et on retente une autre possibilité.
             \bigskip
-            Sans revenir sur l'algorithme lui même, il est tout de même nécessaire de préciser certains points : l'algorithme utilise \textbf{deux listes}, une dites \textit{fermée} et l'autre \textit{ouverte}. La liste ouverte contient toutes les grilles qui ont été évaluées mais pas développées. La liste fermée contient quand à elle l'ensemble des grilles qui ont été étudiées.
-            
-            Pour déterminer quel chemin emprunter l'algorithme calcul un \textbf{coût} $F$ pour chaque sommet et en cherche le minimum à chaque étape. \textit{Remarque : on calcule le coût de chaque successeur c'est à dire en remplissant une case vide avec un chiffre entre 1 et 9 afin de déterminer laquelle est ``optimale'' pour continuer la recherche.} Le coût $F$ est déterminé comme la somme d'une fonction coût $G$ et d'une heuristique $H$. C'est deux fonctions sont à déterminer en fonction du problème.
+            Sans revenir sur l'algorithme lui même, il est tout de même nécessaire de préciser certains points : $A^*$ utilise \textbf{deux listes}, une dites \textit{fermée} et l'autre \textit{ouverte}. \textit{La liste ouverte contient toutes les grilles de sudoku qui ont été évaluées mais pas développées. La liste fermée contient quand à elle l'ensemble des grilles qui ont été étudiées.}\\
+            Pour déterminer quel chemin emprunter l'algorithme calcul un \textbf{coût} $F$ pour chaque sommet et on cherche en cherche le minimum à chaque étape. \textit{Remarque : on calcule le coût de chaque successeur c'est à dire en remplissant une case vide avec un chiffre entre 1 et 9 afin de déterminer laquelle est ``optimale'' pour continuer la recherche.} Le coût $F$ est déterminé comme la somme d'une fonction coût $G$ et d'une heuristique $H$.
             \bigskip
-            
-            Cette application de l'algorithme présente cependant quelques particularités : en effet, cette application ne nécessite ni état final ni graphe à parcourir. Le graphe est construit au fur et mesure que l'algorithme cherche des voisins. \textit{Construire le graphe revient à résoudre le sudoku.} D'autre part, l'état final n'est pas un nœud du graphe, mais plutôt n'importe quel nœud qui correspond à un Sudoku rempli et sans doublon.
-            
-            
-              Tant que l'on a pas trouvé de solution ou que l'on ai testé toute les grilles possibles, l'algorithme va :
+            La seule particularité de cette application de $A^*$ est que l'on doit, pour chaque case optimale choisie, tester toutes les possibilités de valeurs de possibles. Tant que l'on a pas trouvé de solution ou que l'on ai testé toute les grilles possibles, l'algorithme va :
             \begin{itemize}
-            	  \item choisir le Sudoku de la liste ouverte possédant le plus petit coût F,
-               \item créer des grilles à partir de la grille choisie et d'une des valeurs possibles pour l'une des cases vides celle ci,
-                \item vérifier la présence de doublon dans les nouvelles grilles,
-                \item vérifier si ces grilles ont déjà été étudiées \textit{(Se trouvent elles déjà dans la liste fermée ?)},
-                \item le cas échéant, chaque nouvelle grille se voit mettre à jour les valeurs possibles de ses cases vides et on calcule les nouvelles valeurs de G et H,
-                \item enfin, on ajoute ces grilles à la liste ouverte, et on recommence la recherche de la grille possédant le plus petit coût...   
+                \item actualiser les listes ouverte et fermée ainsi que les valeurs possibles des cases vides,
+                \item trouver la grille ayant la plus petite valeur pour $F$,
+                \item créer des grilles à partir de la grille précédente \textit{(on assigne aussi celle-ci comme parent de la nouvelle grille)} et d'une des valeurs possibles pour la case ``optimale'',
+                \item vérifier la présence de doublon, si c'est le cas, il faut renvoyer une erreur, tester les autres possibilités et éventuellement remonter au niveau du parent pour essayer ses autres possibilités.
+                \item s'il n'y a pas de doublon, on recommence la recherche de case ``optimale'' dans la nouvelle grille \textit{(via récursivité)}
             \end{itemize}
         \subsection{Choix des fonctions coût}
-        
             On peut choisir différentes fonction coût pour le problème du Sudoku, ce choix va bien sur affecté le temps de calcul de l'algorithme.
             \subsubsection*{La fonction G}
-            
-                L'une des façons la plus simple de l'estimer est de prendre le nombre de cases remplies dans la grille. En effet, moins il y a de case vide, plus il sera simple de déterminer une valeur et plus on se rapproche d'une grille remplie.
-                
+                L'une des façons la plus simple de l'estimer est de prendre le nombre de cases remplies dans la grille. En effet, moins il y a de case vide, plus il sera simple de déterminer une valeur.
             \subsubsection*{L'heuristique H}
-            
-
- 
- 	C'est principalement le choix de l'heuristique qui influe sur l'efficacité de l'algorithme : nous avons choisi un fonction qui renvoie la somme du nombre de valeurs possibles de chaque case vide d'une grille donnée. On va donc devoir mettre à jour les valeur possibles de la grille pour calculer son heuristique.
- 	Le nombre de possibilités pour une case vide est déterminé en fonction des règles du Sudoku et des cases remplies qui se trouvent dans la même région \textit{(ligne, colonne, et bloc)}.
- 	Cette fonction donne une assez bonne idée de la ``distance'' qui éloigne une grille d'une grille remplie. En effet, c'est une indication du nombre de grille que l'algorithme devra construire pour développer une grille. 
-
-               \textit{Remarque : dans le cas où il n'y a aucune possibilité pour une case donnée, c'est que la grille contient au moins un doublon. On peut donc aussi se servir de cette information pour enlever des grilles de la liste ouverte.}
- 
-
-	    \subsection{Exemple}
-
-
-
-
-Voyons au travers d'un exemple le fonctionnement de l'algorithme. Nous partirons de la grille suivante :
-
-\begin{center}
-\includegraphics[scale=0.5]{images/AStarExample/ini.png}
-\end{center}
-
-Pour initialiser l'algorithme on doit mettre à jour les possibilités et calculer les valeurs de G et de H correspondante à la première grille. \textit{On note en bleu le nombre de possibilités pour une case donnée.}
-
-\begin{center}
-\includegraphics[scale=0.4]{images/AStarExample/ini_H.png}
-\end{center}
-
-On imagine à présent que l'algorithme parcourt les cases de la grille de gauche à droite, puis de haut en bas. Il va construire toutes les grilles possibles, en fonction des valeurs encore disponible. Pour le bien de l'exemple, nous avons construit les quatre premières grilles que l'algorithme va construire : \textit{(on peut voir le chiffre ajouté en rouge)}
-
-\begin{center}
-\includegraphics[scale=0.3]{images/AStarExample/1_1.png}
-\includegraphics[scale=0.3]{images/AStarExample/1_2.png}
-
-\includegraphics[scale=0.3]{images/AStarExample/1_3.png} 
-\includegraphics[scale=0.3]{images/AStarExample/1_4.png}
-\end{center}
-
-On vérifie alors, dans les grilles ainsi construites, qu'il y ai pas de case vide ne possédant aucune valeur possible. \textit{Il n'est pas possible de remplir ces cases, on élimine donc ces grilles.}
-
-On ajoute les grilles restantes à la liste ouverte. On calcul les valeurs de G et de H correspondantes à chaque grille et l'algorithme va choisir celle qui à la plus petite valeur pour la somme $F = G+H$.
-
-Dans ce cas, l'algorithme construit 142 grilles, et choisi parmi celles-ci la grille suivante \textit{(la valeur ajoutée est notée en vert)}:
-
-\begin{center}
-\includegraphics[scale=0.3]{images/AStarExample/1.png}
-\end{center}
-
-
-Il va ensuite recommencer la création de 127 grilles à partir de la grille choisie, et choisir la prochaine grille à développer...
-
-
-\begin{center}
-\includegraphics[scale=0.3]{images/AStarExample/2_1.png}
-\includegraphics[scale=0.3]{images/AStarExample/2_2.png}
-
-
-\includegraphics[scale=0.3]{images/AStarExample/2.png}
-\end{center}
-
-
-L'algorithme continue la recherche de grille à développer jusqu'à ce qu'il soit arriver à une grille où $H=0$, ce qui correspond à une grille complète \textit{(on sait aussi que l'algorithme ne construit pas de grille possédant de doublon)}; ou jusqu'à ce qu'il ai parcourut \textbf{toutes} les grilles possibles mais qu'il n'a pas trouver de grille complète. Le problème n'a alors pas de solution.
-
-
-
-         \subsection{Implémentation}
-         
-                 
-            \subsubsection{Diagrammes de classe}
-            
-            \textit{Dans les diagrammes de classe qui suivent, les attributs privés sont accessibles à l'aide de méthodes get et set.}
-            
-            \begin{description}
-            	\item[La classe Sudoku] :
-            
+                C'est principalement le choix de l'heuristique qui influe sur l'efficacité de l'algorithme, notre premier choix est une fonction qui renvoie le nombre de valeurs possibles pour chacune des cases de la grille testée \textit{(valeurs comprises entre $1$ et $9$)}. On va choisir de remplir la case ayant le moins de possibilité comme étant la grille suivante à développer.\\
+                Cette valeur est déterminée selon les règles du Sudoku \textit{(une seule apparition par ligne, colonne ou bloc)} et les cases contenues dans la liste fermée \textit{(les cases remplies de la grille)}.\\
+                \textit{Remarque : dans le cas où il n'y a aucune possibilité, c'est que l'on a trouvé une erreur, on renverra alors la valeur $9$ ainsi qu'un message d'erreur.}
+        \subsection{Implémentation}
+            \subsubsection{Diagramme de classe}
                 \begin{center}
-                    \includegraphics[scale = 0.5]{images/Sudoku_classe.png}	
+                    \includegraphics[scale = 0.5]{images/AstarDiagrammeClasse.png}
                 \end{center}
                 \bigskip
-                
-                Un \textbf{Sudoku} est composé d'une grille, une liste de $taillle^2$ Cells qui sont rangées dans un tableau à deux dimensions. 
-                
-                Chaque \textbf{Cell} contient un \textbf{Number} qui pour cette application n'est un simple entier. On ajoute une liste d'entier pour maintenir la liste des valeurs possibles de cette cases \textit{remainingValues} ainsi qu'une liste de pointeurs sur Cell \textit{adjacentCells} qui permet de retrouver les cases appartenant à la même \textit{région} que celle-ci.
-                
-                La classe Cell dispose d'une méthode \textit{updatePossibility()} qui met à jour la liste \textit{remainingValues} en considérant les valeurs des cases remplies contenues dans \textit{adjacentCells}
-                
-                La classe Sudoku contient plusieurs méthodes utiles : 
-                
-\begin{itemize}
-\item \textit{DéfinirRégion()}, qui l'on appelle dans les constructeurs de la classe, et qui, pour chaque Cell, va remplir la liste \textit{adjacentCells} des cases contenues dans la même région.
-
-\item \textit{UpdatePossibility()}, qui met à jour les possibilités de toutes les cases de la grilles, en appelant la méthode correspondante de chaque Cell.
-
-\textit{On peut aussi utiliser une version plus ``légère'' de cette méthode, en lui passant en argument une Cell et en ne mettant à jour que les cases contenues dans sa région. En effet, puisque l'on remplit les cases une par une, seules les valeurs possibles des cases de la  même région modifiée sont à mettre à jour.}
-
-\item La fonction \textit{CheckDouble()} teste si le Sudoku n'est pas erroné et renvoie un booléen. On peut tester, pour chaque cases de la grille, que se valeur n'apparaît qu'une seule fois \textit{région}.
-
-\textit{On peut, et on préférera, simplement vérifier que l'on ne construit pas de grille où l'une des cases vides n'a aucune valeur possible, ce qui nous permet de vérifier les grilles en même temps que l'on calculera la valeur de H.}
-
-\end{itemize}
-                
-                
-                
-                
-                
-                \item[A*] :
- 
- Voici le diagramme de classe de l'algorithme A* dans le cas d'un graphe dans lequel on recherche un chemin.
- 
- \begin{center}
-                \includegraphics[scale=0.5]{images/Astar_classe.png}               
-              
-              \end{center}
-              
-Sans s'attarder sur celui-ci, considérons le diagramme correspondant à un cas plus ``général'', et que l'on peut appliquer au Sudoku. L'idée de généraliser les classes Noeud et Graphe et d'en faire hériter des classes depuis lesquelles on pourra adapter l'algorithme au problème étudié.
-
-\textit{La classe Sudoku est celle présentée précédemment, on ne réécrit cependant pas les classe s Cell et Number pour gagner en  lisibilité...}
-
-\begin{center}
-\includegraphics[scale = 0.5]{images/Astar_sudoku_classe.png}
-\end{center}
-
-
-
-La classe \textbf{Graphe} contient une liste de pointeur sur Noeud, ainsi qu'une fonction \textit{ virtuelle} qui permet de calculer la distance entre deux Noeud du graphe. Cette fonction est utilisé pour le test d'arrêt de l'algorithme, en comparant la distance entre le Noeud \textit{courant} et le Noeud \textit{final}.
-
-La fonction \textit{Distance()} est virtuelle afin que l'on puisse redéfinir le calcul de la distance conformément au problème étudié. Pour le Sudoku, on fait hériter la classe \textbf{Sudokus} de la classe Graphe, et on redéfinit la fonction \textit{Distance()} pour qu'elle ne renvoie que la valeur  de H du Noeud \textit{(Sudoku)} courant.
-
-
-Pour pouvoir généraliser  l'algorithme, la classe \textbf{Noeud} doit être définit comme une classe \textit{abstraite}, c'est la raison pour laquelle on utilise des pointeurs lorsque l'on a besoin d'une référence à un Noeud.
-
-Un Noeud contient donc des références à ses Noeuds \textit{parents} et \textit{enfants}, ainsi que deux entiers qui contiennent les valeurs de G et de H. On ajoute aussi une chaîne de caractères \textit{nodeID} qui nous permettra de définir \textbf{l'égalité} de deux Noeuds avec l'égalité de leur \textit{nodeID}. \textit{L'égalité de deux Noeuds nous permet de vérifier si on a déjà parcourut un Noeud.} De plus, on définit un \textbf{opérateur de comparaison} de deux Noeuds, qui renvoit le Noeud possédant la plus petite valeur de $G+H$.
-
-\textit{Remarque : en $C++$, la définition d'un tel opérateur demande l'utilisation d'une classe Compare indépendante de la classe Sudoku, ne possédant que la fonction de comparaison.}
-
-La classe Noeud contient les méthodes virtuelles pures suivantes :
-\begin{itemize}
-\item \textit{updateGH()} qui calcul les valeurs de G et de H du Noeud. Cette méthode est bien sur virtuelle puisque le calcul dépend directement du problème.
-
-\item La fonction \textit{createID()} permet de construire la chaîne de caractères \textit{nodeID} permettant de tester l'égalité plus facilement.
-
-\item La fonction \textit{getVoisins()} renvoit la liste des Noeuds voisins du Noeud dans le Graphe. Cette fonction est virtuelle car pour certains problèmes, comme le Sudoku, on ne veut pas donner un graphe à étudier à l'algorithme, mais plutôt le laisser construire le graphe au fur et à mesure de sa recherche. Pour cela, on pourra définir dans cette méthode si l'algorithme parcourt un graphe, ou comment il doit construire les Noeuds à développer.
-
-\end{itemize}
-
-On fait donc hériter la classe \textbf{Sudoku} de la classe Noeud, et on redéfinit les méthodes et fonctions virtuelles précédentes.
-
-\begin{itemize}
-
-\item \textit{updateGH()} fixe les valeurs de G et de H à 0, puis parcourt toutes les cases de la grille. Si une case est remplie, elle ajoute un à G, sinon elle met à jour ses valeurs possibles ajoute le nombre de valeurs possibles à H.
-
-\textit{On profite de la mise à jour des valeurs possibles pour tester si la grille n'est pas erronée.}
-
-\item \textit{CreateID()} construit une chaîne de caractères composée des chiffres (ou nombres) de la grille, séparés par un symbole $\$$. On peut ainsi considérer des grilles utiliser les nombres supérieurs à 9 \textit{(comme un Sudoku de dimension 16 par 16)}.
-
-
-\item \textit{getVoisins()} va \textbf{construire} tout les voisins possibles d'un Sudoku, c'est à dire toute les grilles que l'on peut construire à partir de celui-ci en remplissant une de ses cases vides avec l'une des \textbf{valeurs possibles}. La fonction appelle pour chaque voisin construit la méthode \textit{updateGH()}, ce qui élimine les grilles erronées et met à jour les possibilités, les valeurs de G et de H. Les Sudokus ainsi renvoyés son prêt à être triés et développer par l'algorithme, il suffit de les ajouter à la liste ouverte, si il n’apparaissent pas déjà dans la liste fermée \textit{(on utilise les nodeID)}.
-
-\end{itemize}
-              
-
-          \end{description}  
-              
- 
+                \begin{description}
+                    \item[Case]: C'est un emplacement pouvant recevoir une \textit{valeur} comprise entre $1$ et $9$. Chaque Case possède un tableau de $9$ entiers \textit{possibilités[]}, initialisé à $\{1,2,3,4,5,6,7,8,9\}$.\\
+                        La fonction \textit{updatePossibilités()} met à jour les valeurs possibles de la Case, en fonction des Cases contenues dans la liste fermée. Si une valeur est impossible, on la remplace par $0$ dans \textit{possibilités[]}.
+                    \item[Sudoku]: Il s'agit tout d'abord d'une \textit{grille}, une liste de 81 Cases, ainsi qu'un booléen \textit{doublon}. On utilise aussi une référence au Sudoku \textit{parent}, celui qui à permit d'obtenir ce Sudoku.\\
+                        La fonction \textit{getRégion(Case c)} renvoie la liste des autres Cases contenues dans la même région que la Case c \textit{(dans la ligne, la colonne et le bloc)}.\\
+                        Comme son nom l'indique, \textit{VérifierDoublon()} va tester la présence de doublon dans une ligne, une colonne ou un bloc de la grille.\\
+                        \textit{CréerSudoku(Sudoku parent, Case choix, Entier valeur)} construit un nouveau Sudoku à partir du Sudoku \textit{parent}, en lui ajoutant le chiffre \textit{valeur} dans la Case vide \textit{choix}.\\
+                        Enfin, \textit{ChoisirCase(Sudoku parent, Liste de Case listeO)} détermine quelle Case de \textit{listeO} est ``optimale'' pour le prochain déplacement depuis \textit{parent}, c'est ici que l'on va chercher le minimum de $F=G+H$.\\
+                    \textit{La classe Sudoku hérite de la classe NoeudGraphe, contenant un fonction qui renvoie les NoeudGraphes voisins d'un NoeudGraphe.}
+                        \item[ListeSudokus]: On maintient simplement une liste de tout les Sudokus construis.\\
+                    \textit{ListeSudokus hérite de la classe Graphe, qui contient les méthodes permettant de calculer $G$ et $H$}
+                    \item[AEtoile]: Possède un \textit{etatInitial}, le NoeudGraphe qui correspond à la grille de départ, un Graphe et un NoeudGraphe \textit{noeudCourant}. C'est dans cette classe que sont définit les listes de Cases \textit{listeFermée} et \textit{listeeOuverte}, ainsi que les méthodes pour les mettre à jour.\\
+                        La fonction \textit{VérifierGrille(Sudoku parent)} est la fonction récursive principale de l'algorithme, celle qui va appeler \textit{ChoisirCase()}, \textit{CréerSudoku()} et \textit{VérifierDoublon()}.
+                \end{description}
+            \subsubsection{Diagramme de séquences}
+                \begin{center}
+                    \includegraphics[scale=0.5]{images/AstarDiagrammeSequences.png}
+                \end{center}
+                Dans ce diagramme de séquence nous voyons bien que l'utilisateur commence par saisir sa grille. Nous avons donc le noeud initial de notre algorithme. Ensuite allons placer notre noeud initial dans liste ouverte. Tant qu'on aura pas atteint la solution, on passera notre meilleur noeud la liste ouverte dans la liste fermee. On ajoutera tous les voisins de ce noeud dans la liste ouverte s'ils n'y sont pas déjà ou s'ils ont une meilleure heuristique G.  
     \section{Algorithme génétique}
         Pour spécifier notre instance générale d'algorithme génétique, nous avons 4 éléments à définir:
         \begin{itemize}
