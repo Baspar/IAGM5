@@ -21,3 +21,23 @@
         Cette méthode permet de récupérer la solution à un Sudoku 9x9 en 3000 générations en moyenne (Sur un panel de 30 simulations de Sudoku de difficulté moyenne)
 
     \section{Eco résolution}
+	Pour tester l'éco-résolution nous avons implémenter de manière différentes les fonctions suivantes : trouverPlacePourFuir() qui permet à une cellule de trouver une cellule avec quelle cellule elle va échanger de numéro et également choixEcoAgent() qui permet au sudoku de choisir a quelle ligne ou colonne il souhaite donner la main. \\
+
+	Notre première version était une version plutôt naïve, en effet trouverPlacePourFuir() consistait en un simple choix aléatoire d'une cellule dans le même bloc à condition qu'elle ne soit pas donnée dans l'énoncé. Le choixEcoAgent() était également aléatoire parmi les agents qui n'étaient pas satisfaits. Cette version fonctionne très bien sur une grille 4*4 environ 0.12 seconde en moyenne sur 100 tests pour résoudre la grille en moyenne sur 100 tests mais sur une grille 9*9 nous n'avons pas eu de résultat. Nous pensons qu'il aurait laissé tourner l'algorithme très longtemps pour obtenir un résultat. \\
+	
+	Nous avons donc choisi d'optimiser ce résultat. La première modification que nous avons effectué est dans la fonction essayerSatisfaire() d'un écoAgent, nous avons choisi de supprimer la boucle sur les gêneurs nous avons donc désormais le code suivant :
+	 \begin{verbatim}
+           Procédure seSatisfaire(x) 
+           si le but de x nest pas satisfait alors 
+           choix aléatoire d'un éco-agent y qui gênent x 
+           agresser(y,but(x))
+           des qu'il n'y a plus de gêneurs alors 
+           faire satisfaction(x)
+     \end{verbatim}
+     La modification de cette boucle nous permet d'éviter d'agresser deux cellules sur la même ligne (respectivement colonne) qui ont le même numéro. Ensuite, autre modification que nous avons effectué : le choix de l'éco-Agent. En effet, nous avons pensé que de choisir parmi les éco-Agents où il y a le plus d'erreurs pouvaient être une bonne idée. Nous avons ensuite décidé d'améliorer trouverPlacePourFuir(). Désormais une cellule choisit aléatoirement une cellule parmi les cellules non satisfaites de son bloc avec une proba de 0.95 sinon elle choisit une cellule, non donnée de base, aléatoirement dans le bloc (ceci afin d'éviter les boucles infinies). Cette version fonctionne bien sûr pour les grille 4*4 et également pour les gilles faciles 9*9. Mais la résolution de la grille est lente (environ 40 sec de moyenne sur 30 tests). \\
+     
+     Nous avons ensuite choisit d'ajouter une contrainte dans trouverPlacePourFuir(). La contrainte que nous avons choisi de passer est l'éco-Agent qui agresse (ligne ou colonne). Grâce à cette contrainte, une cellule choisit avec une proba de 0.95 une cellule non donnée dans l'énoncé et non satisfaite et qui n'est pas sur la ligne (respectivement la colonne) qui agresse,  sinon par défaut elle choisira aléatoirement une cellule de son bloc qui n'est pas donnée dans l'énoncé. Avec cette contrainte nous avons remarqué une amélioration pour les grilles faciles (1.7 sec en moyenne sur 100 tests) mais la résolution est lente pour les grilles moyennes (51 sec en moyenne sur 100 tests). \\
+     
+     La version la plus efficace que nous avons obtenue a été réalisée en améliorant la fonction trouverPlacePourFuir() et plus particulièrement l'utilisation de la contrainte passée en argument. En effet, pour cette version nous avons choisir que la cellule choisirait une cellule non satisfaite de son bloc parmi celles dont le numéro est le moins présent dans la ligne (respectivement colonne). Avec cette version, cela fonctionne pour une grille 9*9 facile (0.2 sec en moyenne sur 100 tests), moyenne (1.425 sec en moyenne sur 100 tests), difficile (14.7 sec en moyenne sur 100 tests) et diabolique (51.95 sec en moyenne sur 100 tests). \\
+     
+     Cette dernière version est plutôt efficace mais nous avons tout de même essayé d'autres améliorations pour perfectionner ce résultat. Nous avons essayer pour choixEcoAgent() de résoudre d'abord les lignes qui présentaient le moins d'erreur et ensuite pour trouverEcoAgent() nous avons essayé de choisir parmi toutes les cellules du bloc et plus seulement celles non satisfaites ou de rajouter une mémoire aux cellules pour éviter que les cellules aient le même numéro que pendant l'un des deux tours précédents. Ces différents méthodes n'ont pas apporté d'amélioration au niveau du temps de résolution bien au contraire. 
