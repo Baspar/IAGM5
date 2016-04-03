@@ -1,5 +1,18 @@
 \chapter{Resultats}
     \section{A*}
+    Pour l'algorithme A*, nous sommes passé par trois versions différentes. On à modifier la façon dont l'algorithme choisit les noeuds "optimaux" à chaque étape :\\
+    \begin{itemize}
+    	\item en cherchant le minimum de $F=G+H$,
+    	\item en cherchant d'abord les noeuds avec le score G maximum, puis en minimisant F,
+    	\item en ajoutant une méthode permettant de remplir les cases "évidentes".
+    \end{itemize} 
+    ~\\
+    La première version fonctionne correctement pour des Sudokus de dimension 4, on arrive toujours à une solution, avec au maximum 50 itérations. Mais elle est trop gourmande en mémoire pour compléter des Sudokus de dimension supérieure si la grille initiale fournie contient beaucoup de cases vides. Il faut en effet lui donner des grilles déjà à moitié remplie pour qu'il les terminent, mais cela dépend aussi des capacités de la machine utilisée. \\
+    
+    Avec la seconde version, on effectue un tri un peu plus intelligent de la liste ouverte. L'algorithme préfère choisir les grilles les plus remplies, et cela permet souvent d'améliorer les performances. Cependant, on ne parvient toujours pas terminer des grilles complexes.\textit{Pas de problème pour les grilles de dimension 4}\\
+    
+    Enfin la dernière version aide grandement la résolution, avec la recherche des valeurs évidentes, l'algorithme élimine une grande partie des possibilités et demande ainsi moins de mémoire. On ainsi peut résoudre des grilles de dimension 9 comportant environ 30 cases remplies en environ 600 itérations, mais les résultats varient grandement si l'algorithme ne trouve pas beaucoup de valeurs évidentes au début de la résolution.
+    
     \section{Algorithme génétique}
         Dans le cas de l'algorithme génétique, nous avons essayé différentes technique pour arriver à des résultats convenable:
         \begin{itemize}
