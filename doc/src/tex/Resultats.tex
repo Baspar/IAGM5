@@ -1,0 +1,23 @@
+\chapter{Resultats}
+    \section{A*}
+    \section{Algorithme génétique}
+        Dans le cas de l'algorithme génétique, nous avons essayé différentes technique pour arriver à des résultats convenable:
+        \begin{itemize}
+            \item Sélection uniforme et croisements à 2 points.
+            \item Sélection moitié meilleure et croisement max-ligne/colonne
+            \item Sélection par Rank-selection et croisements à trois points par blocs.
+        \end{itemize}.\\
+
+        Le premier cas étant à 100 pour-cent aléatoire, le résultat est généralement atteint en 4x4 et 9x9, mais les temps de réussite sont complètement variables. De ce fait, nous nous sommes orienté sur une technique qui tirerait des conclusion plus probantes lors du croisement.\\
+
+        Le second cas est plus intelligent. On prend la moitié meilleure de la génération, puis croissons les deux parents pour donner deux enfants: un qui maximiser le score en \textbf{blocs colonne}, et l'autre en \textbf{bloc ligne}.\\
+        Théoriquement, cette technique permet de garder les lignes et colonnes efficaces, tout en croisant de manière à mélanger le tout.\\
+        Cependant, en pratique cette technique se retrouve très souvent bloqué dans des maximum locaux, bloquant la résolution.\\
+        Pour palier à cela, nous avons tenté de garder ce croisement, tout en changeant la sélection (Qui sera soit uniforme, soit rank selection).\\
+        Cependant, le problème subsiste toujours, et notre programme reste bloqué dans un maximum local. Malgré cela, le rank selection semble prometteur, et nous décidons de le garder, et de rendre le croisement plus générique.\\
+
+        Finalement, la technique qui sera gardé est toujours basée sur le \textbf{rank selection} mais au lieu de tenter de maintenir un croisement max ligne/colonne, nous avons décidé de faire un croisement par trois poin en bloc.\\
+        Cette technique garde une \textbf{diversité} au sein de la génération, \textbf{sans pour autant diverger}\\
+        Cette méthode permet de récupérer la solution à un Sudoku 9x9 en 3000 générations en moyenne (Sur un panel de 30 simulations de Sudoku de difficulté moyenne)
+
+    \section{Eco résolution}
